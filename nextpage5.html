@@ -41,7 +41,7 @@
         .fog {
             position: absolute;
             width: 200%; height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'); /* Mock fog texture */
+            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'); 
             opacity: 0.2;
             filter: blur(50px);
             animation: drift 30s linear infinite;
@@ -70,12 +70,14 @@
         /* --- CONTENT STYLING --- */
         .match-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3rem;
+            font-size: 2.2rem; /* SIZE YAHAN KAM KIYA HAI */
             font-weight: 900;
             color: var(--fire-orange);
             text-transform: uppercase;
+            text-align: center;
             text-shadow: 0 0 20px var(--fire-orange), 0 0 5px gold;
             margin-bottom: 15px;
+            margin-top: 10px;
             animation: flicker 1.5s infinite alternate;
         }
 
@@ -187,6 +189,7 @@
             background: linear-gradient(to right, #ff4500, #ff8c00);
             color: white;
             text-decoration: none;
+            display: inline-block; /* Fixed for correct button display */
             width: 100%;
             max-width: 450px;
             padding: 20px;
@@ -197,6 +200,7 @@
             border: 3px solid var(--gold);
             box-shadow: 0 0 30px rgba(255, 69, 0, 0.6);
             animation: pulse 1.5s infinite;
+            box-sizing: border-box;
         }
 
         @keyframes pulse {
