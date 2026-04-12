@@ -61,6 +61,13 @@
             box-shadow: 0 0 8px rgba(245, 124, 0, 0.3);
         }
 
+        /* NEW: Error Border Style (Laal Line) */
+        .error-border {
+            border: 2px solid red !important;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.5) !important;
+            background-color: #fff0f0 !important;
+        }
+
         /* Error Message Style */
         .error-text {
             color: red;
@@ -257,27 +264,50 @@
         document.getElementById('finalSubmitBtn').style.display = 'block';
     }
 
-    // --- FORM VALIDATION SCRIPT (Naya Code) ---
+    // --- VIBRATION FUNCTION ---
+    function triggerErrorVibration() {
+        // Agar device vibration support karta hai toh 2 baar vibrate hoga
+        if (navigator.vibrate) {
+            navigator.vibrate([200, 100, 200]); 
+        }
+    }
+
+    // --- FORM VALIDATION SCRIPT ---
     function validateAndSubmit() {
-        // Purane error message chupao
+        // Purane error message aur laal line hatao
         document.getElementById('uid-error').style.display = 'none';
         document.getElementById('bank-error').style.display = 'none';
+        let allInputs = document.querySelectorAll('input');
+        allInputs.forEach(input => input.classList.remove('error-border'));
 
         // Values nikaalo
-        let uid = document.getElementById('uid').value;
-        let cUid = document.getElementById('confirm-uid').value;
-        let whatsapp = document.getElementById('whatsapp').value;
-        let gmail = document.getElementById('gmail').value;
+        let uid = document.getElementById('uid');
+        let cUid = document.getElementById('confirm-uid');
+        let whatsapp = document.getElementById('whatsapp');
+        let gmail = document.getElementById('gmail');
 
-        // 1. Basic khali checking
-        if(!uid || !cUid || !whatsapp || !gmail) {
-            alert("Please fill all the basic details correctly!");
-            return; // Agar khali hai toh yahi ruk jao
+        let hasEmptyFields = false;
+
+        // 1. Check Basic Fields Khali toh nahi hai
+        [uid, cUid, whatsapp, gmail].forEach(field => {
+            if(!field.value) {
+                field.classList.add('error-border');
+                hasEmptyFields = true;
+            }
+        });
+
+        if(hasEmptyFields) {
+            triggerErrorVibration();
+            alert("Please fill details");
+            return;
         }
 
         // 2. UID Match checking
-        if(uid !== cUid) {
+        if(uid.value !== cUid.value) {
             document.getElementById('uid-error').style.display = 'block';
+            cUid.classList.add('error-border');
+            uid.classList.add('error-border');
+            triggerErrorVibration();
             return;
         }
 
@@ -289,30 +319,44 @@
 
         // 4. Payment Form checking
         if(selectedPayment === 'upi') {
-            let upiId = document.getElementById('upi-id').value;
-            if(!upiId) {
-                alert("Please FILL UPI ID!");
+            let upiId = document.getElementById('upi-id');
+            if(!upiId.value) {
+                upiId.classList.add('error-border');
+                triggerErrorVibration();
+                alert("Please fill details");
                 return;
             }
         } 
         else if(selectedPayment === 'bank') {
-            let bAcc = document.getElementById('bank-acc').value;
-            let cbAcc = document.getElementById('confirm-bank-acc').value;
-            let ifsc = document.getElementById('ifsc').value;
+            let bAcc = document.getElementById('bank-acc');
+            let cbAcc = document.getElementById('confirm-bank-acc');
+            let ifsc = document.getElementById('ifsc');
 
-            if(!bAcc || !cbAcc || !ifsc) {
-                alert("Please fill all Bank details!");
+            let hasEmptyBank = false;
+            [bAcc, cbAcc, ifsc].forEach(field => {
+                if(!field.value) {
+                    field.classList.add('error-border');
+                    hasEmptyBank = true;
+                }
+            });
+
+            if(hasEmptyBank) {
+                triggerErrorVibration();
+                alert("Please fill details");
                 return;
             }
+            
             // Bank Account match checking
-            if(bAcc !== cbAcc) {
+            if(bAcc.value !== cbAcc.value) {
                 document.getElementById('bank-error').style.display = 'block';
+                cbAcc.classList.add('error-border');
+                bAcc.classList.add('error-border');
+                triggerErrorVibration();
                 return;
             }
         }
 
         // AGAR SAB KUCH SAHI HAI TOH NEXT PAGE PAR BHEJO
-        // Yahan nextpage.html likha hai, hum ise baad mein badal lenge jo naam aap doge
         window.location.href = "nextpage.html";
     }
 </script>
