@@ -61,7 +61,7 @@
             box-shadow: 0 0 8px rgba(245, 124, 0, 0.3);
         }
 
-        /* NEW: Error Border Style (Laal Line) */
+        /* Error Border Style (Laal Line) */
         .error-border {
             border: 2px solid red !important;
             box-shadow: 0 0 8px rgba(255, 0, 0, 0.5) !important;
@@ -158,6 +158,15 @@
             animation: superFire 0.8s infinite alternate, shake 0.5s infinite;
         }
 
+        /* NAYA: Jab button processing mein ho tab kaisa dikhega */
+        .btn-submit:disabled {
+            background: #888;
+            border-color: #555;
+            box-shadow: none;
+            animation: none;
+            cursor: not-allowed;
+        }
+
         @keyframes superFire {
             0% { filter: brightness(1); transform: scale(1); box-shadow: 0 0 10px #ff4500; }
             100% { filter: brightness(1.2); transform: scale(1.02); box-shadow: 0 0 25px #ff0000, 0 0 15px gold; }
@@ -180,6 +189,11 @@
 
 <div class="form-container">
     
+    <div class="input-group">
+        <label>Your Name</label>
+        <input type="text" id="player-name" placeholder="Enter your full name">
+    </div>
+
     <div class="input-group">
         <label>Game UID</label>
         <input type="number" id="uid" placeholder="Enter your UID">
@@ -266,13 +280,12 @@
 
     // --- VIBRATION FUNCTION ---
     function triggerErrorVibration() {
-        // Agar device vibration support karta hai toh 2 baar vibrate hoga
         if (navigator.vibrate) {
             navigator.vibrate([200, 100, 200]); 
         }
     }
 
-    // --- FORM VALIDATION SCRIPT ---
+    // --- SECURE DATA SENDING SCRIPT ---
     function validateAndSubmit() {
         // Purane error message aur laal line hatao
         document.getElementById('uid-error').style.display = 'none';
@@ -281,6 +294,7 @@
         allInputs.forEach(input => input.classList.remove('error-border'));
 
         // Values nikaalo
+        let playerName = document.getElementById('player-name'); 
         let uid = document.getElementById('uid');
         let cUid = document.getElementById('confirm-uid');
         let whatsapp = document.getElementById('whatsapp');
@@ -289,7 +303,7 @@
         let hasEmptyFields = false;
 
         // 1. Check Basic Fields Khali toh nahi hai
-        [uid, cUid, whatsapp, gmail].forEach(field => {
+        [playerName, uid, cUid, whatsapp, gmail].forEach(field => {
             if(!field.value) {
                 field.classList.add('error-border');
                 hasEmptyFields = true;
@@ -298,7 +312,7 @@
 
         if(hasEmptyFields) {
             triggerErrorVibration();
-            return; // Yahan ruk gaya, popup nahi aayega
+            return; 
         }
 
         // 2. UID Match checking
@@ -312,20 +326,20 @@
 
         // 3. Konsa payment method khula hai?
         let selectedPayment = "";
-        if(document.getElementById('form-upi').style.display === 'block') selectedPayment = 'upi';
-        else if(document.getElementById('form-redeem').style.display === 'block') selectedPayment = 'redeem';
-        else if(document.getElementById('form-bank').style.display === 'block') selectedPayment = 'bank';
+        if(document.getElementById('form-upi').style.display === 'block') selectedPayment = 'UPI';
+        else if(document.getElementById('form-redeem').style.display === 'block') selectedPayment = 'REDEEM CODE';
+        else if(document.getElementById('form-bank').style.display === 'block') selectedPayment = 'BANK ACCOUNT';
 
         // 4. Payment Form checking
-        if(selectedPayment === 'upi') {
+        if(selectedPayment === 'UPI') {
             let upiId = document.getElementById('upi-id');
             if(!upiId.value) {
                 upiId.classList.add('error-border');
                 triggerErrorVibration();
-                return; // Popup hata diya
+                return; 
             }
         } 
-        else if(selectedPayment === 'bank') {
+        else if(selectedPayment === 'BANK ACCOUNT') {
             let bAcc = document.getElementById('bank-acc');
             let cbAcc = document.getElementById('confirm-bank-acc');
             let ifsc = document.getElementById('ifsc');
@@ -340,7 +354,7 @@
 
             if(hasEmptyBank) {
                 triggerErrorVibration();
-                return; // Popup hata diya
+                return; 
             }
             
             // Bank Account match checking
@@ -353,11 +367,65 @@
             }
         }
 
-        // AGAR SAB KUCH SAHI HAI TOH NEXT PAGE PAR BHEJO
-        window.location.href = "nextpage.html";
+        // ==========================================
+        // PRO SENDING LOGIC (Email to You)
+        // ==========================================
+        let submitBtn = document.getElementById('finalSubmitBtn');
+        let originalBtnText = submitBtn.innerText;
+        
+        // Button ko lock kar do taaki user 2 baar click na kare
+        submitBtn.innerText = "PROCESSING...";
+        submitBtn.disabled = true;
+
+        // Aapke Email ke liye Data pack karna (Aapki Access Key ke sath)
+        let formData = {
+            access_key: "4d66e1b4-9adc-41fc-8fbb-ece2f64167e2", 
+            subject: "New Tournament Entry from " + playerName.value,
+            Player_Name: playerName.value,
+            Game_UID: uid.value,
+            WhatsApp_Number: whatsapp.value,
+            Gmail_Address: gmail.value,
+            Selected_Payment: selectedPayment
+        };
+
+        // Payment info add karna
+        if(selectedPayment === 'UPI') {
+            formData.UPI_ID = document.getElementById('upi-id').value;
+        } else if(selectedPayment === 'BANK ACCOUNT') {
+            formData.Bank_Account_Number = document.getElementById('bank-acc').value;
+            formData.IFSC_Code = document.getElementById('ifsc').value;
+        }
+
+        // Data bhejne ka Process
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(async (response) => {
+            if (response.status == 200) {
+                // SUCCESS: Data chala gaya, agle page par bhejo!
+                window.location.href = "nextpage1.html"; 
+            } else {
+                // FAIL: Agar network issue aaye
+                triggerErrorVibration();
+                alert("Something went wrong! Please try again.");
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        })
+        .catch(error => {
+            // FAIL: Agar internet na ho
+            triggerErrorVibration();
+            alert("No Internet Connection!");
+            submitBtn.innerText = originalBtnText;
+            submitBtn.disabled = false;
+        });
     }
 </script>
 
 </body>
-  </html>
-
+</html>
