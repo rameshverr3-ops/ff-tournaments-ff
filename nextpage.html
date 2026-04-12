@@ -42,7 +42,7 @@
             background: var(--white); /* White box for contrast */
             border-radius: 15px;
             padding: 20px 40px;
-            margin-bottom: 30px;
+            margin-bottom: 20px; /* Thoda kam kiya space ticker ke liye */
             text-align: center;
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             width: 100%;
@@ -66,6 +66,44 @@
             color: var(--orange);
             line-height: 1;
             text-shadow: 0 2px 5px rgba(245, 124, 0, 0.2);
+        }
+
+        /* --- LIVE JOINING TICKER (NEW GREEN LINE) --- */
+        .live-ticker-container {
+            width: 100%;
+            max-width: 450px;
+            height: 45px; /* Fixed height container */
+            overflow: hidden; /* Bahar ka content chupa do */
+            background-color: var(--green);
+            color: white;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .ticker-text {
+            position: absolute;
+            white-space: nowrap;
+            display: block;
+            opacity: 0;
+            /* Animation timings: Total 4.5s (0.5s in + 1.5s pause + 0.5s out + 2s gap before next loop) */
+            animation: slidePauseSwipe 4s ease-in-out infinite;
+        }
+
+        /* Ticker text inside looks clean Roboto font */
+
+        @keyframes slidePauseSwipe {
+            0% { transform: translateY(100%); opacity: 0; } /* Neeche se start */
+            12.5% { transform: translateY(0%); opacity: 1; } /* Beech mein aa gaya (0.5s) */
+            50% { transform: translateY(0%); opacity: 1; } /* 1.5s Pause (3/8 time bita) */
+            62.5% { transform: translateY(-100%); opacity: 0; } /* Upar tezi se swipe out (0.5s) */
+            100% { transform: translateY(-100%); opacity: 0; } /* Gap before restart */
         }
 
         /* --- RULES BOX --- */
@@ -154,6 +192,10 @@
         <div class="timer-display" id="loop-timer">30:00</div>
     </div>
 
+    <div class="live-ticker-container">
+        <span class="ticker-text" id="live-ticker-text">Taiyar ho jaiye...</span>
+    </div>
+
     <div class="rules-box">
         <h2 class="rules-title">TOURNAMENT RULES</h2>
         <ul class="rules-list">
@@ -174,29 +216,61 @@
         const cycleLength = 30 * 60; // 30 minutes in seconds
 
         function updateGlobalTimer() {
-            // Date.now() internet ka exact time nikalta hai, chahe phone koi bhi ho!
             let nowInSeconds = Math.floor(Date.now() / 1000); 
-            
-            // Ye check karta hai ki 30 min ke cycle me hum kahan khade hain
             let elapsedInCycle = nowInSeconds % cycleLength;
-            
-            // Bacha hua time
             let remainingTime = cycleLength - elapsedInCycle;
-
             let minutes = Math.floor(remainingTime / 60);
             let seconds = remainingTime % 60;
-
-            // 0 lagana format ke liye
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
-
             timerElement.textContent = `${minutes}:${seconds}`;
         }
-
-        // Script chalte hi update karo aur har second loop lagao
         updateGlobalTimer();
         setInterval(updateGlobalTimer, 1000);
+
+        // --- LIVE JOINING TICKER LOGIC (Naya Javascript) ---
+        // 200+ Indian Names ka database ko maine pehle hi shuffle kar diya hai taaki upar-neeche aayein
+        const rawNames = [
+            "Param Thakur", "Ramesh Yadav", "Amandeep Singh", "Suman Devi", "Vikram Rathore", "Priya Sharma", "Rahul Mehra", "Anjali Gupta", "Sunil Bishnoi", "Kabir Khan", "Sonali Verma", "Rohit Choudhary", "Deepak Sain", "Meena Kumari", "Ajay Devgan", "Tanu Sharma", "Kuldeep Yadav", "Preeti Singh", "Suresh Raina", "Neetu Singh", "Zaid Khan", "Ishaan Sharma", "Mohammed Arshad", "Sunny Leone", "Gaurav Solanki", "Gurpreet Singh", "Farhan Akhtar", "Ishaan Kishan", "David Warner", "Siddharth Malhotra", "Mustafa Ali", "Ayaan Malik", "Virat Kohli", "Deepika Padukone", "Ranbir Kapoor", "Umar Akmal", "Deepak Hooda", "Rahul Gandhi", "Imran Khan", "Bunty Arora", "Tony Kakkar", "Salman Khan", "Rohan Verma", "Gurmeet Singh", "Prashant Tyagi", "Asif Ali", "Akram Khan", "John Abraham", "Tarun Kumar", "Shubham Gill", "Vijay Shankar", "Bunty Sharma", "Sunny Deol", "Bobby Deol", "Rizwan Khan", "Bilal Asif", "Joginder Singh", "Pawan Kumar", "Shahid Kapoor", "Kuldeep Sharma", "Vicky Kaushal", "Harsh Beniwal", "Ranjeet Singh", "Amir Khan", "Sandeep Singh", "Happy Singh", "Angad Bedi", "Kuldeep Yadav", "Sanjay Dutt", "Shahrukh Khan", "Javed Miandad", "Zubair Khan", "Altaf Raja", " Wasim Akram", "Daman Arora", "Zafar Khan", "Rajat Sharma", "AADESH", "AAQIB", "AASIF", "ABBAS", "ABDUL", "ABHIMANYU", "ABHIRAM", "ADARSH", "ADEEL", "ADITYA", "AFTAB", "AGAM", "AGNIVA", "AHSAN", "AJIT", "AKHIL", "AKRAM", "AKSHAT", "AMANPREET", "AMAR", "AMARDEEP", "AMARJEET", "AMBAR", "AMBUJ", "AMISH", "AMIT", "AMRIT", "AMRITPAL", "ANAND", "ANANT", "ANAY", "ANEES", "ANGAD", "ANIK", "ANIKET", "ANIMESH", "ANIRUDH", "ANSH", "ANSHUL", "ANUJ", "ANUPAM", "ANURAG", "APURVA", "AQIB", "AREEB", "ARHAM", "ARIF", "ARINDAM", "ARIV", "ARMAAN", "ARNAV", "ARSH", "ARSHDEEP", "ARUN", "ARVIND", "ARYA", "ARYAN", "ASAD", "ASHAR", "ASHISH", "ASHOK", "ASHUTOSH", "ASHWANI", "ATIF", "ATUL", "AVINASH", "AVJOT", "AVNEET", "AYUSH", "AZAD", "AZHAR", "AZIM", "AZIZ", "BABU", "BADAL", "BAKHTIAR", "BALAJI", "BALRAM", "BALWANT", "BARINDER", "BASHIR", "BEANT", "BHAGAT", "BHARAT", "BHASKAR", "BHAVISHYA", "BHAVYA", "BHUPESH", "BHUPINDER", "BHUVAN", "BIMAL", "BINIT", "BIPIN", "BISHAL", "BRAHM", "BRIJ", "BRIJESH", "CHAITANYA", "CHAMAN", "CHANDAN", "CHARAN", "CHARANJEET", "CHETAN", "CHIRAG", "CHITRAKSH", "DANISH", "DARPAN", "DARSHAN", "DAVINDER", "DEBASHISH", "DEEN", "DEEP", "DEEPANKAR", "DEEPINDER", "DEV", "DEVANSH", "DEVEN", "DEVENDRA", "DHAIRYA", "DHARAM", "DHARMESH", "DHARMINDER", "DHEERAJ", "DHRUV", "DIGVIJAY", "DILAWAR", "DILBAGH", "DILIP", "DILPREET", "DILSHER", "DINESH", "DIVIT", "DIVYANSH", "EKAMPREET", "EKLAVYA", "ESHAN", "FAIZ", "FAIZAN", "FATEH", "FEROZ", "GAGAN", "GAGANDEEP", "GAJENDRA", "GANESH", "GAURISH", "GAUTAM", "GHANSHYAM", "GIRDHARI", "GOPAL", "GOUTAM", "GULAB", "GULSHAN", "GULZAR", "GURBAJ", "GURBAKSH", "GURCHARAN", "GURDEV", "GURDIP", "GURKEERAT", "GURMAN", "GURMUKH", "GURNAM", "GURNOOR", "GURSHARAN", "GURTEJ", "GURU", "GURVINDER", "HANS", "HANSRAJ", "HARI", "HARINDER", "HARISH", "HARIT", "HARJEET", "HARJIT", "HARKIRAT", "HAROON", "HARPAL", "HARPREET", "HARSHDEEP", "HARSHIL", "HARSHIT", "HASNAIN", "HEMANT", "HIMANSHU", "HIRA", "HIREN", "HRITHIK", "HUMAYUN", "IBAD", "IFTIKHAR", "IHSAN", "IKRAM", "ILLA", "INDER", "INDERPAL", "IRSHAD", "ISHAN", "ISHWAR", "ISMAIL", "IVAAN", "JAGANNATH", "JAGDEEP", "JAGDISH", "JAGJEET", "JAGJIT", "JAGMOHAN", "JAI", "JAIDEEP", "JAIKISHAN", "JAIRAJ", "JAISAL", "JAIVEER", "JANAK", "JANARDHAN", "JASKARAN", "JASKIRAT", "JASMEET", "JASPREET", "JASWANT", "JASWINDER", "JATINDER", "JEET", "JEETENDRA", "JEEVAN", "JITENDRA", "JIVAN", "JIYA", "JUNAID", "JYOTI", "KAILASH", "KAMAL", "KAMALJEET", "KAMRAN", "KANAV", "KANHAIYA", "KANISHK", "KANWAL", "KANWAR", "KARAMJEET", "KARAMVEER", "KARTAR", "KAUSHAL", "KAVI", "KAVIRAJ", "KESHAV", "KHALED", "KHALID", "KHUSHAL", "KIRAN", "KIRIT", "KISHAN", "KISHORE", "KSHITIJ", "KULDIP", "KUMAR", "KUNAL", "KUNDAN", "KUSHAL", "LAKHAN", "LAKSH", "LAKSHAY", "LAKSHMAN", "LAKSHYA", "LALIT", "LOKESH", "LOVEPREET", "MADHAV", "MADHU", "MAHAVEER", "MAHENDRA", "MAHESH", "MAHIPAL", "MAHIR", "MAKARAND", "MALKEET", "MANAN", "MANAV", "MANDEEP", "MANGAL", "MANINDER", "MANIRAM", "MANISHANKAR", "MANIT", "MANJEET", "MANJIT", "MANMOHAN", "MANNAT", "MANOHAR", "MANOJ", "MANSOOR", "MANVENDRA", "MANVIR", "MAZHAR", "MEHAR", "MEHUL", "MILIND", "MISBAH", "MITHUN", "MOHAN", "MOHIT", "MOHNISH", "MUBARAK", "MUDDASIR", "MUDIT", "MUKESH", "MUKUND", "MUKUL", "MUNEER", "MURAD", "MURALI", "MURLI", "MURTAZA", "NADIM", "NAGARAJAN", "NAGENDRA", "NAGESH", "NAKUL", "NALIN", "NAMDEV", "NANAK", "NAND", "NANDAN", "NANDKUMAR", "NAQI", "NARANG", "NARENDRA", "NARESHKUMAR", "NARINDER", "NASEEM", "NAVEEN", "NAVIN", "NAVNEET", "NAVRAJ", "NAYAN", "NEERAJ", "NIKHIL", "NIKHILESH", "NILAY", "NILESH", "NIRMAL", "NIRVAN", "NISHANT", "NISHIT", "NITESH", "NOMAN", "NOOR", "ONKAR", "OJAS", "OM", "OMPRAKASH", "PAAWAN", "PADAM", "PALASH", "PALLAV", "PANKAJ", "PARAM", "PARAMDEEP", "PARAMVIR", "PARAS", "PARIKSHIT", "PARMEET", "PARMOD", "PARTH", "PARVINDER", "PARVEZ", "PAVNEET", "PHOOL", "PRABAL", "PRABH", "PRABHJOT", "PRABHU", "PRADIP", "PRAFULL", "PRAHLAD", "PRAJWAL", "PRAKAS", "PRAKASH", "PRANAV", "PRANAY", "PRASANJIT", "PRASANNA", "PRATAP", "PRATUL", "PRAVEEN", "PRAVIN", "PREM", "PRITAM", "PRITHVI", "PRIYANSHU", "PUNEET", "PUNIT", "PURUSHOTTAM", "PUSHKAR", "QADIR", "QASIM", "RAAHUL", "RABINDRA", "RADHA", "RADHE", "RAGHAV", "RAGHUNATH", "RAGHUVEER", "RAHEEM", "RAHMAN", "RAI", "RAJ", "RAJAN", "RAJATDEEP", "RAJDEEP", "RAJEEV", "RAJENDER", "RAJENDRA", "RAJIV", "RAJKUMAR", "RAJNEESH", "RAJPAL", "RAJVEER", "RAJWINDER", "RAKESH", "RAM", "RAMAKANT", "RAMAN", "RAMANDEEP", "RAMANJIT", "RAMANPREET", "RAMDAS", "RAMDEV", "RAMIT", "RAMKUMAR", "RAMNEEK", "RAMPRAKASH", "RAMPRASAD", "RAMVEER", "RANBIR", "RANDHIR", "RANGANATHAN", "RANJAN", "RANVEER", "RASHEED", "RATAN", "RATINDER", "RAVEEN", "RAVI", "RAVINDRA", "RAVIRAJ", "RAVNEET", "RAZA", "RAZI", "REHMAT", "RISHABH", "RISHI", "RITVIK", "RIYAZ", "RONAK", "ROSHAN", "RUDRAKSH", "RUPESH", "RUPINDER", "RUSHIL", "SAANJH", "SABA", "SABEER", "SACHA", "SADA", "SADANAND", "SADAQAT", "SADDAM", "SADHU", "SADIQ", "SAGAR", "SAHEB", "SAHIB", "SAHIR", "SAJJAN", "SAJU", "SAKAL", "SAKET", "SAKSHAM", "SALIM", "SAM", "SAMAR", "SAMARTH", "SAMAY", "SAMBIT", "SAMRAT", "SAMYAK", "SANCHIT", "SANDEEPKUMAR", "SANDIP", "SANGRAM", "SANJEEV", "SANJIV", "SANKALP", "SANKET", "SANT", "SANTOKH", "SANTOSH", "SANYAM", "SAPAN", "SAQLAIN", "SARABJEET", "SARABJIT", "SARFARAZ", "SAROJ", "SARTHAK", "SARVJEET", "SARWAN", "SATISH", "SATNAM", "SATPAL", "SATVEER", "SATVINDER", "SATWANT", "SATWINDER", "SAURABH", "SAURAV", "SAYAM", "SAYEED", "SAYAN", "SEHAJ", "SHABAAZ", "SHADAB", "SHAFEEQ", "SHAHEEN", "SHAHRUKH", "SHAHZAIB", "SHAILENDRA", "SHAKTI", "SHANTANU", "SHARAD", "SHARDUL", "SHARVAN", "SHASHANK", "SHASHWAT", "SHAUKAT", "SHAURYA", "SHEKHAR", "SHER", "SHES", "SHIKHAR", "SHIRAZ", "SHISHIR", "SHOBHIT", "SHRAVAN", "SHREY", "SHREYAS", "SHRIDHAR", "SHUBHANDU", "SHYAM", "SIA", "SIDDHANT", "SIDDHARTH", "SIMRANJEET", "SIMRANJIT", "SOHAIL", "SOHAM", "SOHAN", "SOMNATH", "SONU", "SOURAV", "SPARSH", "SRIDHAR", "SRIMAN", "SRINIVAS", "SUBHASH", "SUBODH", "SUDARSHAN", "SUDHIR", "SUFIYAN", "SUJAL", "SUJAN", "SUJIT", "SUKHDEEP", "SUKHI", "SUKHJIT", "SUKHMAN", "SUKHPAL", "SUKHPREET", "SULTAN", "SUMER", "SUNIL", "SURAJ", "SURENDRA", "SURESH", "SURINDER", "SURJEET", "SURJIT", "SUSHEEL", "SUSHIL", "SUSHRUT", "SUVIR", "SWAYAM", "SWAPNIL", "SYED", "TAHA", "TAHIRA", "TAJINDER", "TALHA", "TALWINDER", "TANAY", "TANMAY", "TANVEER", "TANVIR", "TAPAN", "TAPUR", "TARAN", "TARANJIT", "TEJ", "TEJINDER", "TEJPAL", "TEJVEER", "THAKUR", "TILAK", "TIRLOK", "TRILOCHAN", "TRILOK", "UDAY", "UDIT", "UJWAL", "UPENDRA", "UTTAM", "VAIBHAV", "VARUN", "VASANT", "VASUDEV", "VED", "VEDANT", "VEDPRAKASH", "VEER", "VENKAT", "VIBHANSHU", "VIBHOR", "VIDIT", "VIDUR", "VIHAN", "VIJAYPAL", "VIMAL", "VINAY", "VINEET", "VINOD", "VIPAN", "VIPUL", "VIR", "VIRAJ", "VIRENDRA", "VIRESH", "VISHAL", "VISHNU", "VISHVA", "VISHVAS", "VISHWANATH", "VISHWAJEET", "VIVAN", "VIVEK", "VRAJ", "VYAS", "WAJID", "WALI", "YADWINDER", "YAGYA", "YASHPAL", "YASHVARDHAN", "YASHVEER", "YATIN", "YAWAR", "YOGESH", "YOGINDER", "YUG", "YUVAN", "YUVRAJ"
+        ];
+        
+        // --- PRO TRICK: Fischer-Yates Shuffle Logic ---
+        // Ye logic list ko ekdum mix kar dega taaki names "uttar putul" ho jayein
+        function shuffleArray(array) {
+            let newArray = [...array]; // Original list ko chhedna nahi hai
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1)); // Random index
+                // Swap elements
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        const shuffledNames = shuffleArray(rawNames);
+        const tickerTextElement = document.getElementById("live-ticker-text");
+        let nameIndex = 0;
+
+        function updateTicker() {
+            // Update Text
+            const currentName = shuffledNames[nameIndex];
+            tickerTextElement.textContent = `${currentName} Joining Tournament 🏆`;
+
+            // Reset logic: Agar list khatam ho jaye, wapi 0 se start karo
+            nameIndex = (nameIndex + 1) % shuffledNames.length;
+        }
+
+        // Ticker Text Update:
+        // CSS animation total 4s chal rahi hai (0.5s in + 1.5s pause + 0.5s out + 1.5s gap)
+        // Humein text tabhi badalna hai jab animation ka 1 loop khatam ho jaye (swipe out hone ke baad).
+        
+        // Pehli baar text turant set karo
+        updateTicker();
+
+        // Har 4 second mein (4000ms) text badlo taaki animation se match ho
+        setInterval(updateTicker, 4000); 
+
     </script>
 
 </body>
-</html>
+    </html>
+    
