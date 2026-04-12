@@ -9,15 +9,15 @@
 
         :root {
             --orange: #F57C00;
-            --dark-bg: #121212;
-            --card-bg: #1e1e1e;
+            --white: #FFFFFF;
             --green: #2ecc71;
+            --text-dark: #333333;
         }
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: var(--dark-bg);
-            color: #ffffff;
+            background-color: var(--orange); /* Pura black hata kar Orange kar diya */
+            color: var(--text-dark);
             margin: 0;
             padding: 20px 15px 50px 15px;
             display: flex;
@@ -28,29 +28,32 @@
         /* --- TITLE --- */
         .match-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
-            color: var(--orange);
+            color: var(--white);
             text-transform: uppercase;
-            text-shadow: 0 0 15px rgba(245, 124, 0, 0.5);
-            margin-bottom: 10px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
             margin-top: 10px;
         }
 
         /* --- TIMER BOX --- */
         .timer-container {
-            background: linear-gradient(145deg, #222, #111);
-            border: 2px solid var(--orange);
-            box-shadow: 0 0 20px rgba(245, 124, 0, 0.3);
+            background: var(--white); /* White box for contrast */
             border-radius: 15px;
             padding: 20px 40px;
             margin-bottom: 30px;
             text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
         }
 
         .timer-label {
-            font-size: 0.9rem;
-            color: #aaaaaa;
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 5px;
@@ -58,35 +61,35 @@
 
         .timer-display {
             font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             font-weight: 700;
             color: var(--orange);
             line-height: 1;
-            text-shadow: 0 0 10px rgba(245, 124, 0, 0.8);
+            text-shadow: 0 2px 5px rgba(245, 124, 0, 0.2);
         }
 
         /* --- RULES BOX --- */
         .rules-box {
-            background-color: var(--card-bg);
+            background-color: var(--white);
             width: 100%;
             max-width: 500px;
-            border-radius: 12px;
+            border-radius: 15px;
             padding: 25px;
             box-sizing: border-box;
-            border-left: 5px solid var(--orange);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
             margin-bottom: 25px;
         }
 
         .rules-title {
             color: var(--orange);
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-top: 0;
             margin-bottom: 20px;
-            border-bottom: 1px solid #333;
+            border-bottom: 2px solid #eee;
             padding-bottom: 10px;
             text-align: center;
+            font-weight: 900;
         }
 
         .rules-list {
@@ -97,11 +100,12 @@
 
         .rules-list li {
             margin-bottom: 15px;
-            font-size: 1rem;
+            font-size: 1.05rem;
             line-height: 1.5;
-            color: #dddddd;
+            color: var(--text-dark);
             display: flex;
             align-items: flex-start;
+            font-weight: 500;
         }
 
         .rules-list li::before {
@@ -111,32 +115,32 @@
         }
 
         .highlight-reward {
-            color: #FFD700; /* Gold for money */
-            font-weight: bold;
-            font-size: 1.1rem;
+            color: var(--orange); 
+            font-weight: 900;
+            font-size: 1.15rem;
         }
 
         /* --- GREEN HIGHLIGHT NOTE --- */
         .important-note {
-            background-color: rgba(46, 204, 113, 0.1);
+            background-color: #f0fff4; /* Light green tint */
             border: 2px solid var(--green);
-            color: var(--green);
+            color: #1e7e34; /* Dark green for readable text */
             width: 100%;
             max-width: 500px;
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 20px;
             box-sizing: border-box;
             text-align: center;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: bold;
             line-height: 1.6;
-            box-shadow: 0 0 15px rgba(46, 204, 113, 0.2);
-            animation: pulseGlow 2s infinite alternate;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+            animation: pulseGlow 1.5s infinite alternate;
         }
 
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 10px rgba(46, 204, 113, 0.2); }
-            100% { box-shadow: 0 0 25px rgba(46, 204, 113, 0.6); }
+            0% { box-shadow: 0 0 5px rgba(46, 204, 113, 0.4); transform: scale(1); }
+            100% { box-shadow: 0 0 20px rgba(46, 204, 113, 0.8); transform: scale(1.02); }
         }
 
     </style>
@@ -165,37 +169,34 @@
     </div>
 
     <script>
-        // Total time in seconds (30 minutes = 1800 seconds)
-        let timeInSeconds = 30 * 60;
+        // GLOBAL SYNCHRONIZED TIMER LOGIC
         const timerElement = document.getElementById("loop-timer");
+        const cycleLength = 30 * 60; // 30 minutes in seconds
 
-        function updateTimer() {
-            // Calculate minutes and seconds
-            let minutes = Math.floor(timeInSeconds / 60);
-            let seconds = timeInSeconds % 60;
+        function updateGlobalTimer() {
+            // Date.now() internet ka exact time nikalta hai, chahe phone koi bhi ho!
+            let nowInSeconds = Math.floor(Date.now() / 1000); 
+            
+            // Ye check karta hai ki 30 min ke cycle me hum kahan khade hain
+            let elapsedInCycle = nowInSeconds % cycleLength;
+            
+            // Bacha hua time
+            let remainingTime = cycleLength - elapsedInCycle;
 
-            // Add leading zero if less than 10
+            let minutes = Math.floor(remainingTime / 60);
+            let seconds = remainingTime % 60;
+
+            // 0 lagana format ke liye
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            // Display timer
             timerElement.textContent = `${minutes}:${seconds}`;
-
-            // Logic for looping
-            if (timeInSeconds <= 0) {
-                timeInSeconds = 30 * 60; // Reset to 30 minutes when it hits zero
-            } else {
-                timeInSeconds--; // Decrease by 1 second
-            }
         }
 
-        // Run the timer every 1 second (1000 milliseconds)
-        setInterval(updateTimer, 1000);
-        
-        // Run once immediately so it doesn't wait 1 second to show up
-        updateTimer();
+        // Script chalte hi update karo aur har second loop lagao
+        updateGlobalTimer();
+        setInterval(updateGlobalTimer, 1000);
     </script>
 
 </body>
-          </html>
-          
+</html>
