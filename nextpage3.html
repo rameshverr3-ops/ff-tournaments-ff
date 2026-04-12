@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match 3 Details - ₹500 Tournament</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --orange: #F57C00;
+            --white: #FFFFFF;
+            --green: #2ecc71;
+            --text-dark: #333333;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--orange); 
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px 15px 50px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- TITLE --- */
+        .match-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--white);
+            text-transform: uppercase;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        /* --- TIMER BOX --- */
+        .timer-container {
+            background: var(--white); 
+            border-radius: 15px;
+            padding: 20px 40px;
+            margin-bottom: 20px; 
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        .timer-label {
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .timer-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.8rem;
+            font-weight: 700;
+            color: var(--orange);
+            line-height: 1;
+            text-shadow: 0 2px 5px rgba(245, 124, 0, 0.2);
+        }
+
+        /* --- LIVE JOINING TICKER (GREEN TEXT, NO BOX) --- */
+        .live-ticker-container {
+            width: 100%;
+            max-width: 450px;
+            height: 40px; 
+            overflow: hidden; 
+            background-color: transparent; 
+            color: #00ff00; 
+            font-weight: 900;
+            font-size: 1.15rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.6); 
+        }
+
+        .ticker-text {
+            position: absolute;
+            white-space: nowrap;
+            display: block;
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+
+        .slide-bottom { transform: translateY(100%); opacity: 0; }
+        .slide-center { transform: translateY(0%); opacity: 1; }
+        .slide-top { transform: translateY(-100%); opacity: 0; }
+
+        /* --- RULES BOX --- */
+        .rules-box {
+            background-color: var(--white);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            padding: 25px;
+            box-sizing: border-box;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            margin-bottom: 25px;
+        }
+
+        .rules-title {
+            color: var(--orange);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            text-align: center;
+            font-weight: 900;
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rules-list li {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: var(--text-dark);
+            display: flex;
+            align-items: flex-start;
+            font-weight: 500;
+        }
+
+        .rules-list li::before {
+            content: "⚔️";
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .highlight-reward {
+            color: var(--orange); 
+            font-weight: 900;
+            font-size: 1.15rem;
+        }
+
+        /* --- GREEN HIGHLIGHT NOTE --- */
+        .important-note {
+            background-color: #f0fff4; 
+            border: 2px solid var(--green);
+            color: #1e7e34; 
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            line-height: 1.6;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+            animation: pulseGlow 1.5s infinite alternate;
+            margin-bottom: 30px; 
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(46, 204, 113, 0.4); transform: scale(1); }
+            100% { box-shadow: 0 0 20px rgba(46, 204, 113, 0.8); transform: scale(1.02); }
+        }
+
+        /* --- GLOWING PAY BUTTON --- */
+        .btn-pay-join {
+            background-color: var(--green);
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            max-width: 450px;
+            padding: 18px 20px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 900;
+            text-align: center;
+            text-transform: uppercase;
+            box-sizing: border-box;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.6);
+            animation: buttonShine 1s infinite alternate;
+            transition: transform 0.2s;
+        }
+
+        .btn-pay-join:active { transform: scale(0.95); }
+
+        @keyframes buttonShine {
+            0% { box-shadow: 0 0 10px rgba(46, 204, 113, 0.5); filter: brightness(1); }
+            100% { box-shadow: 0 0 30px rgba(46, 204, 113, 1), 0 0 10px #ffffff; filter: brightness(1.2); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="match-title">MATCH 3</div>
+
+    <div class="timer-container">
+        <div class="timer-label">Next Room Starts In</div>
+        <div class="timer-display" id="loop-timer">30:00</div>
+    </div>
+
+    <div class="live-ticker-container">
+        <span class="ticker-text slide-bottom" id="live-ticker-text">Loading...</span>
+    </div>
+
+    <div class="rules-box">
+        <h2 class="rules-title">GRAND TOURNAMENT RULES</h2>
+        <ul class="rules-list">
+            <li>Strictly NO hacks or config files allowed. VIP Anti-Cheat monitoring active.</li>
+            <li>Prize Distribution: <span class="highlight-reward">₹400 Per Kill</span> & <span class="highlight-reward">₹50,000 for BOOYAH!</span></li>
+            <li>Only 1 player is allowed to join per Custom Room ID.</li>
+            <li>Bypassing or using emulators is strictly prohibited. Play fair.</li>
+        </ul>
+    </div>
+
+    <div class="important-note">
+        Custom room ID and password will be provided 10 minutes before the match starts on your Email and WhatsApp. Please fill the ID and password correctly to enter the custom room.
+    </div>
+
+    <a href="https://drive.google.com/file/d/1eFeeQ1WCP2WV-rGOwqrEnW42iZ0rTb3_/view?usp=drivesdk" class="btn-pay-join" target="_blank">
+        PAY ₹500 AND JOIN TOURNAMENT
+    </a>
+
+    <script>
+        // GLOBAL SYNCHRONIZED TIMER LOGIC
+        const timerElement = document.getElementById("loop-timer");
+        const cycleLength = 30 * 60; 
+
+        function updateGlobalTimer() {
+            let nowInSeconds = Math.floor(Date.now() / 1000); 
+            let elapsedInCycle = nowInSeconds % cycleLength;
+            let remainingTime = cycleLength - elapsedInCycle;
+            let minutes = Math.floor(remainingTime / 60);
+            let seconds = remainingTime % 60;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            timerElement.textContent = `${minutes}:${seconds}`;
+        }
+        updateGlobalTimer();
+        setInterval(updateGlobalTimer, 1000);
+
+        // ADVANCED RANDOM TICKER LOGIC
+        const rawNames = ["Param Thakur", "Ramesh Yadav", "Amandeep Singh", "Suman Devi", "Vikram Rathore", "Priya Sharma", "Rahul Mehra", "Anjali Gupta", "Sunil Bishnoi", "Kabir Khan", "Sonali Verma", "Rohit Choudhary", "Deepak Sain", "Meena Kumari", "Ajay Devgan", "Tanu Sharma", "Kuldeep Yadav", "Preeti Singh", "Suresh Raina", "Neetu Singh", "Zaid Khan", "Ishaan Sharma", "Mohammed Arshad", "Sunny Leone", "Gaurav Solanki", "Gurpreet Singh", "Farhan Akhtar", "Ishaan Kishan", "David Warner", "Siddharth Malhotra", "Mustafa Ali", "Ayaan Malik", "Virat Kohli", "Deepika Padukone", "Ranbir Kapoor", "Umar Akmal", "Deepak Hooda", "Rahul Gandhi", "Imran Khan", "Bunty Arora", "Tony Kakkar", "Salman Khan", "Rohan Verma", "Gurmeet Singh", "Prashant Tyagi", "Asif Ali", "Akram Khan", "John Abraham", "Tarun Kumar", "Shubham Gill", "Vijay Shankar", "Bunty Sharma", "Sunny Deol", "Bobby Deol", "Rizwan Khan", "Bilal Asif", "Joginder Singh", "Pawan Kumar", "Shahid Kapoor", "Kuldeep Sharma", "Vicky Kaushal", "Harsh Beniwal", "Ranjeet Singh", "Amir Khan", "Sandeep Singh", "Happy Singh", "Angad Bedi", "Sanjay Dutt", "Shahrukh Khan", "Javed Miandad", "Zubair Khan", "Altaf Raja", "Wasim Akram", "Daman Arora", "Zafar Khan", "Rajat Sharma"];
+
+        const tickerTextElement = document.getElementById("live-ticker-text");
+
+        function startTickerAnimation() {
+            const randomIndex = Math.floor(Math.random() * rawNames.length);
+            tickerTextElement.textContent = `${rawNames[randomIndex]} joined tournament 🏆`;
+            tickerTextElement.className = 'ticker-text slide-bottom';
+
+            setTimeout(() => {
+                tickerTextElement.className = 'ticker-text slide-center';
+                const stayTime = Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000;
+                setTimeout(() => {
+                    tickerTextElement.className = 'ticker-text slide-top';
+                    setTimeout(startTickerAnimation, 500); 
+                }, stayTime);
+            }, 50); 
+        }
+        startTickerAnimation();
+    </script>
+
+</body>
+</html>
