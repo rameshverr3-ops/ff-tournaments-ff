@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Match Entry - Fill Details</title>
+    <title>Match 2 Entry - Fill Details</title>
     <style>
         /* Modern Font Import - Digital feel ke liye */
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
@@ -380,7 +380,7 @@
         // Aapke Email ke liye Data pack karna (Aapki Access Key ke sath)
         let formData = {
             access_key: "4d66e1b4-9adc-41fc-8fbb-ece2f64167e2", 
-            subject: "New Tournament Entry from " + playerName.value,
+            subject: "Match 2 (Rs 200) Entry - " + playerName.value, /* TITLE UPDATE KIYA HAI */
             Player_Name: playerName.value,
             Game_UID: uid.value,
             WhatsApp_Number: whatsapp.value,
@@ -407,8 +407,8 @@
         })
         .then(async (response) => {
             if (response.status == 200) {
-                // SUCCESS: Data chala gaya, agle page par bhejo!
-                window.location.href = "nextpage1.html"; 
+                // SUCCESS: Data chala gaya, nextpage2.html par bhejo!
+                window.location.href = "nextpage2.html"; /* YAHAN LINK UPDATE KIYA HAI */
             } else {
                 // FAIL: Agar network issue aaye
                 triggerErrorVibration();
