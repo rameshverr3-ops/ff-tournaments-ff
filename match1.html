@@ -1,4 +1,4 @@
-                <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,6 +29,7 @@
 
         .input-group {
             margin-bottom: 18px;
+            position: relative;
         }
 
         .input-group label {
@@ -58,6 +59,15 @@
             border-color: #F57C00;
             background-color: #fff;
             box-shadow: 0 0 8px rgba(245, 124, 0, 0.3);
+        }
+
+        /* Error Message Style */
+        .error-text {
+            color: red;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-top: 5px;
+            display: none; /* Default hidden */
         }
 
         /* --- GREEN JOIN NOW BUTTON --- */
@@ -165,19 +175,20 @@
     
     <div class="input-group">
         <label>Game UID</label>
-        <input type="number" placeholder="Enter your UID">
+        <input type="number" id="uid" placeholder="Enter your UID">
     </div>
     <div class="input-group">
         <label>Confirm UID</label>
-        <input type="number" placeholder="Confirm your UID">
+        <input type="number" id="confirm-uid" placeholder="Confirm your UID">
+        <div class="error-text" id="uid-error">UID does not match</div>
     </div>
     <div class="input-group">
         <label>WhatsApp Number</label>
-        <input type="number" placeholder="Enter WhatsApp No.">
+        <input type="number" id="whatsapp" placeholder="Enter WhatsApp No.">
     </div>
     <div class="input-group">
         <label>Gmail Address</label>
-        <input type="email" placeholder="Enter your Email">
+        <input type="email" id="gmail" placeholder="Enter your Email">
     </div>
 
     <button class="btn-payment" id="mainPaymentBtn" onclick="openPaymentOptions()">JOIN NOW</button>
@@ -191,7 +202,7 @@
     <div class="dynamic-section" id="form-upi">
         <div class="input-group">
             <label>FILL UPI</label>
-            <input type="text" placeholder="Enter your UPI ID (e.g. 9876543210@ybl)">
+            <input type="text" id="upi-id" placeholder="Enter your UPI ID (e.g. 9876543210@ybl)">
         </div>
     </div>
 
@@ -204,58 +215,107 @@
     <div class="dynamic-section" id="form-bank">
         <div class="input-group">
             <label>Bank Account Number</label>
-            <input type="number" placeholder="Enter Account Number">
+            <input type="number" id="bank-acc" placeholder="Enter Account Number">
         </div>
         <div class="input-group">
             <label>Confirm Bank Account Number</label>
-            <input type="number" placeholder="Confirm Account Number">
+            <input type="number" id="confirm-bank-acc" placeholder="Confirm Account Number">
+            <div class="error-text" id="bank-error">does not match Bank number</div>
         </div>
         <div class="input-group">
             <label>IFSC Code</label>
-            <input type="text" placeholder="Enter IFSC Code">
+            <input type="text" id="ifsc" placeholder="Enter IFSC Code">
         </div>
     </div>
 
-    <button class="btn-submit" id="finalSubmitBtn">SUBMIT MATCH ENTRY</button>
+    <button class="btn-submit" id="finalSubmitBtn" onclick="validateAndSubmit()">SUBMIT MATCH ENTRY</button>
 
 </div>
 
 <script>
-    // --- FORM LOGIC SCRIPT ---
+    // --- DISPLAY OPTIONS SCRIPT ---
     function openPaymentOptions() {
         document.getElementById('paymentOptionsBox').style.display = 'flex';
-        document.getElementById('mainPaymentBtn').style.display = 'none'; // Green button chupa do click ke baad
+        document.getElementById('mainPaymentBtn').style.display = 'none';
     }
 
     function selectOption(optionType, btnElement) {
-        // 1. Sabse pehle saare dynamic forms hide karo
         document.getElementById('form-upi').style.display = 'none';
         document.getElementById('form-redeem').style.display = 'none';
         document.getElementById('form-bank').style.display = 'none';
 
-        // 2. Sare buttons se 'active' color hatao
         var btns = document.getElementsByClassName('option-btn');
         for(var i=0; i<btns.length; i++) {
             btns[i].classList.remove('active');
         }
 
-        // 3. Jo option chuna hai sirf usko dikhao
-        if(optionType === 'upi') {
-            document.getElementById('form-upi').style.display = 'block';
-        } else if(optionType === 'redeem') {
-            document.getElementById('form-redeem').style.display = 'block';
-        } else if(optionType === 'bank') {
-            document.getElementById('form-bank').style.display = 'block';
+        if(optionType === 'upi') document.getElementById('form-upi').style.display = 'block';
+        else if(optionType === 'redeem') document.getElementById('form-redeem').style.display = 'block';
+        else if(optionType === 'bank') document.getElementById('form-bank').style.display = 'block';
+
+        btnElement.classList.add('active');
+        document.getElementById('finalSubmitBtn').style.display = 'block';
+    }
+
+    // --- FORM VALIDATION SCRIPT (Naya Code) ---
+    function validateAndSubmit() {
+        // Purane error message chupao
+        document.getElementById('uid-error').style.display = 'none';
+        document.getElementById('bank-error').style.display = 'none';
+
+        // Values nikaalo
+        let uid = document.getElementById('uid').value;
+        let cUid = document.getElementById('confirm-uid').value;
+        let whatsapp = document.getElementById('whatsapp').value;
+        let gmail = document.getElementById('gmail').value;
+
+        // 1. Basic khali checking
+        if(!uid || !cUid || !whatsapp || !gmail) {
+            alert("Please fill all the basic details correctly!");
+            return; // Agar khali hai toh yahi ruk jao
         }
 
-        // 4. Jis button par click kiya hai usko orange color do (active)
-        btnElement.classList.add('active');
+        // 2. UID Match checking
+        if(uid !== cUid) {
+            document.getElementById('uid-error').style.display = 'block';
+            return;
+        }
 
-        // 5. Submit button (Fire wala) ab dikhao
-        document.getElementById('finalSubmitBtn').style.display = 'block';
+        // 3. Konsa payment method khula hai?
+        let selectedPayment = "";
+        if(document.getElementById('form-upi').style.display === 'block') selectedPayment = 'upi';
+        else if(document.getElementById('form-redeem').style.display === 'block') selectedPayment = 'redeem';
+        else if(document.getElementById('form-bank').style.display === 'block') selectedPayment = 'bank';
+
+        // 4. Payment Form checking
+        if(selectedPayment === 'upi') {
+            let upiId = document.getElementById('upi-id').value;
+            if(!upiId) {
+                alert("Please FILL UPI ID!");
+                return;
+            }
+        } 
+        else if(selectedPayment === 'bank') {
+            let bAcc = document.getElementById('bank-acc').value;
+            let cbAcc = document.getElementById('confirm-bank-acc').value;
+            let ifsc = document.getElementById('ifsc').value;
+
+            if(!bAcc || !cbAcc || !ifsc) {
+                alert("Please fill all Bank details!");
+                return;
+            }
+            // Bank Account match checking
+            if(bAcc !== cbAcc) {
+                document.getElementById('bank-error').style.display = 'block';
+                return;
+            }
+        }
+
+        // AGAR SAB KUCH SAHI HAI TOH NEXT PAGE PAR BHEJO
+        // Yahan nextpage.html likha hai, hum ise baad mein badal lenge jo naam aap doge
+        window.location.href = "nextpage.html";
     }
 </script>
 
 </body>
-    </html>
-    
+</html>
