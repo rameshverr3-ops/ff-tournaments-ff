@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Details</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --orange: #F57C00;
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --green: #2ecc71;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            margin: 0;
+            padding: 20px 15px 50px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- TITLE --- */
+        .match-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--orange);
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(245, 124, 0, 0.5);
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        /* --- TIMER BOX --- */
+        .timer-container {
+            background: linear-gradient(145deg, #222, #111);
+            border: 2px solid var(--orange);
+            box-shadow: 0 0 20px rgba(245, 124, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px 40px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .timer-label {
+            font-size: 0.9rem;
+            color: #aaaaaa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .timer-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--orange);
+            line-height: 1;
+            text-shadow: 0 0 10px rgba(245, 124, 0, 0.8);
+        }
+
+        /* --- RULES BOX --- */
+        .rules-box {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            padding: 25px;
+            box-sizing: border-box;
+            border-left: 5px solid var(--orange);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
+        }
+
+        .rules-title {
+            color: var(--orange);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rules-list li {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #dddddd;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .rules-list li::before {
+            content: "⚔️";
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .highlight-reward {
+            color: #FFD700; /* Gold for money */
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* --- GREEN HIGHLIGHT NOTE --- */
+        .important-note {
+            background-color: rgba(46, 204, 113, 0.1);
+            border: 2px solid var(--green);
+            color: var(--green);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: bold;
+            line-height: 1.6;
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.2);
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px rgba(46, 204, 113, 0.2); }
+            100% { box-shadow: 0 0 25px rgba(46, 204, 113, 0.6); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="match-title">MATCH 1</div>
+
+    <div class="timer-container">
+        <div class="timer-label">Next Room Starts In</div>
+        <div class="timer-display" id="loop-timer">30:00</div>
+    </div>
+
+    <div class="rules-box">
+        <h2 class="rules-title">TOURNAMENT RULES</h2>
+        <ul class="rules-list">
+            <li>Strictly NO hacks or config files allowed. Any suspicious activity will lead to an instant and permanent ban.</li>
+            <li>Prize Distribution: <span class="highlight-reward">₹70 Per Kill</span> & <span class="highlight-reward">₹700 for BOOYAH!</span></li>
+            <li>Only 1 player is allowed to join per Custom Room ID.</li>
+            <li>Bypassing or using emulators is strictly prohibited. Play fair.</li>
+        </ul>
+    </div>
+
+    <div class="important-note">
+        Custom room ID and password will be provided 10 minutes before the match starts on your Email and WhatsApp. Please fill the ID and password correctly to enter the custom room.
+    </div>
+
+    <script>
+        // Total time in seconds (30 minutes = 1800 seconds)
+        let timeInSeconds = 30 * 60;
+        const timerElement = document.getElementById("loop-timer");
+
+        function updateTimer() {
+            // Calculate minutes and seconds
+            let minutes = Math.floor(timeInSeconds / 60);
+            let seconds = timeInSeconds % 60;
+
+            // Add leading zero if less than 10
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            // Display timer
+            timerElement.textContent = `${minutes}:${seconds}`;
+
+            // Logic for looping
+            if (timeInSeconds <= 0) {
+                timeInSeconds = 30 * 60; // Reset to 30 minutes when it hits zero
+            } else {
+                timeInSeconds--; // Decrease by 1 second
+            }
+        }
+
+        // Run the timer every 1 second (1000 milliseconds)
+        setInterval(updateTimer, 1000);
+        
+        // Run once immediately so it doesn't wait 1 second to show up
+        updateTimer();
+    </script>
+
+</body>
+          </html>
+          
