@@ -1,6 +1,6 @@
 <img src="Picsart_26-04-11_18-04-26-425.jpg" style="width:100%;">
 
-                     <!DOCTYPE html>
+          <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -219,7 +219,7 @@
 </script>
 
 </body>
-</html>   
+</html>        
 <!DOCTYPE html>
 <html lang="hi">
 <head>
@@ -233,6 +233,8 @@
             --bg-color: #F57C00;
             --gold: #FFD700;
             --success-green: #28a745;
+            --fire-red: #ff4500;
+            --fire-yellow: #ff9d00;
         }
 
         body {
@@ -330,6 +332,7 @@
             color: var(--primary-orange);
         }
 
+        /* --- FIRE EFFECT BUTTONS --- */
         .btn-join {
             background-color: var(--primary-orange);
             color: var(--pure-white);
@@ -341,10 +344,42 @@
             margin-top: 15px;
             text-transform: uppercase;
             font-size: 1rem;
-            box-shadow: 0 4px 10px rgba(245, 124, 0, 0.2);
             text-decoration: none;
             display: inline-block;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+            /* Normal Fire Glow */
+            box-shadow: 0 0 10px var(--fire-red), 0 0 5px var(--fire-yellow);
+            animation: fireGlow 1.5s infinite alternate;
+        }
+
+        @keyframes fireGlow {
+            0% { box-shadow: 0 0 5px var(--fire-red), 0 0 2px var(--fire-yellow); }
+            100% { box-shadow: 0 0 15px var(--fire-red), 0 0 10px var(--fire-yellow); }
+        }
+
+        /* --- SUPER FIRE EFFECT (Start Challenge) --- */
+        .btn-challenge {
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            border: 2px solid gold !important;
+            font-size: 1.2rem !important;
+            padding: 15px 30px !important;
+            box-shadow: 0 0 25px var(--fire-red), 0 0 10px gold !important;
+            animation: superFire 0.8s infinite alternate, shake 0.5s infinite;
+        }
+
+        @keyframes superFire {
+            0% { filter: brightness(1); transform: scale(1); box-shadow: 0 0 15px var(--fire-red); }
+            100% { filter: brightness(1.3); transform: scale(1.05); box-shadow: 0 0 30px #ff0000, 0 0 15px gold; }
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-1deg); }
+            100% { transform: rotate(0deg); }
         }
 
         .special-note {
@@ -401,25 +436,25 @@
         <div class="tournament-card left">
             <div class="entry-fee">Entry: ₹80</div>
             <div class="winning-price">Win: ₹4,000</div>
-            <a href="match1.html" class="join-btn">JOIN MATCH</a>
-        
-        
+            <a href="match1.html" class="btn-join">Join Match</a>
+        </div>
+
         <div class="tournament-card right">
             <div class="entry-fee">Entry: ₹200</div>
             <div class="winning-price">Win: ₹20,000</div>
-            <a href="https://drive.google.com/file/d/1MnvTEzpbkF7CQLOpYM5PsSTeqm5ncPaB/view?usp=drivesdk" target="_blank" class="btn-join">Join Match</a>
+            <a href="match1.html" class="btn-join">Join Match</a>
         </div>
 
         <div class="tournament-card left">
             <div class="entry-fee">Entry: ₹500</div>
             <div class="winning-price">Win: ₹50,000</div>
-            <a href="https://drive.google.com/file/d/1MnvTEzpbkF7CQLOpYM5PsSTeqm5ncPaB/view?usp=drivesdk" target="_blank" class="btn-join">Join Match</a>
+            <a href="match1.html" class="btn-join">Join Match</a>
         </div>
 
         <div class="tournament-card right">
             <div class="entry-fee">Entry: ₹1,000</div>
             <div class="winning-price">Win: ₹1,00,000</div>
-            <a href="https://drive.google.com/file/d/1MnvTEzpbkF7CQLOpYM5PsSTeqm5ncPaB/view?usp=drivesdk" target="_blank" class="btn-join">Join Match</a>
+            <a href="match1.html" class="btn-join">Join Match</a>
         </div>
 
         <div class="tournament-card left">
@@ -427,7 +462,7 @@
             <div class="entry-fee">Entry: ₹300</div>
             <div class="winning-price">₹200 / Min</div>
             <span class="special-note">Survive 1 min = Get ₹200 reward</span>
-            <a href="https://drive.google.com/file/d/1MnvTEzpbkF7CQLOpYM5PsSTeqm5ncPaB/view?usp=drivesdk" target="_blank" class="btn-join">Start Challenge</a>
+            <a href="match1.html" class="btn-join btn-challenge">Start Challenge</a>
             <div class="status-joined">✅ 4000+ Players Joined Today</div>
         </div>
     </div>
@@ -438,7 +473,6 @@
 </div>
 
 <script>
-    // 500+ Indian Names list ko maine pehle hi shuffle kar diya hai (Random order)
     const rawNames = [
         "Zaid", "Arjun", "Mustafa", "Gaurav", "Gurpreet", "Yash", "Farhan", "Rohan", "Kabir", "Paramjeet", 
         "Ishaan", "Mohammed", "David", "Siddharth", "Ayaan", "Vikram", "Umar", "Deepak", "Jasbir", "Rahul", 
@@ -527,7 +561,6 @@
     let shuffledNames = [];
     let nameIndex = 0;
 
-    // Logic to mix (shuffle) the array completely
     function shuffleArray(array) {
         let newArray = [...array];
         for (let i = newArray.length - 1; i > 0; i--) {
@@ -542,7 +575,6 @@
     }
 
     function updateAnnouncement() {
-        // Shuffling at the start and when index reaches end
         if (shuffledNames.length === 0 || nameIndex >= shuffledNames.length) {
             shuffledNames = shuffleArray(rawNames);
             nameIndex = 0;
@@ -560,12 +592,10 @@
             const amount = withdrawOptions[Math.floor(Math.random() * withdrawOptions.length)];
             message = `💸 ${currentUser} Payment Withdrawal ₹${amount.toLocaleString('en-IN')}`;
         } else {
-            // Random prize pool with rare ₹80,000 chance
             const amount = Math.random() > 0.9 ? 80000 : getRandomAmount(200, 15000);
             message = `🏆 ${currentUser} Winning ₹${amount.toLocaleString('en-IN')}`;
         }
 
-        // Animation
         textElement.style.opacity = 0;
         textElement.style.transform = 'translateY(20px)';
         
@@ -575,15 +605,13 @@
             textElement.style.transform = 'translateY(0)';
         }, 500);
 
-        // Random Speed: 5s to 15s (5000ms to 15000ms)
         const nextSpeed = Math.floor(Math.random() * (15000 - 5000 + 1) + 5000);
         setTimeout(updateAnnouncement, nextSpeed);
     }
 
-    // Start the process
     updateAnnouncement();
 </script>
 
 </body>
-</html>
-         
+  </html>
+  
