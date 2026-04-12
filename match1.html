@@ -1,27 +1,258 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tournament Details</title>
+    <title>Match Entry - Fill Details</title>
     <style>
-        body { background-color: #f57c00; font-family: Arial; text-align: center; color: white; margin: 0; }
-        .match-image { width: 95%; max-width: 500px; border-radius: 10px; margin-top: 10px; border: 2px solid white; }
-        .timer-box { background: black; margin: 20px; padding: 20px; border-radius: 15px; border: 2px solid gold; }
-        #timer { font-size: 35px; font-weight: bold; color: #00ff00; }
+        /* Modern Font Import - Digital feel ke liye */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #121212; /* Dark theme */
+            color: white;
+            margin: 0;
+            padding: 0 0 50px 0;
+        }
+
+        /* --- FORM SECTION --- */
+        .form-container {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: #1e1e1e;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+            box-sizing: border-box;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #F57C00;
+            font-weight: bold;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background-color: #2a2a2a;
+            color: white;
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #F57C00;
+            box-shadow: 0 0 8px rgba(245, 124, 0, 0.4);
+        }
+
+        /* --- GREEN PAYMENT BUTTON --- */
+        .btn-payment {
+            background-color: #28a745; /* Green Color */
+            color: white;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
+        .btn-payment:active { transform: scale(0.98); }
+
+        /* --- PAYMENT OPTIONS (Hidden Default) --- */
+        .payment-options {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .option-btn {
+            background-color: #333;
+            color: white;
+            padding: 14px;
+            border: 2px solid #555;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .option-btn:hover, .option-btn.active {
+            background-color: #F57C00;
+            border-color: #F57C00;
+        }
+
+        /* --- DYNAMIC CONTENT (Forms) --- */
+        .dynamic-section {
+            display: none; /* Sab hidden rahenge jab tak click na ho */
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 8px;
+            border-left: 4px solid #F57C00;
+        }
+
+        .redeem-msg {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* --- LIVE FIRE SUBMIT BUTTON --- */
+        .btn-submit {
+            display: none; /* Hidden by default */
+            width: 100%;
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            color: white;
+            border: 2px solid gold;
+            padding: 16px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 10px;
+            margin-top: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 20px #ff4500, 0 0 10px gold;
+            animation: superFire 0.8s infinite alternate, shake 0.5s infinite;
+        }
+
+        @keyframes superFire {
+            0% { filter: brightness(1); transform: scale(1); box-shadow: 0 0 10px #ff4500; }
+            100% { filter: brightness(1.2); transform: scale(1.02); box-shadow: 0 0 25px #ff0000, 0 0 15px gold; }
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-1deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @media (max-width: 480px) {
+            .form-container { width: 90%; padding: 15px; }
+        }
     </style>
 </head>
 <body>
 
-    <img src="Picsart_26-04-11_18-04-26-425.jpg" class="match-image">
-    <img src="Picsart_26-04-11_18-04-26-425.jpg" class="match-image">
-    <img src="Picsart_26-04-11_18-04-26-425.jpg" class="match-image">
-
-    <div class="timer-box">
-        <p>MATCH STARTS IN:</p>
-        <div id="timer">00:00:00</div>
+<div class="form-container">
+    
+    <div class="input-group">
+        <label>Game UID</label>
+        <input type="number" placeholder="Enter your UID">
     </div>
+    <div class="input-group">
+        <label>Confirm UID</label>
+        <input type="number" placeholder="Confirm your UID">
+    </div>
+    <div class="input-group">
+        <label>WhatsApp Number</label>
+        <input type="number" placeholder="Enter WhatsApp No.">
+    </div>
+    <div class="input-group">
+        <label>Gmail Address</label>
+        <input type="email" placeholder="Enter your Email">
+    </div>
+
+    <button class="btn-payment" id="mainPaymentBtn" onclick="openPaymentOptions()">PAYMENT</button>
+
+    <div class="payment-options" id="paymentOptionsBox">
+        <button class="option-btn" onclick="selectOption('upi', this)">1. UPI (PhonePe/GPay)</button>
+        <button class="option-btn" onclick="selectOption('redeem', this)">2. REDEEM CODE</button>
+        <button class="option-btn" onclick="selectOption('bank', this)">3. BANK ACCOUNT</button>
+    </div>
+
+    <div class="dynamic-section" id="form-upi">
+        <div class="input-group">
+            <label>FILL UPI</label>
+            <input type="text" placeholder="Enter your UPI ID (e.g. 9876543210@ybl)">
+        </div>
+    </div>
+
+    <div class="dynamic-section" id="form-redeem">
+        <div class="redeem-msg">
+            Your redeem code will be sent to your WhatsApp and email.
+        </div>
+    </div>
+
+    <div class="dynamic-section" id="form-bank">
+        <div class="input-group">
+            <label>Bank Account Number</label>
+            <input type="number" placeholder="Enter Account Number">
+        </div>
+        <div class="input-group">
+            <label>Confirm Bank Account Number</label>
+            <input type="number" placeholder="Confirm Account Number">
+        </div>
+        <div class="input-group">
+            <label>IFSC Code</label>
+            <input type="text" placeholder="Enter IFSC Code">
+        </div>
+    </div>
+
+    <button class="btn-submit" id="finalSubmitBtn">SUBMIT MATCH ENTRY</button>
+
+</div>
+
+<script>
+    // --- FORM LOGIC SCRIPT ---
+    function openPaymentOptions() {
+        document.getElementById('paymentOptionsBox').style.display = 'flex';
+        document.getElementById('mainPaymentBtn').style.display = 'none'; // Green button chupa do click ke baad
+    }
+
+    function selectOption(optionType, btnElement) {
+        // 1. Sabse pehle saare dynamic forms hide karo
+        document.getElementById('form-upi').style.display = 'none';
+        document.getElementById('form-redeem').style.display = 'none';
+        document.getElementById('form-bank').style.display = 'none';
+
+        // 2. Sare buttons se 'active' color hatao
+        var btns = document.getElementsByClassName('option-btn');
+        for(var i=0; i<btns.length; i++) {
+            btns[i].classList.remove('active');
+        }
+
+        // 3. Jo option chuna hai sirf usko dikhao
+        if(optionType === 'upi') {
+            document.getElementById('form-upi').style.display = 'block';
+        } else if(optionType === 'redeem') {
+            document.getElementById('form-redeem').style.display = 'block';
+        } else if(optionType === 'bank') {
+            document.getElementById('form-bank').style.display = 'block';
+        }
+
+        // 4. Jis button par click kiya hai usko orange color do (active)
+        btnElement.classList.add('active');
+
+        // 5. Submit button (Fire wala) ab dikhao
+        document.getElementById('finalSubmitBtn').style.display = 'block';
+    }
+</script>
 
 </body>
 </html>
-
