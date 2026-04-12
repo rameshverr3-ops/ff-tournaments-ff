@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match 5 - Survive Challenge</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@400;700&display=swap');
+
+        :root {
+            --fire-orange: #ff4500;
+            --deep-red: #8b0000;
+            --gold: #ffd700;
+            --white: #ffffff;
+            --dark-bg: #0a0a0a;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--white);
+            margin: 0;
+            padding: 20px 15px 60px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- LIVE FIRE EMBERS & FOG EFFECTS --- */
+        .effect-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(circle at bottom, #2c0a00 0%, #0a0a0a 100%);
+        }
+
+        /* Fog Animation */
+        .fog {
+            position: absolute;
+            width: 200%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'); /* Mock fog texture */
+            opacity: 0.2;
+            filter: blur(50px);
+            animation: drift 30s linear infinite;
+        }
+        @keyframes drift {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Fire Embers (Angare) */
+        .ember {
+            position: absolute;
+            bottom: -10px;
+            background: var(--fire-orange);
+            border-radius: 50%;
+            opacity: 0.8;
+            filter: blur(2px);
+            animation: rise 5s infinite ease-in;
+            box-shadow: 0 0 10px var(--fire-orange);
+        }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1) translateX(0); opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(0.5) translateX(50px); opacity: 0; }
+        }
+
+        /* --- CONTENT STYLING --- */
+        .match-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--fire-orange);
+            text-transform: uppercase;
+            text-shadow: 0 0 20px var(--fire-orange), 0 0 5px gold;
+            margin-bottom: 15px;
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.9; text-shadow: 0 0 10px var(--fire-orange); }
+            100% { opacity: 1; text-shadow: 0 0 30px var(--fire-orange), 0 0 10px gold; }
+        }
+
+        .timer-container {
+            background: rgba(255, 69, 0, 0.1);
+            border: 2px solid var(--fire-orange);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 0 20px rgba(255, 69, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .timer-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--white);
+            margin: 5px 0;
+        }
+
+        /* Joining Ticker */
+        .ticker-box {
+            height: 35px;
+            overflow: hidden;
+            color: #00ff00;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px #00ff00;
+            margin-bottom: 25px;
+        }
+
+        /* Rewards Cards */
+        .rewards-banner {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 25px;
+        }
+
+        .reward-card {
+            flex: 1;
+            background: linear-gradient(135deg, #111, #222);
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .reward-card span {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #aaa;
+        }
+
+        .reward-card b {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            color: var(--gold);
+        }
+
+        /* Rules Section */
+        .rules-box {
+            background: rgba(255, 255, 255, 0.05);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid var(--fire-orange);
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+
+        .rules-list { list-style: none; padding: 0; margin: 0; }
+        .rules-list li {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        .rules-list li::before { content: "🔥"; margin-right: 12px; }
+
+        .important-msg {
+            background: #4a1c1c;
+            border: 1px solid var(--fire-orange);
+            color: #ff9999;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        /* Join Button */
+        .btn-join {
+            background: linear-gradient(to right, #ff4500, #ff8c00);
+            color: white;
+            text-decoration: none;
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            text-align: center;
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.6);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 10px var(--fire-orange); }
+            50% { transform: scale(1.03); box-shadow: 0 0 30px var(--fire-orange); }
+            100% { transform: scale(1); box-shadow: 0 0 10px var(--fire-orange); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="effect-container" id="fire-bg">
+        <div class="fog"></div>
+    </div>
+
+    <div class="match-title">CHALLENGE 5</div>
+
+    <div class="timer-container">
+        <div style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem;">Room Starts In</div>
+        <div class="timer-display" id="global-timer">30:00</div>
+    </div>
+
+    <div class="ticker-box">
+        <div id="ticker-text">Loading Players...</div>
+    </div>
+
+    <div class="rewards-banner">
+        <div class="reward-card">
+            <span>Survive 1 Min</span>
+            <b>₹90</b>
+        </div>
+        <div class="reward-card">
+            <span>Per Kill</span>
+            <b>₹20</b>
+        </div>
+    </div>
+
+    <div class="rules-box">
+        <ul class="rules-list">
+            <li><b>Activity Check:</b> 30 second se zyada bina hile-dole ek jagah stay nahi kar sakte. Reward lene ke liye gun switch, run ya activity karna zaroori hai.</li>
+            <li>No hacks or scripts. Automatic ban system active.</li>
+            <li>Match start se 10 min pehle Room ID/Pass WhatsApp par milega.</li>
+            <li>Only Mobile players allowed. No Emulator.</li>
+        </ul>
+    </div>
+
+    <div class="important-msg">
+        DHYAN RAKHEIN: Agar aap 30s tak ek jagah ruke, toh reward cancel ho jayega!
+    </div>
+
+    <a href="https://drive.google.com/file/d/11pgxHnlYFkW3IfidL3kSVQgv_lhkD41I/view?usp=drivesdk" class="btn-join" target="_blank">
+        PAY NOW AND JOIN
+    </a>
+
+    <script>
+        // 1. Fire Embers Animation Script
+        const bg = document.getElementById('fire-bg');
+        function createEmber() {
+            const ember = document.createElement('div');
+            ember.classList.add('ember');
+            const size = Math.random() * 5 + 2 + 'px';
+            ember.style.width = size;
+            ember.style.height = size;
+            ember.style.left = Math.random() * 100 + 'vw';
+            ember.style.animationDuration = Math.random() * 3 + 2 + 's';
+            bg.appendChild(ember);
+            setTimeout(() => ember.remove(), 5000);
+        }
+        setInterval(createEmber, 150);
+
+        // 2. Global Synchronized Timer (30 min loop)
+        function updateTimer() {
+            const now = Math.floor(Date.now() / 1000);
+            const remaining = (30 * 60) - (now % (30 * 60));
+            const mins = Math.floor(remaining / 60);
+            const secs = remaining % 60;
+            document.getElementById('global-timer').innerText = 
+                `${mins < 10 ? '0'+mins : mins}:${secs < 10 ? '0'+secs : secs}`;
+        }
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // 3. Live Joining Ticker
+        const names = ["Rohan FF", "Killer_Boy", "Desi_Gamers", "Pro_Aman", "Legend_88", "Soul_Viper", "Badshah_01", "Gaming_Guru", "Team_RDX", "Pawan_YT", "Vicky_Op", "Sky_Lord"];
+        function updateTicker() {
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            document.getElementById('ticker-text').innerText = `🔥 ${randomName} Joined the Challenge!`;
+        }
+        setInterval(updateTicker, 4000);
+        updateTicker();
+    </script>
+
+</body>
+</html>
