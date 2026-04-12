@@ -298,8 +298,7 @@
 
         if(hasEmptyFields) {
             triggerErrorVibration();
-            alert("Please fill details");
-            return;
+            return; // Yahan ruk gaya, popup nahi aayega
         }
 
         // 2. UID Match checking
@@ -323,8 +322,7 @@
             if(!upiId.value) {
                 upiId.classList.add('error-border');
                 triggerErrorVibration();
-                alert("Please fill details");
-                return;
+                return; // Popup hata diya
             }
         } 
         else if(selectedPayment === 'bank') {
@@ -342,8 +340,7 @@
 
             if(hasEmptyBank) {
                 triggerErrorVibration();
-                alert("Please fill details");
-                return;
+                return; // Popup hata diya
             }
             
             // Bank Account match checking
