@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+                <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,8 +10,8 @@
 
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #121212; /* Dark theme */
-            color: white;
+            background-color: #F57C00; /* Aapka Orange Background */
+            color: #333; /* Dark text for readability on white */
             margin: 0;
             padding: 0 0 50px 0;
         }
@@ -21,10 +21,9 @@
             max-width: 500px;
             margin: 30px auto;
             padding: 25px;
-            background-color: #1e1e1e;
+            background-color: #FFFFFF; /* Pure White Box */
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-            border: 1px solid #333;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2); /* Soft shadow */
             box-sizing: border-box;
         }
 
@@ -35,7 +34,7 @@
         .input-group label {
             display: block;
             margin-bottom: 8px;
-            color: #F57C00;
+            color: #F57C00; /* Orange Labels */
             font-weight: bold;
             font-size: 0.95rem;
             text-transform: uppercase;
@@ -46,9 +45,9 @@
             width: 100%;
             padding: 14px;
             border-radius: 8px;
-            border: 1px solid #444;
-            background-color: #2a2a2a;
-            color: white;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9; /* Light grey input background */
+            color: #333; /* Dark text */
             font-size: 1rem;
             box-sizing: border-box;
             outline: none;
@@ -57,10 +56,11 @@
 
         .input-group input:focus {
             border-color: #F57C00;
-            box-shadow: 0 0 8px rgba(245, 124, 0, 0.4);
+            background-color: #fff;
+            box-shadow: 0 0 8px rgba(245, 124, 0, 0.3);
         }
 
-        /* --- GREEN PAYMENT BUTTON --- */
+        /* --- GREEN JOIN NOW BUTTON --- */
         .btn-payment {
             background-color: #28a745; /* Green Color */
             color: white;
@@ -87,10 +87,10 @@
         }
 
         .option-btn {
-            background-color: #333;
-            color: white;
+            background-color: #f1f1f1; /* Light button */
+            color: #333;
             padding: 14px;
-            border: 2px solid #555;
+            border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 1rem;
             font-weight: bold;
@@ -99,7 +99,8 @@
         }
 
         .option-btn:hover, .option-btn.active {
-            background-color: #F57C00;
+            background-color: #F57C00; /* Orange active */
+            color: white;
             border-color: #F57C00;
         }
 
@@ -108,8 +109,9 @@
             display: none; /* Sab hidden rahenge jab tak click na ho */
             margin-top: 20px;
             padding: 20px;
-            background-color: #222;
+            background-color: #fafafa;
             border-radius: 8px;
+            border: 1px solid #eee;
             border-left: 4px solid #F57C00;
         }
 
@@ -153,7 +155,7 @@
         }
 
         @media (max-width: 480px) {
-            .form-container { width: 90%; padding: 15px; }
+            .form-container { width: 90%; padding: 15px; margin-top: 20px; }
         }
     </style>
 </head>
@@ -178,7 +180,7 @@
         <input type="email" placeholder="Enter your Email">
     </div>
 
-    <button class="btn-payment" id="mainPaymentBtn" onclick="openPaymentOptions()">PAYMENT</button>
+    <button class="btn-payment" id="mainPaymentBtn" onclick="openPaymentOptions()">JOIN NOW</button>
 
     <div class="payment-options" id="paymentOptionsBox">
         <button class="option-btn" onclick="selectOption('upi', this)">1. UPI (PhonePe/GPay)</button>
@@ -255,4 +257,5 @@
 </script>
 
 </body>
-</html>
+    </html>
+    
