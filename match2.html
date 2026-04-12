@@ -1,1 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Entry - Fill Details</title>
+    <style>
+        /* Modern Font Import - Digital feel ke liye */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #F57C00; /* Aapka Orange Background */
+            color: #333; /* Dark text for readability on white */
+            margin: 0;
+            padding: 0 0 50px 0;
+        }
+
+        /* --- FORM SECTION --- */
+        .form-container {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: #FFFFFF; /* Pure White Box */
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2); /* Soft shadow */
+            box-sizing: border-box;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #F57C00; /* Orange Labels */
+            font-weight: bold;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9; /* Light grey input background */
+            color: #333; /* Dark text */
+            font-size: 1rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #F57C00;
+            background-color: #fff;
+            box-shadow: 0 0 8px rgba(245, 124, 0, 0.3);
+        }
+
+        /* NEW: Error Border Style (Laal Line) */
+        .error-border {
+            border: 2px solid red !important;
+            box-shadow: 0 0 8px rgba(255, 0, 0, 0.5) !important;
+            background-color: #fff0f0 !important;
+        }
+
+        /* Error Message Style */
+        .error-text {
+            color: red;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-top: 5px;
+            display: none; /* Default hidden */
+        }
+
+        /* --- GREEN JOIN NOW BUTTON --- */
+        .btn-payment {
+            background-color: #28a745; /* Green Color */
+            color: white;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
+        .btn-payment:active { transform: scale(0.98); }
+
+        /* --- PAYMENT OPTIONS (Hidden Default) --- */
+        .payment-options {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .option-btn {
+            background-color: #f1f1f1; /* Light button */
+            color: #333;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .option-btn:hover, .option-btn.active {
+            background-color: #F57C00; /* Orange active */
+            color: white;
+            border-color: #F57C00;
+        }
+
+        /* --- DYNAMIC CONTENT (Forms) --- */
+        .dynamic-section {
+            display: none; /* Sab hidden rahenge jab tak click na ho */
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fafafa;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            border-left: 4px solid #F57C00;
+        }
+
+        .redeem-msg {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* --- LIVE FIRE SUBMIT BUTTON --- */
+        .btn-submit {
+            display: none; /* Hidden by default */
+            width: 100%;
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            color: white;
+            border: 2px solid gold;
+            padding: 16px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 10px;
+            margin-top: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 20px #ff4500, 0 0 10px gold;
+            animation: superFire 0.8s infinite alternate, shake 0.5s infinite;
+        }
+
+        @keyframes superFire {
+            0% { filter: brightness(1); transform: scale(1); box-shadow: 0 0 10px #ff4500; }
+            100% { filter: brightness(1.2); transform: scale(1.02); box-shadow: 0 0 25px #ff0000, 0 0 15px gold; }
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(1deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-1deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @media (max-width: 480px) {
+            .form-container { width: 90%; padding: 15px; margin-top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    
+    <div class="input-group">
+        <label>Game UID</label>
+        <input type="number" id="uid" placeholder="Enter your UID">
+    </div>
+    <div class="input-group">
+        <label>Confirm UID</label>
+        <input type="number" id="confirm-uid" placeholder="Confirm your UID">
+        <div class="error-text" id="uid-error">UID does not match</div>
+    </div>
+    <div class="input-group">
+        <label>WhatsApp Number</label>
+        <input type="number" id="whatsapp" placeholder="Enter WhatsApp No.">
+    </div>
+    <div class="input-group">
+        <label>Gmail Address</label>
+        <input type="email" id="gmail" placeholder="Enter your Email">
+    </div>
+
+    <button class="btn-payment" id="mainPaymentBtn" onclick="openPaymentOptions()">JOIN NOW</button>
+
+    <div class="payment-options" id="paymentOptionsBox">
+        <button class="option-btn" onclick="selectOption('upi', this)">1. UPI (PhonePe/GPay)</button>
+        <button class="option-btn" onclick="selectOption('redeem', this)">2. REDEEM CODE</button>
+        <button class="option-btn" onclick="selectOption('bank', this)">3. BANK ACCOUNT</button>
+    </div>
+
+    <div class="dynamic-section" id="form-upi">
+        <div class="input-group">
+            <label>FILL UPI</label>
+            <input type="text" id="upi-id" placeholder="Enter your UPI ID (e.g. 9876543210@ybl)">
+        </div>
+    </div>
+
+    <div class="dynamic-section" id="form-redeem">
+        <div class="redeem-msg">
+            Your redeem code will be sent to your WhatsApp and email.
+        </div>
+    </div>
+
+    <div class="dynamic-section" id="form-bank">
+        <div class="input-group">
+            <label>Bank Account Number</label>
+            <input type="number" id="bank-acc" placeholder="Enter Account Number">
+        </div>
+        <div class="input-group">
+            <label>Confirm Bank Account Number</label>
+            <input type="number" id="confirm-bank-acc" placeholder="Confirm Account Number">
+            <div class="error-text" id="bank-error">does not match Bank number</div>
+        </div>
+        <div class="input-group">
+            <label>IFSC Code</label>
+            <input type="text" id="ifsc" placeholder="Enter IFSC Code">
+        </div>
+    </div>
+
+    <button class="btn-submit" id="finalSubmitBtn" onclick="validateAndSubmit()">SUBMIT MATCH ENTRY</button>
+
+</div>
+
+<script>
+    // --- DISPLAY OPTIONS SCRIPT ---
+    function openPaymentOptions() {
+        document.getElementById('paymentOptionsBox').style.display = 'flex';
+        document.getElementById('mainPaymentBtn').style.display = 'none';
+    }
+
+    function selectOption(optionType, btnElement) {
+        document.getElementById('form-upi').style.display = 'none';
+        document.getElementById('form-redeem').style.display = 'none';
+        document.getElementById('form-bank').style.display = 'none';
+
+        var btns = document.getElementsByClassName('option-btn');
+        for(var i=0; i<btns.length; i++) {
+            btns[i].classList.remove('active');
+        }
+
+        if(optionType === 'upi') document.getElementById('form-upi').style.display = 'block';
+        else if(optionType === 'redeem') document.getElementById('form-redeem').style.display = 'block';
+        else if(optionType === 'bank') document.getElementById('form-bank').style.display = 'block';
+
+        btnElement.classList.add('active');
+        document.getElementById('finalSubmitBtn').style.display = 'block';
+    }
+
+    // --- VIBRATION FUNCTION ---
+    function triggerErrorVibration() {
+        // Agar device vibration support karta hai toh 2 baar vibrate hoga
+        if (navigator.vibrate) {
+            navigator.vibrate([200, 100, 200]); 
+        }
+    }
+
+    // --- FORM VALIDATION SCRIPT ---
+    function validateAndSubmit() {
+        // Purane error message aur laal line hatao
+        document.getElementById('uid-error').style.display = 'none';
+        document.getElementById('bank-error').style.display = 'none';
+        let allInputs = document.querySelectorAll('input');
+        allInputs.forEach(input => input.classList.remove('error-border'));
+
+        // Values nikaalo
+        let uid = document.getElementById('uid');
+        let cUid = document.getElementById('confirm-uid');
+        let whatsapp = document.getElementById('whatsapp');
+        let gmail = document.getElementById('gmail');
+
+        let hasEmptyFields = false;
+
+        // 1. Check Basic Fields Khali toh nahi hai
+        [uid, cUid, whatsapp, gmail].forEach(field => {
+            if(!field.value) {
+                field.classList.add('error-border');
+                hasEmptyFields = true;
+            }
+        });
+
+        if(hasEmptyFields) {
+            triggerErrorVibration();
+            return; // Yahan ruk gaya, popup nahi aayega
+        }
+
+        // 2. UID Match checking
+        if(uid.value !== cUid.value) {
+            document.getElementById('uid-error').style.display = 'block';
+            cUid.classList.add('error-border');
+            uid.classList.add('error-border');
+            triggerErrorVibration();
+            return;
+        }
+
+        // 3. Konsa payment method khula hai?
+        let selectedPayment = "";
+        if(document.getElementById('form-upi').style.display === 'block') selectedPayment = 'upi';
+        else if(document.getElementById('form-redeem').style.display === 'block') selectedPayment = 'redeem';
+        else if(document.getElementById('form-bank').style.display === 'block') selectedPayment = 'bank';
+
+        // 4. Payment Form checking
+        if(selectedPayment === 'upi') {
+            let upiId = document.getElementById('upi-id');
+            if(!upiId.value) {
+                upiId.classList.add('error-border');
+                triggerErrorVibration();
+                return; // Popup hata diya
+            }
+        } 
+        else if(selectedPayment === 'bank') {
+            let bAcc = document.getElementById('bank-acc');
+            let cbAcc = document.getElementById('confirm-bank-acc');
+            let ifsc = document.getElementById('ifsc');
+
+            let hasEmptyBank = false;
+            [bAcc, cbAcc, ifsc].forEach(field => {
+                if(!field.value) {
+                    field.classList.add('error-border');
+                    hasEmptyBank = true;
+                }
+            });
+
+            if(hasEmptyBank) {
+                triggerErrorVibration();
+                return; // Popup hata diya
+            }
+            
+            // Bank Account match checking
+            if(bAcc.value !== cbAcc.value) {
+                document.getElementById('bank-error').style.display = 'block';
+                cbAcc.classList.add('error-border');
+                bAcc.classList.add('error-border');
+                triggerErrorVibration();
+                return;
+            }
+        }
+
+        // AGAR SAB KUCH SAHI HAI TOH NEXT PAGE PAR BHEJO
+        window.location.href = "nextpage.html";
+    }
+</script>
+
+</body>
+  </html>
 
