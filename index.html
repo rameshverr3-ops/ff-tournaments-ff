@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FF Elite Tournaments | RDX Store</title>
     <style>
-        /* Modern Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@600&family=Rajdhani:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600;800&family=Rajdhani:wght@700&display=swap');
 
         :root {
             --primary-orange: #F57C00;
             --pure-white: #FFFFFF;
             --bg-color: #F57C00;
-            --gold: #FFD700;
-            --success-green: #2ecc71;
             --fire-red: #ff4500;
-            --fire-yellow: #ff9d00;
+            --dark-footer: #1a1a1a;
         }
 
         body {
@@ -27,349 +24,236 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
 
-        /* --- 1. Top Banner & Overlay Buttons --- */
-        .top-banner {
-            width: 100%;
-            max-width: 800px;
-            position: relative;
-        }
-        .top-banner img {
-            width: 100%;
-            display: block;
-        }
-
-        .banner-buttons {
-            position: absolute;
-            top: 15px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 15px;
-            box-sizing: border-box;
-            z-index: 100;
-        }
-
-        .header-btn {
-            background-color: white;
-            padding: 6px 14px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 14px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            border: none;
-        }
-
+        /* --- Wallet Banner & Layout --- */
+        .top-banner { width: 100%; max-width: 800px; position: relative; }
+        .top-banner img { width: 100%; display: block; }
+        .banner-buttons { position: absolute; top: 15px; width: 100%; display: flex; justify-content: space-between; padding: 0 15px; box-sizing: border-box; z-index: 100; }
+        .header-btn { background-color: white; padding: 6px 14px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 4px; border: none; }
         .amount-text { color: #2ecc71; }
         .plus-icon { color: #ff0000; font-size: 16px; }
-        .history-text { color: #2ecc71; }
 
-        /* --- 2. Member Counter Section --- */
-        .member-counter-section {
-            background-color: #F57C00;
-            padding: 20px 15px;
-            text-align: center;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .counter-title {
-            color: #2ECC71;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .odometer-container {
-            display: inline-flex;
-            background: #1a1a1a;
-            padding: 10px 15px;
-            border-radius: 10px;
-            border: 2px solid #fff;
-        }
-
-        .digit-box {
-            height: 45px;
-            width: 30px;
-            overflow: hidden;
-            position: relative;
-            background: linear-gradient(to bottom, #222 0%, #333 50%, #222 100%);
-            margin: 0 2px;
-            border-radius: 4px;
-        }
-
-        .digit-strip {
-            position: absolute;
-            width: 100%;
-            transition: transform 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .digit-strip span {
-            height: 45px;
-            line-height: 45px;
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 28px;
-            color: #F57C00;
-        }
-
-        .comma { color: #fff; font-size: 30px; line-height: 45px; margin: 0 2px; }
+        /* --- Odometer --- */
+        .member-counter-section { background-color: #F57C00; padding: 20px 15px; text-align: center; width: 100%; box-sizing: border-box; }
+        .counter-title { color: #2ECC71; font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;}
+        .odometer-container { display: inline-flex; background: #1a1a1a; padding: 10px 15px; border-radius: 10px; border: 2px solid #fff; }
+        .digit-box { height: 45px; width: 30px; overflow: hidden; position: relative; background: linear-gradient(to bottom, #222 0%, #333 50%, #222 100%); margin: 0 2px; border-radius: 4px; }
+        .digit-strip { position: absolute; width: 100%; transition: transform 0.6s ease-in-out; display: flex; flex-direction: column; }
+        .digit-strip span { height: 45px; line-height: 45px; text-align: center; font-family: 'Orbitron', sans-serif; font-size: 28px; color: #F57C00; }
         .live-dot { height: 10px; width: 10px; background-color: #ff0000; border-radius: 50%; margin-right: 8px; animation: blink 1s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* --- 3. Tournament List Section --- */
-        .container { width: 100%; max-width: 800px; padding: 10px 20px 100px 20px; box-sizing: border-box; }
-        
-        header {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--pure-white);
-            color: var(--primary-orange);
-            border-radius: 15px;
-            margin-bottom: 25px;
-        }
-
-        .flex-wrapper { display: flex; flex-direction: column; }
-
-        .tournament-card {
-            background-color: var(--pure-white);
-            color: var(--primary-orange);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            border: 2px solid var(--pure-white);
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .left { align-self: flex-start; max-width: 90%; }
-        .right { align-self: flex-end; max-width: 90%; text-align: right; }
-
-        .entry-fee {
-            font-size: 1rem;
-            font-weight: bold;
-            background: var(--primary-orange);
-            color: var(--pure-white);
-            padding: 5px 15px;
-            border-radius: 50px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-
+        /* --- Cards --- */
+        .container { width: 100%; max-width: 800px; padding: 10px 20px 20px 20px; box-sizing: border-box; }
+        .tournament-card { background-color: var(--pure-white); color: var(--primary-orange); padding: 20px; margin-bottom: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); width: 100%; box-sizing: border-box; }
+        .entry-fee { font-size: 1rem; font-weight: bold; background: var(--primary-orange); color: var(--pure-white); padding: 5px 15px; border-radius: 50px; display: inline-block; }
         .winning-price { font-size: 1.8rem; font-weight: 900; margin: 5px 0; }
-
-        .btn-join {
-            background-color: var(--primary-orange);
-            color: var(--pure-white);
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            display: inline-block;
-            margin-top: 10px;
-            box-shadow: 0 0 10px var(--fire-red);
-            animation: fireGlow 1.5s infinite alternate;
-        }
-
+        .btn-join { background-color: var(--primary-orange); color: var(--pure-white); border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; animation: fireGlow 1.5s infinite alternate; }
         @keyframes fireGlow { 0% { box-shadow: 0 0 5px var(--fire-red); } 100% { box-shadow: 0 0 15px var(--fire-red); } }
 
-        .btn-challenge {
-            background: linear-gradient(45deg, #ff4500, #ff8c00);
-            border: 2px solid gold;
-            animation: superFire 0.8s infinite alternate;
-        }
-
-        @keyframes superFire { 100% { filter: brightness(1.2); transform: scale(1.03); } }
-
-        .popular-tag { background: gold; color: #000; padding: 2px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-bottom: 5px; display: inline-block; }
-
-        /* --- 4. Live Bar --- */
-        .live-announcement-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
+        /* --- FOOTER SECTION --- */
+        footer {
+            background-color: var(--dark-footer);
             width: 100%;
-            background-color: var(--primary-orange);
-            color: white;
-            padding: 12px 0;
+            padding: 40px 20px 100px 20px;
+            box-sizing: border-box;
             text-align: center;
-            font-weight: bold;
-            border-top: 2px solid white;
-            z-index: 1000;
+            font-size: 0.85rem;
+            color: #bbb;
+            border-top: 4px solid #fff;
         }
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+        .footer-links { margin: 20px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .footer-links a { color: var(--primary-orange); text-decoration: none; font-weight: bold; cursor: pointer; }
+        .company-info { line-height: 1.6; border-top: 1px solid #333; padding-top: 20px; }
 
-        @media (max-width: 600px) {
-            .tournament-card { text-align: center; align-self: center; }
-        }
+        /* --- Modals (Popups) --- */
+        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); overflow-y: auto; }
+        .modal-content { background: #fff; color: #333; margin: 10% auto; padding: 25px; width: 85%; max-width: 500px; border-radius: 15px; position: relative; text-align: left; }
+        .close-modal { position: absolute; right: 15px; top: 10px; font-size: 24px; font-weight: bold; cursor: pointer; }
+        .modal-content h2 { color: var(--primary-orange); margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+
+        /* --- Alerts --- */
+        .error-overlay { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #ff0000; color: white; padding: 15px 25px; border-radius: 10px; font-weight: 800; text-align: center; z-index: 9999; width: 85%; max-width: 400px; border: 3px solid white; box-shadow: 0 0 30px rgba(0,0,0,0.6); }
+
+        .live-announcement-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary-orange); color: white; padding: 12px 0; text-align: center; font-weight: bold; border-top: 2px solid white; z-index: 1000; }
     </style>
 </head>
 <body>
 
+    <div id="lowBalanceError" class="error-overlay">LOW BALANCE PLEASE ADD FIRST BALANCE AND TRY AGAIN</div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
     <div class="top-banner">
         <div class="banner-buttons">
-            <a href="adpay.html" class="header-btn">
-                <span class="amount-text">₹ 00.0</span> 
-                <span class="plus-icon">+</span>
-            </a>
-            <a href="history.html" class="header-btn">
-                <span class="history-text">History</span>
-            </a>
+            <a href="adpay.html" class="header-btn"><span class="amount-text">₹ 00.0</span><span class="plus-icon">+</span></a>
+            <a href="history.html" class="header-btn"><span class="history-text">History</span></a>
         </div>
         <img src="Picsart_26-04-11_18-04-26-425.jpg" alt="Banner">
     </div>
 
     <div class="member-counter-section">
-        <div class="counter-title">
-            <span class="live-dot"></span> TOTAL ACTIVE PLAYERS JOINED
-        </div>
+        <div class="counter-title"><span class="live-dot"></span> TOTAL ACTIVE PLAYERS JOINED</div>
         <div class="odometer-container" id="odometer"></div>
     </div>
 
     <div class="container">
-        <header>
+        <header style="background: white; color: #F57C00; padding: 15px; border-radius: 15px; text-align: center; margin-bottom: 20px;">
             <h1 style="margin:0; font-size: 1.5rem;">FF ELITE TOURNAMENTS</h1>
-            <p style="margin:5px 0 0 0; font-size: 0.9rem;">Battle & Win Rewards</p>
         </header>
 
-        <div class="flex-wrapper">
-            <div class="tournament-card left">
-                <div class="entry-fee">Entry: ₹80</div>
-                <div class="winning-price">Win: ₹4,000</div>
-                <a href="joinnow.html" class="btn-join">Join Match</a>
-            </div>
+        <div class="tournament-card">
+            <div class="entry-fee">Entry: ₹80</div>
+            <div class="winning-price">Win: ₹4,000</div>
+            <button onclick="handleJoinClick()" class="btn-join">Join Match</button>
+        </div>
 
-            <div class="tournament-card right">
-                <div class="entry-fee">Entry: ₹200</div>
-                <div class="winning-price">Win: ₹10,000</div>
-                <a href="joinnow.html" class="btn-join">Join Match</a>
-            </div>
+        <div class="tournament-card" style="text-align: right;">
+            <div class="entry-fee">Entry: ₹200</div>
+            <div class="winning-price">Win: ₹10,000</div>
+            <button onclick="handleJoinClick()" class="btn-join">Join Match</button>
+        </div>
 
-            <div class="tournament-card left" style="max-width: 100%;">
-                <div class="popular-tag">🔥 Popular</div><br>
-                <div class="entry-fee">Entry: ₹120</div>
-                <div class="winning-price">₹90 / Min</div>
-                <p style="font-size: 0.8rem; font-style: italic; margin: 5px 0;">Survive 1 min = ₹90 | Per Kill = ₹20 extra</p>
-                <a href="joinnow.html" class="btn-join btn-challenge">Start Challenge</a>
-                <div style="background: #28a745; color: white; padding: 5px; border-radius: 5px; margin-top: 10px; font-size: 0.8rem;">
-                    ✅ 4372+ Players Joined
-                </div>
-            </div>
+        <div class="tournament-card">
+            <span style="background:gold; color:black; padding:2px 8px; border-radius:4px; font-size:12px; font-weight:bold;">🔥 Popular</span><br><br>
+            <div class="entry-fee">Entry: ₹120</div>
+            <div class="winning-price">₹90 / Min</div>
+            <p style="font-size: 0.8rem; color:#666;">Survive 1 min = ₹90 | Per Kill = ₹20 bonus</p>
+            <button onclick="handleJoinClick()" class="btn-join" style="background: linear-gradient(45deg, #ff4500, #ff8c00); width:100%;">Start Challenge</button>
         </div>
     </div>
 
+    <footer>
+        <a href="https://wa.me/917877904182?text=Hello%20Support%20Team,%20I%20need%20help." class="whatsapp-btn">
+            <span>Help & Support</span>
+        </a>
+
+        <div class="footer-links">
+            <a onclick="showTerms()">Terms & Conditions</a>
+            <a onclick="showPrivacy()">Privacy Policy</a>
+            <a onclick="showRefund()">Refund Policy</a>
+        </div>
+
+        <div class="company-info">
+            <p><strong>Powered by FF Tournaments India</strong></p>
+            <p>Licence No: FFTI-IND-2026-88012 | Reg No: 7877/HRY/2024</p>
+            <p>GSTIN: 06AABCX1234F1Z5 (Registered)</p>
+            <p>Office: Building 42, Silana, Dist. Jhajjar, Haryana - 124103</p>
+            <p style="margin-top: 15px; font-size: 10px; opacity: 0.6;">© 2026 RDX Store. All Rights Reserved.</p>
+        </div>
+    </footer>
+
     <div class="live-announcement-bar">
-        <div id="announcement-text">Taiyar ho jaiye...</div>
+        <div id="announcement-text">Preparing matches...</div>
     </div>
 
     <script>
-        /* --- Odometer Logic --- */
-        const startVal = 10000;
-        const endVal = 500000;
-        const now = new Date();
-        const secondsPassedToday = (now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds();
-        let currentCount = Math.floor(startVal + ((secondsPassedToday / 86400) * (endVal - startVal)));
+        // Modal Logic
+        const modal = document.getElementById("infoModal");
+        const modalBody = document.getElementById("modalBody");
 
-        const odometerElement = document.getElementById('odometer');
+        function showTerms() {
+            modalBody.innerHTML = `<h2>Terms & Conditions</h2>
+            <ul>
+                <li>Players are not allowed to stay in one position (Camping) for more than 10 seconds in the custom room.</li>
+                <li>The player's Free Fire ID must be at least <b>Level 30</b> or higher.</li>
+                <li>If any player is found using glitches, config files, or any hacks, the account will be <b>Permanently Suspended</b> without warning.</li>
+                <li>The final decision regarding tournament results rests with the Admin.</li>
+                <li>Room ID and Password will be provided in the app 5 minutes before the match starts.</li>
+                <li>Fair play is mandatory; teaming up with opponents will lead to immediate disqualification.</li>
+            </ul>`;
+            modal.style.display = "block";
+        }
 
+        function showPrivacy() {
+            modalBody.innerHTML = `<h2>Privacy Policy</h2>
+            <p>We collect personal data such as Name and Mobile number solely for prize distribution and account verification. Your data is never shared with third-party advertisers. All information is stored on secure, encrypted servers to ensure maximum safety.</p>
+            <p>By using this platform, you agree to our data handling protocols designed to protect your gaming identity.</p>`;
+            modal.style.display = "block";
+        }
+
+        function showRefund() {
+            modalBody.innerHTML = `<h2>Refund Policy</h2>
+            <ul>
+                <li>Once <b>Funds are Added</b> to the wallet, they cannot be refunded to the bank account.</li>
+                <li>Added balance can only be used to participate in tournaments hosted on the platform.</li>
+                <li>To withdraw funds, users must participate in matches and convert their balance into <b>Winning Cash</b>.</li>
+                <li>Minimum withdrawal amount is ₹100 | Maximum daily withdrawal is ₹10,000.</li>
+                <li>In case of technical match cancellations by the server, entry fees will be credited back to the user's app wallet.</li>
+            </ul>`;
+            modal.style.display = "block";
+        }
+
+        function closeModal() { modal.style.display = "none"; }
+        window.onclick = function(event) { if (event.target == modal) closeModal(); }
+
+        // Button Logic
+        function handleJoinClick() {
+            if ("vibrate" in navigator) navigator.vibrate(500);
+            const err = document.getElementById('lowBalanceError');
+            err.style.display = 'block';
+            setTimeout(() => { err.style.display = 'none'; }, 5000);
+        }
+
+        // Odometer Logic
+        const odometer = document.getElementById('odometer');
+        let currentCount = 145200;
         function initOdometer() {
             const countStr = currentCount.toString().padStart(6, '0');
-            odometerElement.innerHTML = '';
+            odometer.innerHTML = '';
             for (let i = 0; i < countStr.length; i++) {
                 const box = document.createElement('div');
                 box.className = 'digit-box';
                 const strip = document.createElement('div');
                 strip.className = 'digit-strip';
                 strip.id = `digit-${i}`;
-                for (let j = 0; j <= 9; j++) {
-                    const span = document.createElement('span');
-                    span.innerText = j;
-                    strip.appendChild(span);
-                }
+                for (let j = 0; j <= 9; j++) strip.innerHTML += `<span>${j}</span>`;
                 box.appendChild(strip);
-                odometerElement.appendChild(box);
-                if (i === 2) {
-                    const comma = document.createElement('div');
-                    comma.className = 'comma';
-                    comma.innerText = ',';
-                    odometerElement.appendChild(comma);
-                }
+                odometer.appendChild(box);
+                if (i === 2) { odometer.innerHTML += `<div style="font-size:30px; margin:0 5px;">,</div>`; }
             }
-            updateOdometer(true);
+            updateOdometer();
         }
-
-        function updateOdometer(initial = false) {
+        function updateOdometer() {
             const countStr = currentCount.toString().padStart(6, '0');
             for (let i = 0; i < countStr.length; i++) {
                 const strip = document.getElementById(`digit-${i}`);
-                if (strip) {
-                    const digit = parseInt(countStr[i]);
-                    strip.style.transform = `translateY(${-digit * 45}px)`;
-                }
+                if (strip) strip.style.transform = `translateY(${-parseInt(countStr[i]) * 45}px)`;
             }
         }
-
-        setInterval(() => {
-            currentCount += Math.floor(Math.random() * 5) + 1;
-            updateOdometer();
-        }, 5000);
-
+        setInterval(() => { currentCount += Math.floor(Math.random() * 5) + 1; updateOdometer(); }, 4000);
         initOdometer();
 
-        /* --- Optimized Announcement Logic --- */
-        const names = ["Zaid", "Arjun", "Rahul", "Mustafa", "Sunny", "Rohan", "Kabir", "Ishaan", "Vikram", "Yash", "Gaurav", "Sahil", "Imran", "Aditya", "Sameer", "Karan"];
-        
+        // Announcement
+        const names = ["Zaid", "Arjun", "Rahul", "Mustafa", "Sunny", "Rohan", "Kabir", "Ishaan", "Aditya", "Sameer", "Karan"];
         function updateAnnouncement() {
             const name = names[Math.floor(Math.random() * names.length)];
             const text = document.getElementById('announcement-text');
-            const chance = Math.random(); 
-            
-            let message = "";
-
-            if (chance < 0.7) {
-                // Winning Section (Min 270, Max 5000)
-                let winAmount;
-                const innerChance = Math.random();
-                if (innerChance < 0.8) {
-                    // 80% chances of 270 or 360
-                    winAmount = Math.random() > 0.5 ? 270 : 360;
-                } else {
-                    // 20% chances of random win between 361 and 5000
-                    winAmount = Math.floor(Math.random() * (5000 - 361 + 1)) + 361;
-                }
-                message = `🏆 ${name} Winning ₹${winAmount.toLocaleString('en-IN')}`;
-            } 
-            else {
-                // Withdrawal Section (Min 500, Max 10000)
-                let drawAmount;
-                const innerChance = Math.random();
-                if (innerChance < 0.7) {
-                    // Mostly ₹2000
-                    drawAmount = 2000;
-                } else {
-                    // Random Withdrawal between 500 and 10000
-                    drawAmount = Math.floor(Math.random() * (10000 - 500 + 1)) + 500;
-                }
-                message = `💸 ${name} Payment Withdrawal ₹${drawAmount.toLocaleString('en-IN')}`;
-            }
-
-            text.innerText = message;
-            const nextTime = Math.floor(Math.random() * 3000) + 4000;
-            setTimeout(updateAnnouncement, nextTime);
+            const isWin = Math.random() < 0.7;
+            let amount = isWin ? (Math.random() > 0.5 ? 270 : 360) : 2000;
+            text.innerText = isWin ? `🏆 ${name} Won ₹${amount}` : `💸 ${name} Withdrew ₹${amount}`;
+            setTimeout(updateAnnouncement, 5000);
         }
-        
         updateAnnouncement();
     </script>
 </body>
