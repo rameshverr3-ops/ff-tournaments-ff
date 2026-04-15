@@ -181,7 +181,8 @@
 
             <div class="input-group">
                 <label>Enter Amount (Min: 100 - Max: 10,000)</label>
-                <input type="number" id="w_amount" min="100" max="10000" placeholder="0.00">
+                <input type="number" id="w_amount" placeholder="0.00">
+                <div id="amount-error" class="error-text">Please enter amount UP to 100</div>
             </div>
 
             <button type="button" id="final-w-btn" class="btn withdraw-btn submit-btn" onclick="validateWithdrawal()">Withdrawal Now</button>
@@ -217,8 +218,21 @@
             let fields = [];
             let isValid = true;
 
-            // Always check amount
-            fields.push(document.getElementById('w_amount'));
+            // Amount check
+            const amountInput = document.getElementById('w_amount');
+            const amountVal = parseFloat(amountInput.value);
+            const amountError = document.getElementById('amount-error');
+            
+            // Sabse pehle amount check karein
+            if (isNaN(amountVal) || amountVal < 100 || amountVal > 10000) {
+                amountInput.classList.add('error-border');
+                amountError.style.display = 'block';
+                isValid = false;
+            } else {
+                amountInput.classList.remove('error-border');
+                amountError.style.display = 'none';
+                fields.push(amountInput);
+            }
 
             // Check dynamic fields
             if (method === 'upi') {
@@ -240,13 +254,11 @@
                 }
             }
 
-            // Check for empty fields, add red border, and vibrate
+            // Check for empty fields, add red border
             fields.forEach(field => {
                 if (field.value.trim() === "") {
                     field.classList.add('error-border');
                     isValid = false;
-                } else {
-                    field.classList.remove('error-border');
                 }
             });
 
