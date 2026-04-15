@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Join Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 { color: #ffcc00; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        label { display: block; margin-bottom: 5px; font-size: 14px; color: #bbb; }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: #2b2b2b;
+            color: white;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus { border-color: #ffcc00; }
+
+        /* Error Styles */
+        .error-border { border: 2px solid red !important; }
+        .error-msg { color: red; font-size: 12px; display: none; margin-top: 5px; }
+
+        .join-btn {
+            background: #ffcc00;
+            color: #000;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        /* Confirmation Popup */
+        #confirm-box {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .popup {
+            background: #fff;
+            color: #000;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            width: 85%;
+            max-width: 320px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .popup p { font-size: 18px; font-weight: 600; margin-bottom: 20px; color: #333; }
+
+        .popup-btns {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .pop-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .yes-btn { background: #28a745; color: white; }
+        .no-btn { background: #dc3545; color: white; }
+
+        /* Loading Spinner */
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #000;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 0.8s linear infinite;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Success Message Overlay */
+        #thanks-msg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            color: #28a745;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            font-weight: bold;
+            z-index: 2000;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Tournament Entry</h2>
+        <form id="joinForm">
+            <div class="input-group">
+                <label>Player Name</label>
+                <input type="text" id="name" placeholder="Full Name">
+            </div>
+            <div class="input-group">
+                <label>Free Fire UID</label>
+                <input type="number" id="ff_uid" placeholder="UID Number">
+            </div>
+            <div class="input-group">
+                <label>Confirm Free Fire UID</label>
+                <input type="number" id="c_ff_uid" placeholder="Re-enter UID">
+                <div id="uid-error" class="error-msg">Free Fire UID does not match!</div>
+            </div>
+            <div class="input-group">
+                <label>WhatsApp Number</label>
+                <input type="number" id="wa_num" placeholder="Valid Number">
+            </div>
+            <div class="input-group">
+                <label>Gmail Address</label>
+                <input type="email" id="email" placeholder="Email ID">
+            </div>
+            <button type="button" class="join-btn" onclick="checkValidation()">Join Now</button>
+        </form>
+    </div>
+
+    <div id="confirm-box">
+        <div class="popup">
+            <p>Are you sure you want to join this tournament?</p>
+            <div class="popup-btns">
+                <button class="pop-btn yes-btn" onclick="finalSubmit()">Yes, Join</button>
+                <button class="pop-btn no-btn" onclick="closePopup()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="thanks-msg">
+        THANKS FOR JOINING!
+    </div>
+
+    <script>
+        function checkValidation() {
+            let fields = [
+                document.getElementById('name'),
+                document.getElementById('ff_uid'),
+                document.getElementById('c_ff_uid'),
+                document.getElementById('wa_num'),
+                document.getElementById('email')
+            ];
+            
+            let isValid = true;
+            const uid = document.getElementById('ff_uid').value;
+            const c_uid = document.getElementById('c_ff_uid').value;
+            const errorText = document.getElementById('uid-error');
+
+            // Check if fields are empty
+            fields.forEach(f => {
+                if (f.value.trim() === "") {
+                    f.classList.add('error-border');
+                    isValid = false;
+                } else {
+                    f.classList.remove('error-border');
+                }
+            });
+
+            // Match UID
+            if (uid !== c_uid && uid !== "" && c_uid !== "") {
+                errorText.style.display = "block";
+                document.getElementById('c_ff_uid').classList.add('error-border');
+                isValid = false;
+            } else {
+                errorText.style.display = "none";
+            }
+
+            if (!isValid) {
+                if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+                return;
+            }
+
+            // Show Confirmation Popup
+            document.getElementById('confirm-box').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('confirm-box').style.display = 'none';
+        }
+
+        function finalSubmit() {
+            const yesBtn = document.querySelector('.yes-btn');
+            // Show Loading UI
+            yesBtn.innerHTML = '<span class="loader"></span> Processing...';
+            yesBtn.disabled = true;
+
+            // 5 Seconds Loading
+            setTimeout(() => {
+                document.getElementById('confirm-box').style.display = 'none';
+                document.getElementById('thanks-msg').style.display = 'flex';
+
+                // 3 Seconds Success screen then redirect
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 3000);
+
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
