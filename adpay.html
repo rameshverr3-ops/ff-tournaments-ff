@@ -274,14 +274,30 @@
             document.getElementById('success-overlay').style.display = 'flex';
         }
 
-        // Add payment redirect
+        // Updated payment redirect logic
         function processAddPayment() {
             const selected = document.querySelector('input[name="add_amt"]:checked');
             if (!selected) {
                 alert("Please select an amount first.");
                 return;
             }
-            window.open("https://drive.google.com/file/d/10BEJhRtB0cR3wcMGfUI9T2jWZyYDyrRn/view", "_blank");
+
+            const value = selected.value;
+            let link = "";
+
+            if (value === "300") {
+                link = "https://drive.google.com/file/d/1Fa95Dd1TUQn69J3SBbWNsd8a1Dg0zgWM/view?usp=drivesdk";
+            } else if (value === "500") {
+                link = "https://drive.google.com/file/d/1tQdhZcz8R-ay9i_PfJ3_nxmhQKVTJ7yD/view?usp=drivesdk";
+            } else if (value === "800") {
+                link = "https://drive.google.com/file/d/1RJHbqXlZu8Ig4ZtSCjbfOeh9v6d9Qt0V/view?usp=drivesdk";
+            } else if (value === "1000") {
+                link = "https://drive.google.com/file/d/1ME52ZI0E1Ra0ZTSkMjjbzPEXd4BLJifi/view?usp=drivesdk";
+            }
+
+            if (link !== "") {
+                window.open(link, "_blank");
+            }
         }
     </script>
 </body>
