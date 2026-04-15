@@ -3,79 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction History</title>
+    <title>Payment Page</title>
     <style>
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        /* Top Buttons Container */
+        .top-nav {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Screen ke beech mein dikhane ke liye */
-        }
-        .history-container {
-            width: 90%;
-            max-width: 400px;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .header-text {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px; /* Thoda gap kam kiya balance ke liye */
-            border-bottom: 1px solid #eee;
-            padding-bottom: 15px;
-        }
-        /* Balance Section */
-        .balance-container {
-            margin-bottom: 40px;
-        }
-        .balance-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        .balance-amount {
-            font-size: 28px;
-            font-weight: bold;
-            color: #27ae60; /* Green colour for balance */
-        }
-        .no-data-content {
-            opacity: 0.5; /* 50% Opacity jaisa aapne manga */
+            justify-content: space-between;
             margin-bottom: 30px;
         }
-        .icon {
-            font-size: 60px;
-            margin-bottom: 10px;
-            display: block;
-        }
-        .msg {
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
             font-size: 16px;
-            font-weight: 500;
-            color: #000;
+        }
+
+        .add-pay-btn { background-color: #28a745; } /* Green */
+        .withdraw-btn { background-color: #ff8c00; } /* Orange */
+
+        /* Payment Options Box */
+        #payment-box {
+            display: none; /* Shuruat me hidden rahega */
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .option-item {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .option-item input { margin-right: 10px; }
+
+        .submit-pay-btn {
+            background-color: #28a745;
+            width: 100%;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div class="history-container">
-        <div class="header-text">Your History</div>
-
-        <div class="balance-container">
-            <div class="balance-label">Available Balance</div>
-            <div class="balance-amount">₹3084.5</div>
-        </div>
-
-        <div class="no-data-content">
-            <span class="icon">📁</span> 
-            <div class="msg">No transaction available</div>
-        </div>
+    <div class="top-nav">
+        <button class="btn add-pay-btn" onclick="showPaymentOptions()">Add Payment</button>
+        <button class="btn withdraw-btn">Withdrawal</button>
     </div>
+
+    <div id="payment-box">
+        <h3>Select Amount</h3>
+        <div class="options-container">
+            <label class="option-item">
+                <input type="radio" name="amount" value="300"> Rs 300
+            </label>
+            <label class="option-item">
+                <input type="radio" name="amount" value="500"> Rs 500
+            </label>
+            <label class="option-item">
+                <input type="radio" name="amount" value="800"> Rs 800
+            </label>
+            <label class="option-item">
+                <input type="radio" name="amount" value="1000"> Rs 1000
+            </label>
+        </div>
+        <button class="btn submit-pay-btn" onclick="redirectToPayment()">Add Payment</button>
+    </div>
+
+    <script>
+        // Box dikhane ke liye function
+        function showPaymentOptions() {
+            document.getElementById('payment-box').style.display = 'block';
+        }
+
+        // Sahi link par redirect karne ke liye function
+        function redirectToPayment() {
+            const selectedAmount = document.querySelector('input[name="amount"]:checked');
+            
+            if (!selectedAmount) {
+                alert("Kripya ek amount select karein!");
+                return;
+            }
+
+            const amount = selectedAmount.value;
+
+            // Yahan aap apni links change kar sakte hain
+            const links = {
+                "300": "https://drive.google.com/file/d/10BEJhRtB0cR3wcMGfUI9T2jWZyYDyrRn/view",
+                "500": "https://drive.google.com/file/d/10BEJhRtB0cR3wcMGfUI9T2jWZyYDyrRn/view",
+                "800": "https://drive.google.com/file/d/10BEJhRtB0cR3wcMGfUI9T2jWZyYDyrRn/view",
+                "1000": "https://drive.google.com/file/d/10BEJhRtB0cR3wcMGfUI9T2jWZyYDyrRn/view"
+            };
+
+            // Naye tab me link khulegi
+            window.open(links[amount], "_blank");
+        }
+    </script>
 
 </body>
 </html>
