@@ -328,15 +328,35 @@
 
         initOdometer();
 
-        /* --- Announcement Logic --- */
-        const names = ["Zaid", "Arjun", "Rahul", "Mustafa", "Sunny", "Rohan", "Kabir", "Ishaan", "Vikram"];
+        /* --- Updated Announcement Logic --- */
+        const names = ["Zaid", "Arjun", "Rahul", "Mustafa", "Sunny", "Rohan", "Kabir", "Ishaan", "Vikram", "Yash", "Gaurav", "Sahil", "Imran", "Aditya"];
+        
         function updateAnnouncement() {
             const name = names[Math.floor(Math.random() * names.length)];
-            const amount = Math.floor(Math.random() * 5000) + 500;
             const text = document.getElementById('announcement-text');
-            text.innerText = `🏆 ${name} Winning ₹${amount.toLocaleString('en-IN')}`;
-            setTimeout(updateAnnouncement, 5000);
+            const chance = Math.random(); // Random number 0 se 1 ke bich
+            
+            let message = "";
+
+            // 70% chances for Winning Rs 270 or 360
+            if (chance < 0.7) {
+                const winAmount = Math.random() > 0.5 ? 270 : 360;
+                message = `🏆 ${name} Winning ₹${winAmount}`;
+            } 
+            // Baki 30% mein Withdrawal (mostly ₹2000)
+            else {
+                // Withdrawal mein ₹2000 dikhane ka chance zyada rakha hai
+                const withdrawalAmount = Math.random() > 0.2 ? 2000 : 5000;
+                message = `💸 ${name} Payment Withdrawal ₹${withdrawalAmount}`;
+            }
+
+            text.innerText = message;
+            
+            // Random time interval 4 to 7 seconds
+            const nextTime = Math.floor(Math.random() * 3000) + 4000;
+            setTimeout(updateAnnouncement, nextTime);
         }
+        
         updateAnnouncement();
     </script>
 </body>
