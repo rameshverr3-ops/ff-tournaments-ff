@@ -148,21 +148,21 @@
             </div>
 
             <div id="redeem-fields" style="display:none;">
-                <p class="info-msg">Aapka redeem code hum WhatsApp aur Gmail par bhej denge.</p>
+                <p class="info-msg">Your redeem code will be sent to your WhatsApp number and Email ID.</p>
                 <div class="input-group">
                     <label>WhatsApp Number</label>
-                    <input type="number" id="w_phone" placeholder="Enter Number">
+                    <input type="number" id="w_phone" placeholder="Enter WhatsApp Number">
                 </div>
                 <div class="input-group">
                     <label>Email ID</label>
-                    <input type="email" id="w_email" placeholder="Enter Email">
+                    <input type="email" id="w_email" placeholder="Enter Email Address">
                 </div>
             </div>
 
             <div id="bank-fields" style="display:none;">
                 <div class="input-group">
-                    <label>Account Number</label>
-                    <input type="number" id="bank_acc" placeholder="Account Number">
+                    <label>Bank Account Number</label>
+                    <input type="number" id="bank_acc" placeholder="Enter Account Number">
                 </div>
                 <div class="input-group">
                     <label>Confirm Account Number</label>
@@ -171,17 +171,17 @@
                 </div>
                 <div class="input-group">
                     <label>IFSC Code</label>
-                    <input type="text" id="bank_ifsc" placeholder="IFSC Code">
+                    <input type="text" id="bank_ifsc" placeholder="Enter IFSC Code">
                 </div>
                 <div class="input-group">
                     <label>Bank Holder Name</label>
-                    <input type="text" id="bank_name" placeholder="Holder Name">
+                    <input type="text" id="bank_name" placeholder="Enter Holder Name">
                 </div>
             </div>
 
             <div class="input-group">
-                <label>Amount (100 - 10,000)</label>
-                <input type="number" id="w_amount" min="100" max="10000" placeholder="Enter Amount">
+                <label>Enter Amount (Min: 100 - Max: 10,000)</label>
+                <input type="number" id="w_amount" min="100" max="10000" placeholder="0.00">
             </div>
 
             <button type="button" id="final-w-btn" class="btn withdraw-btn submit-btn" onclick="validateWithdrawal()">Withdrawal Now</button>
@@ -189,16 +189,18 @@
     </div>
 
     <div id="success-overlay">
-        your request is submit please wait 10 to 15 minutes.
+        Your request is submitted. Please wait 10 to 15 minutes.
     </div>
 
     <script>
+        // Switch between Add Payment and Withdrawal boxes
         function showSection(id) {
             document.getElementById('payment-box').style.display = 'none';
             document.getElementById('withdraw-box').style.display = 'none';
             document.getElementById(id).style.display = 'block';
         }
 
+        // Toggle form fields based on method selection
         function toggleWFields() {
             const method = document.querySelector('input[name="w_method"]:checked').value;
             document.getElementById('upi-fields').style.display = (method === 'upi') ? 'block' : 'none';
@@ -209,14 +211,16 @@
             btn.innerText = (method === 'redeem') ? "Redeem Now" : "Withdrawal Now";
         }
 
+        // Validation logic
         function validateWithdrawal() {
             const method = document.querySelector('input[name="w_method"]:checked').value;
             let fields = [];
             let isValid = true;
 
-            // Common amount check
+            // Always check amount
             fields.push(document.getElementById('w_amount'));
 
+            // Check dynamic fields
             if (method === 'upi') {
                 fields.push(document.getElementById('upi_id'));
             } else if (method === 'redeem') {
@@ -226,7 +230,8 @@
                 const conf = document.getElementById('bank_acc_conf');
                 fields.push(acc, conf, document.getElementById('bank_ifsc'), document.getElementById('bank_name'));
                 
-                if (acc.value !== conf.value && acc.value !== "") {
+                // Match Account Numbers
+                if (acc.value !== conf.value || acc.value === "") {
                     document.getElementById('acc-error').style.display = 'block';
                     conf.classList.add('error-border');
                     isValid = false;
@@ -235,7 +240,7 @@
                 }
             }
 
-            // Empty field check & Vibration
+            // Check for empty fields, add red border, and vibrate
             fields.forEach(field => {
                 if (field.value.trim() === "") {
                     field.classList.add('error-border');
@@ -246,18 +251,22 @@
             });
 
             if (!isValid) {
-                if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+                // Vibrate twice if possible on mobile devices
+                if (navigator.vibrate) {
+                    navigator.vibrate([200, 100, 200]);
+                }
                 return;
             }
 
-            // Success
+            // Show success overlay
             document.getElementById('success-overlay').style.display = 'flex';
         }
 
+        // Add payment redirect
         function processAddPayment() {
             const selected = document.querySelector('input[name="add_amt"]:checked');
             if (!selected) {
-                alert("Please select amount");
+                alert("Please select an amount first.");
                 return;
             }
             window.open("https://drive.google.com/file/d/10BEJhRtB0cR3wcMGfUI9T2jWZyYDyrRn/view", "_blank");
