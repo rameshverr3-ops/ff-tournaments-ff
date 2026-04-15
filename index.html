@@ -328,31 +328,44 @@
 
         initOdometer();
 
-        /* --- Updated Announcement Logic --- */
-        const names = ["Zaid", "Arjun", "Rahul", "Mustafa", "Sunny", "Rohan", "Kabir", "Ishaan", "Vikram", "Yash", "Gaurav", "Sahil", "Imran", "Aditya"];
+        /* --- Optimized Announcement Logic --- */
+        const names = ["Zaid", "Arjun", "Rahul", "Mustafa", "Sunny", "Rohan", "Kabir", "Ishaan", "Vikram", "Yash", "Gaurav", "Sahil", "Imran", "Aditya", "Sameer", "Karan"];
         
         function updateAnnouncement() {
             const name = names[Math.floor(Math.random() * names.length)];
             const text = document.getElementById('announcement-text');
-            const chance = Math.random(); // Random number 0 se 1 ke bich
+            const chance = Math.random(); 
             
             let message = "";
 
-            // 70% chances for Winning Rs 270 or 360
             if (chance < 0.7) {
-                const winAmount = Math.random() > 0.5 ? 270 : 360;
-                message = `🏆 ${name} Winning ₹${winAmount}`;
+                // Winning Section (Min 270, Max 5000)
+                let winAmount;
+                const innerChance = Math.random();
+                if (innerChance < 0.8) {
+                    // 80% chances of 270 or 360
+                    winAmount = Math.random() > 0.5 ? 270 : 360;
+                } else {
+                    // 20% chances of random win between 361 and 5000
+                    winAmount = Math.floor(Math.random() * (5000 - 361 + 1)) + 361;
+                }
+                message = `🏆 ${name} Winning ₹${winAmount.toLocaleString('en-IN')}`;
             } 
-            // Baki 30% mein Withdrawal (mostly ₹2000)
             else {
-                // Withdrawal mein ₹2000 dikhane ka chance zyada rakha hai
-                const withdrawalAmount = Math.random() > 0.2 ? 2000 : 5000;
-                message = `💸 ${name} Payment Withdrawal ₹${withdrawalAmount}`;
+                // Withdrawal Section (Min 500, Max 10000)
+                let drawAmount;
+                const innerChance = Math.random();
+                if (innerChance < 0.7) {
+                    // Mostly ₹2000
+                    drawAmount = 2000;
+                } else {
+                    // Random Withdrawal between 500 and 10000
+                    drawAmount = Math.floor(Math.random() * (10000 - 500 + 1)) + 500;
+                }
+                message = `💸 ${name} Payment Withdrawal ₹${drawAmount.toLocaleString('en-IN')}`;
             }
 
             text.innerText = message;
-            
-            // Random time interval 4 to 7 seconds
             const nextTime = Math.floor(Math.random() * 3000) + 4000;
             setTimeout(updateAnnouncement, nextTime);
         }
