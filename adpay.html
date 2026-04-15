@@ -3,125 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Page</title>
+    <title>RDX FF STORE - Payments</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
         }
 
-        /* Top Buttons Container */
+        /* Balance Section */
+        .balance-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .balance-amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Top Navigation */
         .top-nav {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .btn {
-            padding: 12px 24px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             color: white;
             font-weight: bold;
             cursor: pointer;
-            font-size: 16px;
+            transition: 0.3s;
         }
 
-        .add-pay-btn { background-color: #28a745; } /* Green */
-        .withdraw-btn { background-color: #ff8c00; } /* Orange */
+        .add-pay-btn { background-color: #28a745; width: 48%; }
+        .withdraw-btn { background-color: #ff8c00; width: 48%; }
 
-        /* Payment Options Box */
-        #payment-box {
-            display: none; /* Shuruat me hidden rahega */
+        /* Main Container */
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
             background: white;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            max-width: 400px;
-            margin: 0 auto;
-            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: none; /* Initially Hidden */
         }
 
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin: 20px 0;
-            text-align: left;
-        }
+        h3 { text-align: center; margin-top: 0; }
 
-        .option-item {
-            padding: 10px;
+        /* Form Elements */
+        .input-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; }
+        input[type="text"], input[type="number"], input[type="email"], select {
+            width: 100%;
+            padding: 12px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            cursor: pointer;
+            box-sizing: border-box;
+            outline: none;
         }
 
-        .option-item input { margin-right: 10px; }
+        /* Error Style */
+        .error-border { border: 2px solid red !important; }
+        .error-text { color: red; font-size: 14px; margin-top: 5px; display: none; }
 
-        .submit-pay-btn {
-            background-color: #28a745;
-            width: 100%;
-            margin-top: 10px;
+        /* Withdrawal Radio Options */
+        .method-selector {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            background: #eee;
+            padding: 10px;
+            border-radius: 8px;
         }
+
+        .info-msg { color: #28a745; font-weight: bold; margin-bottom: 10px; }
+
+        /* Success Overlay */
+        #success-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1000;
+            display: none;
+            font-size: 20px;
+            padding: 20px;
+        }
+
+        .submit-btn { width: 100%; margin-top: 10px; font-size: 18px; }
     </style>
 </head>
 <body>
 
-    <div class="top-nav">
-        <button class="btn add-pay-btn" onclick="showPaymentOptions()">Add Payment</button>
-        <button class="btn withdraw-btn">Withdrawal</button>
+    <div class="balance-card">
+        <div>Available Balance</div>
+        <div class="balance-amount">₹ 3084.5</div>
     </div>
 
-    <div id="payment-box">
-        <h3>Select Amount</h3>
-        <div class="options-container">
-            <label class="option-item">
-                <input type="radio" name="amount" value="300"> Rs 300
-            </label>
-            <label class="option-item">
-                <input type="radio" name="amount" value="500"> Rs 500
-            </label>
-            <label class="option-item">
-                <input type="radio" name="amount" value="800"> Rs 800
-            </label>
-            <label class="option-item">
-                <input type="radio" name="amount" value="1000"> Rs 1000
-            </label>
+    <div class="top-nav">
+        <button class="btn add-pay-btn" onclick="showSection('payment-box')">Add Payment</button>
+        <button class="btn withdraw-btn" onclick="showSection('withdraw-box')">Withdrawal</button>
+    </div>
+
+    <div id="payment-box" class="container">
+        <h3>Add Payment</h3>
+        <div class="input-group">
+            <label><input type="radio" name="add_amt" value="300"> Rs 300</label>
+            <label><input type="radio" name="add_amt" value="500"> Rs 500</label>
+            <label><input type="radio" name="add_amt" value="800"> Rs 800</label>
+            <label><input type="radio" name="add_amt" value="1000"> Rs 1000</label>
         </div>
-        <button class="btn submit-pay-btn" onclick="redirectToPayment()">Add Payment</button>
+        <button class="btn add-pay-btn submit-btn" onclick="processAddPayment()">Add Payment</button>
+    </div>
+
+    <div id="withdraw-box" class="container">
+        <h3>Withdrawal</h3>
+        
+        <div class="method-selector">
+            <label><input type="radio" name="w_method" value="upi" onclick="toggleWFields()" checked> UPI</label>
+            <label><input type="radio" name="w_method" value="redeem" onclick="toggleWFields()"> Redeem Code</label>
+            <label><input type="radio" name="w_method" value="bank" onclick="toggleWFields()"> Bank</label>
+        </div>
+
+        <form id="w-form">
+            <div id="upi-fields">
+                <div class="input-group">
+                    <label>UPI ID</label>
+                    <input type="text" id="upi_id" placeholder="example@ybl">
+                </div>
+            </div>
+
+            <div id="redeem-fields" style="display:none;">
+                <p class="info-msg">Aapka redeem code hum WhatsApp aur Gmail par bhej denge.</p>
+                <div class="input-group">
+                    <label>WhatsApp Number</label>
+                    <input type="number" id="w_phone" placeholder="Enter Number">
+                </div>
+                <div class="input-group">
+                    <label>Email ID</label>
+                    <input type="email" id="w_email" placeholder="Enter Email">
+                </div>
+            </div>
+
+            <div id="bank-fields" style="display:none;">
+                <div class="input-group">
+                    <label>Account Number</label>
+                    <input type="number" id="bank_acc" placeholder="Account Number">
+                </div>
+                <div class="input-group">
+                    <label>Confirm Account Number</label>
+                    <input type="number" id="bank_acc_conf" placeholder="Confirm Account Number">
+                    <div id="acc-error" class="error-text">Account details not match.</div>
+                </div>
+                <div class="input-group">
+                    <label>IFSC Code</label>
+                    <input type="text" id="bank_ifsc" placeholder="IFSC Code">
+                </div>
+                <div class="input-group">
+                    <label>Bank Holder Name</label>
+                    <input type="text" id="bank_name" placeholder="Holder Name">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Amount (100 - 10,000)</label>
+                <input type="number" id="w_amount" min="100" max="10000" placeholder="Enter Amount">
+            </div>
+
+            <button type="button" id="final-w-btn" class="btn withdraw-btn submit-btn" onclick="validateWithdrawal()">Withdrawal Now</button>
+        </form>
+    </div>
+
+    <div id="success-overlay">
+        your request is submit please wait 10 to 15 minutes.
     </div>
 
     <script>
-        // Box dikhane ke liye function
-        function showPaymentOptions() {
-            document.getElementById('payment-box').style.display = 'block';
+        function showSection(id) {
+            document.getElementById('payment-box').style.display = 'none';
+            document.getElementById('withdraw-box').style.display = 'none';
+            document.getElementById(id).style.display = 'block';
         }
 
-        // Sahi link par redirect karne ke liye function
-        function redirectToPayment() {
-            const selectedAmount = document.querySelector('input[name="amount"]:checked');
+        function toggleWFields() {
+            const method = document.querySelector('input[name="w_method"]:checked').value;
+            document.getElementById('upi-fields').style.display = (method === 'upi') ? 'block' : 'none';
+            document.getElementById('redeem-fields').style.display = (method === 'redeem') ? 'block' : 'none';
+            document.getElementById('bank-fields').style.display = (method === 'bank') ? 'block' : 'none';
             
-            if (!selectedAmount) {
-                alert("Kripya ek amount select karein!");
+            const btn = document.getElementById('final-w-btn');
+            btn.innerText = (method === 'redeem') ? "Redeem Now" : "Withdrawal Now";
+        }
+
+        function validateWithdrawal() {
+            const method = document.querySelector('input[name="w_method"]:checked').value;
+            let fields = [];
+            let isValid = true;
+
+            // Common amount check
+            fields.push(document.getElementById('w_amount'));
+
+            if (method === 'upi') {
+                fields.push(document.getElementById('upi_id'));
+            } else if (method === 'redeem') {
+                fields.push(document.getElementById('w_phone'), document.getElementById('w_email'));
+            } else if (method === 'bank') {
+                const acc = document.getElementById('bank_acc');
+                const conf = document.getElementById('bank_acc_conf');
+                fields.push(acc, conf, document.getElementById('bank_ifsc'), document.getElementById('bank_name'));
+                
+                if (acc.value !== conf.value && acc.value !== "") {
+                    document.getElementById('acc-error').style.display = 'block';
+                    conf.classList.add('error-border');
+                    isValid = false;
+                } else {
+                    document.getElementById('acc-error').style.display = 'none';
+                }
+            }
+
+            // Empty field check & Vibration
+            fields.forEach(field => {
+                if (field.value.trim() === "") {
+                    field.classList.add('error-border');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error-border');
+                }
+            });
+
+            if (!isValid) {
+                if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
                 return;
             }
 
-            const amount = selectedAmount.value;
+            // Success
+            document.getElementById('success-overlay').style.display = 'flex';
+        }
 
-            // Yahan aap apni links change kar sakte hain
-            const links = {
-                "300": "https://drive.google.com/file/d/10BEJhRtB0cR3wcMGfUI9T2jWZyYDyrRn/view",
-                "500": "https://drive.google.com/file/d/10BEJhRtB0cR3wcMGfUI9T2jWZyYDyrRn/view",
-                "800": "https://drive.google.com/file/d/10BEJhRtB0cR3wcMGfUI9T2jWZyYDyrRn/view",
-                "1000": "https://drive.google.com/file/d/10BEJhRtB0cR3wcMGfUI9T2jWZyYDyrRn/view"
-            };
-
-            // Naye tab me link khulegi
-            window.open(links[amount], "_blank");
+        function processAddPayment() {
+            const selected = document.querySelector('input[name="add_amt"]:checked');
+            if (!selected) {
+                alert("Please select amount");
+                return;
+            }
+            window.open("https://drive.google.com/file/d/10BEJhRtB0cR3wcMGfUI9T2jWZyYDyrRn/view", "_blank");
         }
     </script>
-
 </body>
 </html>
