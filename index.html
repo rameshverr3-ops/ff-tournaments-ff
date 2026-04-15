@@ -1,617 +1,343 @@
-<img src="Picsart_26-04-11_18-04-26-425.jpg" style="width:100%;">
-
-          <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* Modern Fonts */
-        /* Naya attractive font (Rajdhani) upar waali line ke liye */
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@600&family=Rajdhani:wght@700&display=swap');
-
-        .member-counter-section {
-            background-color: #F57C00; /* Aapka Theme Color */
-            padding: 30px 15px;
-            text-align: center;
-            font-family: 'Poppins', sans-serif;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .counter-title {
-            /* Badlav yahan hai: Green Color aur Naya Font */
-            color: #2ECC71; /* Attractive Green */
-            font-family: 'Rajdhani', sans-serif; /* Naya Font */
-            font-size: 1.3rem; /* Thoda bada size takki attractive lage */
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px; /* Thodi zyada spacing */
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Halka shadow depth ke liye */
-        }
-
-        /* Odometer Container - No Change */
-        .odometer-container {
-            display: inline-flex;
-            background: #1a1a1a; /* Dark background like a bike meter */
-            padding: 10px 20px;
-            border-radius: 10px;
-            box-shadow: inset 0 0 10px #000, 0 5px 15px rgba(0,0,0,0.3);
-            border: 2px solid #fff;
-        }
-
-        .digit-box {
-            height: 50px;
-            width: 35px;
-            overflow: hidden;
-            position: relative;
-            background: linear-gradient(to bottom, #222 0%, #333 50%, #222 100%);
-            margin: 0 2px;
-            border-radius: 4px;
-            border-right: 1px solid #444;
-        }
-
-        .digit-strip {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            transition: transform 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95); /* Smooth slide like old meter */
-            display: flex;
-            flex-direction: column;
-        }
-
-        .digit-strip span {
-            height: 50px;
-            line-height: 50px;
-            text-align: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 32px;
-            color: #F57C00; /* Numbers in Orange */
-            font-weight: 700;
-        }
-
-        .comma {
-            color: #fff;
-            font-size: 35px;
-            line-height: 50px;
-            margin: 0 2px;
-        }
-
-        .live-dot {
-            height: 12px; /* Thoda bada */
-            width: 12px; /* Thoda bada */
-            background-color: #ff0000;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 10px;
-            animation: blink 1s infinite;
-            box-shadow: 0 0 5px #ff0000; /* Glow effect */
-        }
-
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-    </style>
-</head>
-<body>
-
-<div class="member-counter-section">
-    <div class="counter-title">
-        <span class="live-dot"></span> TOTAL ACTIVE PLAYERS JOINED
-    </div>
-    
-    <div class="odometer-container" id="odometer">
-        </div>
-</div>
-
-<script>
-    // Logic Configuration
-    // Note: To test the animation faster, you can decrease endVal temporarily.
-    const startVal = 10000;
-    const endVal = 500000;
-    
-    // Page load hone par kitna time ho chuka hai (Daily Reset Simulation)
-    const now = new Date();
-    const secondsPassedToday = (now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds();
-    const progress = secondsPassedToday / (24 * 3600);
-    
-    // currentCount ko local storage me save karna better hai real sync ke liye, 
-    // par abhi ke liye script logic use karte hain.
-    let currentCount = Math.floor(startVal + (progress * (endVal - startVal)));
-
-    const odometerElement = document.getElementById('odometer');
-
-    // Init Odometer
-    function initOdometer() {
-        const countStr = currentCount.toString().padStart(6, '0');
-        odometerElement.innerHTML = '';
-        for (let i = 0; i < countStr.length; i++) {
-            const box = document.createElement('div');
-            box.className = 'digit-box';
-            const strip = document.createElement('div');
-            strip.className = 'digit-strip';
-            strip.id = `digit-${i}`;
-            // 0-9 spans for vertical scrolling
-            for (let j = 0; j <= 9; j++) {
-                const span = document.createElement('span');
-                span.innerText = j;
-                strip.appendChild(span);
-            }
-            box.appendChild(strip);
-            odometerElement.appendChild(box);
-            
-            // Comma logic for Indian/Standard format (comma after 3 digits from right for 6 digits)
-            // standard format 500,000 -> comma after index 2
-            if (i === 2) { 
-                const comma = document.createElement('div');
-                comma.className = 'comma';
-                comma.innerText = ',';
-                odometerElement.appendChild(comma);
-            }
-        }
-        updateOdometer(true); // Initial immediate update
-    }
-
-    function updateOdometer(initial = false) {
-        const countStr = currentCount.toString().padStart(6, '0');
-        
-        for (let i = 0; i < countStr.length; i++) {
-            const strip = document.getElementById(`digit-${i}`);
-            if (strip) {
-                const digit = parseInt(countStr[i]);
-                const yOffset = -(digit * 50); // 50px is height of one digit
-
-                // Initial load pe animation na dikhe, seedhe value set ho
-                if (initial) {
-                    strip.style.transition = 'none';
-                    strip.style.transform = `translateY(${yOffset}px)`;
-                    // Force repaint to apply transition-none immediately
-                    strip.offsetHeight; 
-                    strip.style.transition = 'transform 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95)';
-                } else {
-                    strip.style.transform = `translateY(${yOffset}px)`;
-                }
-            }
-        }
-    }
-
-    function animateRandomly() {
-        // Randomly decide how many members to add
-        const rand = Math.random();
-        let increment = 0;
-        let nextInterval = 2000; // default interval
-
-        if (rand > 0.8) {
-            // Big jump: 100 to 1000 members
-            increment = Math.floor(Math.random() * (1000 - 100) + 100); 
-            nextInterval = Math.random() * (3000 - 1500) + 1500; // 1.5 to 3 seconds
-        } else {
-            // Small tick: 5 to 15 members
-            increment = Math.floor(Math.random() * (15 - 5) + 5); 
-            nextInterval = Math.random() * (8000 - 4000) + 4000; // 4 to 8 seconds
-        }
-
-        currentCount += increment;
-        
-        // Safety cap for 24h reset simulation
-        if (currentCount > endVal) {
-            currentCount = startVal;
-             updateOdometer(true); // Reset instantly without scroll down
-        } else {
-            updateOdometer();
-        }
-
-        setTimeout(animateRandomly, nextInterval);
-    }
-
-    // Start everything
-    initOdometer();
-    // Chhota delay script start karne se pehle takki DOM ready ho
-    setTimeout(animateRandomly, 1000); 
-
-</script>
-
-</body>
-</html>        
 <!DOCTYPE html>
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Fire Tournament Platform</title>
+    <title>FF Elite Tournaments | RDX Store</title>
     <style>
+        /* Modern Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@600&family=Rajdhani:wght@700&display=swap');
+
         :root {
             --primary-orange: #F57C00;
             --pure-white: #FFFFFF;
             --bg-color: #F57C00;
             --gold: #FFD700;
-            --success-green: #28a745;
+            --success-green: #2ecc71;
             --fire-red: #ff4500;
             --fire-yellow: #ff9d00;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
             margin: 0;
-            padding: 20px 20px 80px 20px; 
-            color: var(--primary-orange);
+            padding: 0;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .container {
+        /* --- 1. Top Banner & Overlay Buttons --- */
+        .top-banner {
+            width: 100%;
             max-width: 800px;
-            margin: 0 auto;
+            position: relative;
+        }
+        .top-banner img {
+            width: 100%;
+            display: block;
         }
 
+        .banner-buttons {
+            position: absolute;
+            top: 15px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 15px;
+            box-sizing: border-box;
+            z-index: 100;
+        }
+
+        .header-btn {
+            background-color: white;
+            padding: 6px 14px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border: none;
+        }
+
+        .amount-text { color: #2ecc71; }
+        .plus-icon { color: #ff0000; font-size: 16px; }
+        .history-text { color: #2ecc71; }
+
+        /* --- 2. Member Counter Section --- */
+        .member-counter-section {
+            background-color: #F57C00;
+            padding: 20px 15px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .counter-title {
+            color: #2ECC71;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .odometer-container {
+            display: inline-flex;
+            background: #1a1a1a;
+            padding: 10px 15px;
+            border-radius: 10px;
+            border: 2px solid #fff;
+        }
+
+        .digit-box {
+            height: 45px;
+            width: 30px;
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(to bottom, #222 0%, #333 50%, #222 100%);
+            margin: 0 2px;
+            border-radius: 4px;
+        }
+
+        .digit-strip {
+            position: absolute;
+            width: 100%;
+            transition: transform 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .digit-strip span {
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 28px;
+            color: #F57C00;
+        }
+
+        .comma { color: #fff; font-size: 30px; line-height: 45px; margin: 0 2px; }
+        .live-dot { height: 10px; width: 10px; background-color: #ff0000; border-radius: 50%; margin-right: 8px; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        /* --- 3. Tournament List Section --- */
+        .container { width: 100%; max-width: 800px; padding: 10px 20px 100px 20px; box-sizing: border-box; }
+        
         header {
             text-align: center;
-            padding: 25px;
+            padding: 20px;
             background-color: var(--pure-white);
             color: var(--primary-orange);
             border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
         }
 
-        .flex-wrapper {
-            display: flex;
-            flex-direction: column;
-        }
+        .flex-wrapper { display: flex; flex-direction: column; }
 
         .tournament-card {
-            display: flex;
-            flex-direction: column;
-            width: 90%;
-            max-width: 350px;
             background-color: var(--pure-white);
             color: var(--primary-orange);
             padding: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             border: 2px solid var(--pure-white);
-            position: relative;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        .tournament-card:hover {
-            transform: scale(1.02);
-        }
-
-        .popular-tag {
-            background-color: var(--gold);
-            color: #000;
-            font-weight: bold;
-            padding: 4px 12px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            width: fit-content;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .status-joined {
-            background-color: var(--success-green);
-            color: var(--pure-white);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .left { align-self: flex-start; margin-right: auto; }
-        .right { align-self: flex-end; margin-left: auto; text-align: right; }
+        .left { align-self: flex-start; max-width: 90%; }
+        .right { align-self: flex-end; max-width: 90%; text-align: right; }
 
         .entry-fee {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             background: var(--primary-orange);
             color: var(--pure-white);
-            display: inline-block;
-            padding: 6px 18px;
+            padding: 5px 15px;
             border-radius: 50px;
-            margin-bottom: 12px;
-            width: fit-content;
+            display: inline-block;
+            margin-bottom: 10px;
         }
 
-        .right .entry-fee { margin-left: auto; }
+        .winning-price { font-size: 1.8rem; font-weight: 900; margin: 5px 0; }
 
-        .winning-price {
-            font-size: 2rem;
-            font-weight: 900;
-            margin: 10px 0;
-            color: var(--primary-orange);
-        }
-
-        /* --- FIRE EFFECT BUTTONS --- */
         .btn-join {
             background-color: var(--primary-orange);
             color: var(--pure-white);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-            text-transform: uppercase;
-            font-size: 1rem;
             text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
             display: inline-block;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            /* Normal Fire Glow */
-            box-shadow: 0 0 10px var(--fire-red), 0 0 5px var(--fire-yellow);
+            margin-top: 10px;
+            box-shadow: 0 0 10px var(--fire-red);
             animation: fireGlow 1.5s infinite alternate;
         }
 
-        @keyframes fireGlow {
-            0% { box-shadow: 0 0 5px var(--fire-red), 0 0 2px var(--fire-yellow); }
-            100% { box-shadow: 0 0 15px var(--fire-red), 0 0 10px var(--fire-yellow); }
-        }
+        @keyframes fireGlow { 0% { box-shadow: 0 0 5px var(--fire-red); } 100% { box-shadow: 0 0 15px var(--fire-red); } }
 
-        /* --- SUPER FIRE EFFECT (Start Challenge) --- */
         .btn-challenge {
             background: linear-gradient(45deg, #ff4500, #ff8c00);
-            border: 2px solid gold !important;
-            font-size: 1.2rem !important;
-            padding: 15px 30px !important;
-            box-shadow: 0 0 25px var(--fire-red), 0 0 10px gold !important;
-            animation: superFire 0.8s infinite alternate, shake 0.5s infinite;
+            border: 2px solid gold;
+            animation: superFire 0.8s infinite alternate;
         }
 
-        @keyframes superFire {
-            0% { filter: brightness(1); transform: scale(1); box-shadow: 0 0 15px var(--fire-red); }
-            100% { filter: brightness(1.3); transform: scale(1.05); box-shadow: 0 0 30px #ff0000, 0 0 15px gold; }
-        }
+        @keyframes superFire { 100% { filter: brightness(1.2); transform: scale(1.03); } }
 
-        @keyframes shake {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(1deg); }
-            50% { transform: rotate(0deg); }
-            75% { transform: rotate(-1deg); }
-            100% { transform: rotate(0deg); }
-        }
+        .popular-tag { background: gold; color: #000; padding: 2px 10px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; margin-bottom: 5px; display: inline-block; }
 
-        .special-note {
-            font-style: italic;
-            font-size: 0.95rem;
-            margin-top: 8px;
-            display: block;
-            font-weight: 600;
-        }
-
+        /* --- 4. Live Bar --- */
         .live-announcement-bar {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
             background-color: var(--primary-orange);
-            border-top: 2px solid var(--pure-white);
-            color: var(--pure-white);
-            padding: 15px 0;
-            font-weight: bold;
+            color: white;
+            padding: 12px 0;
             text-align: center;
-            z-index: 9999;
-            overflow: hidden;
-            box-shadow: 0 -4px 10px rgba(0,0,0,0.2);
-        }
-
-        #announcement-text {
-            display: block;
-            transition: transform 0.5s ease-in-out, opacity 0.5s;
-            font-size: 1.1rem;
+            font-weight: bold;
+            border-top: 2px solid white;
+            z-index: 1000;
         }
 
         @media (max-width: 600px) {
-            .tournament-card {
-                width: 100%;
-                max-width: 100%;
-                margin: 15px 0;
-                align-self: center;
-                text-align: center;
-            }
-            .entry-fee, .popular-tag { margin: 0 auto 12px auto; }
+            .tournament-card { text-align: center; align-self: center; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1 style="margin:0; text-transform: uppercase;">FF Elite Tournaments</h1>
-        <p style="margin:5px 0 0 0; font-weight: bold; font-size: 1.1rem;">Join the Battle & Win Rewards</p>
-    </header>
-
-    <div class="flex-wrapper">
-        <div class="tournament-card left">
-            <div class="entry-fee">Entry: ₹80</div>
-            <div class="winning-price">Win: ₹4,000</div>
-            <a href="match1.html" class="btn-join">Join Match</a>
+    <div class="top-banner">
+        <div class="banner-buttons">
+            <a href="mony.html" class="header-btn">
+                <span class="amount-text">₹0.00</span> 
+                <span class="plus-icon">+</span>
+            </a>
+            <a href="mony.html" class="header-btn">
+                <span class="history-text">History</span>
+            </a>
         </div>
+        <img src="Picsart_26-04-11_18-04-26-425.jpg" alt="Banner">
+    </div>
 
-        <div class="tournament-card right">
-            <div class="entry-fee">Entry: ₹200</div>
-            <div class="winning-price">Win: ₹10,000</div>
-            <a href="match2.html" class="btn-join">Join Match</a>
+    <div class="member-counter-section">
+        <div class="counter-title">
+            <span class="live-dot"></span> TOTAL ACTIVE PLAYERS JOINED
         </div>
+        <div class="odometer-container" id="odometer"></div>
+    </div>
 
-        <div class="tournament-card left">
-            <div class="entry-fee">Entry: ₹500</div>
-            <div class="winning-price">Win: ₹50,000</div>
-            <a href="match3.html" class="btn-join">Join Match</a>
-        </div>
+    <div class="container">
+        <header>
+            <h1 style="margin:0; font-size: 1.5rem;">FF ELITE TOURNAMENTS</h1>
+            <p style="margin:5px 0 0 0; font-size: 0.9rem;">Battle & Win Rewards</p>
+        </header>
 
-        <div class="tournament-card right">
-            <div class="entry-fee">Entry: ₹1,000</div>
-            <div class="winning-price">Win: ₹1,00,000</div>
-            <a href="match4.html" class="btn-join">Join Match</a>
-        </div>
+        <div class="flex-wrapper">
+            <div class="tournament-card left">
+                <div class="entry-fee">Entry: ₹80</div>
+                <div class="winning-price">Win: ₹4,000</div>
+                <a href="match1.html" class="btn-join">Join Match</a>
+            </div>
 
-        <div class="tournament-card left">
-            <div class="popular-tag">🔥 Popular</div>
-            <div class="entry-fee">Entry: ₹120</div>
-            <div class="winning-price">₹90 / Min</div>
-            <span class="special-note">Survive 1 min = Get ₹90 reward /kill = ₹20 extra ✅</span>
-            <a href="match5.html" class="btn-join btn-challenge">Start Challenge</a>
-            <div class="status-joined">✅ 4372+ Players Joined Today</div>
+            <div class="tournament-card right">
+                <div class="entry-fee">Entry: ₹200</div>
+                <div class="winning-price">Win: ₹10,000</div>
+                <a href="match2.html" class="btn-join">Join Match</a>
+            </div>
+
+            <div class="tournament-card left" style="max-width: 100%;">
+                <div class="popular-tag">🔥 Popular</div><br>
+                <div class="entry-fee">Entry: ₹120</div>
+                <div class="winning-price">₹90 / Min</div>
+                <p style="font-size: 0.8rem; font-style: italic; margin: 5px 0;">Survive 1 min = ₹90 | Per Kill = ₹20 extra</p>
+                <a href="match5.html" class="btn-join btn-challenge">Start Challenge</a>
+                <div style="background: #28a745; color: white; padding: 5px; border-radius: 5px; margin-top: 10px; font-size: 0.8rem;">
+                    ✅ 4372+ Players Joined
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="live-announcement-bar">
-    <div id="announcement-text">Taiyar ho jaiye...</div>
-</div>
+    <div class="live-announcement-bar">
+        <div id="announcement-text">Taiyar ho jaiye...</div>
+    </div>
 
-<script>
-    const rawNames = [
-        "Zaid", "Arjun", "Mustafa", "Gaurav", "Gurpreet", "Yash", "Farhan", "Rohan", "Kabir", "Paramjeet", 
-        "Ishaan", "Mohammed", "David", "Siddharth", "Ayaan", "Vikram", "Umar", "Deepak", "Jasbir", "Rahul", 
-        "Imran", "Sunny", "Anthony", "Sumit", "Adnan", "Sahil", "Aarav", "Gurmeet", "Prashant", "Asif", 
-        "Akram", "John", "Kevin", "Tarun", "Sukhwinder", "Vivek", "Farhan", "Lucky", "Sameer", "Karan", 
-        "Abhishek", "Salman", "Taranjeet", "Vijay", "Ibrahim", "Bunty", "Nitin", "Shubham", "Arshad", 
-        "Manpreet", "Kevin", "Piyush", "Hamza", "Inderjeet", "Rizwan", "Bilal", "Naresh", "Sarfraz", 
-        "Daljeet", "Akash", "Faisal", "Hitesh", "Usman", "Joginder", "Mayank", "Anas", "Ajay", "Shakeel", 
-        "Navjot", "Pawan", "Rehan", "Sanjay", "Shahid", "Kuldeep", "Vicky", "Javed", "Harsh", "Saif", 
-        "Ranjeet", "Amir", "Sandeep", "Yousuf", "Happy", "Tushar", "Daniyal", "Angad", "Ankit", "Nasir", 
-        "Ravinder", "Prateek", "Idrees", "Balwinder", "Manoj", "Altaf", "Shiva", "Zubair", "Vikas", 
-        "Latif", "Hardev", "Abhay", "Wasim", "Daman", "Kapil", "Zafar", "Rajat", "Shariq", "Aadesh", 
-        "Aaqib", "Aasif", "Abbas", "Abdul", "Abhimanyu", "Abhiram", "Adarsh", "Adeel", "Aditya", "Aftab", 
-        "Agam", "Agniva", "Ahsan", "Ajit", "Akhil", "Akram", "Akshat", "Amanpreet", "Amar", "Amardeep", 
-        "Amarjeet", "Ambar", "Ambuj", "Amish", "Amit", "Amrit", "Amritpal", "Anand", "Anant", "Anay", 
-        "Anees", "Angad", "Anik", "Aniket", "Animesh", "Anirudh", "Ansh", "Anshul", "Anuj", "Anupam", 
-        "Anurag", "Apurva", "Aqib", "Areeb", "Arham", "Arif", "Arindam", "Ariv", "Armaan", "Arnav", 
-        "Arsh", "Arshdeep", "Arun", "Arvind", "Arya", "Aryan", "Asad", "Ashar", "Ashish", "Ashok", 
-        "Ashutosh", "Ashwani", "Atif", "Atul", "Avinash", "Avjot", "Avneet", "Ayush", "Azad", "Azhar", 
-        "Azim", "Aziz", "Babu", "Badal", "Bakhtiar", "Balaji", "Balram", "Balwant", "Barinder", "Bashir", 
-        "Beant", "Bhagat", "Bharat", "Bhaskar", "Bhavishya", "Bhavya", "Bhupesh", "Bhupinder", "Bhuvan", 
-        "Bimal", "Binit", "Bipin", "Bishal", "Brahm", "Brij", "Brijesh", "Chaitanya", "Chaman", "Chandan", 
-        "Charan", "Charanjeet", "Chetan", "Chirag", "Chitraksh", "Danish", "Darpan", "Darshan", "Davinder", 
-        "Debashish", "Deen", "Deep", "Deepankar", "Deepinder", "Dev", "Devansh", "Deven", "Devendra", 
-        "Dhairya", "Dharam", "Dharmesh", "Dharminder", "Dheeraj", "Dhruv", "Digvijay", "Dilawar", "Dilbagh", 
-        "Dilip", "Dilpreet", "Dilsher", "Dinesh", "Divit", "Divyansh", "Ekampreet", "Eklavya", "Eshan", 
-        "Faiz", "Faizan", "Fateh", "Feroz", "Gagan", "Gagandeep", "Gajendra", "Ganesh", "Gaurish", "Gautam", 
-        "Ghanshyam", "Girdhari", "Gopal", "Goutam", "Gulab", "Gulshan", "Gulzar", "Gurbaj", "Gurbaksh", 
-        "Gurcharan", "Gurdev", "Gurdip", "Gurkeerat", "Gurman", "Gurmukh", "Gurnam", "Gurnoor", "Gursharan", 
-        "Gurtej", "Guru", "Gurvinder", "Hans", "Hansraj", "Hari", "Harinder", "Harish", "Harit", "Harjeet", 
-        "Harjit", "Harkirat", "Haroon", "Harpal", "Harpreet", "Harshdeep", "Harshil", "Harshit", "Hasnain", 
-        "Hemant", "Himanshu", "Hira", "Hiren", "Hrithik", "Humayun", "Ibad", "Iftikhar", "Ihsan", "Ikram", 
-        "Illa", "Inder", "Inderpal", "Irshad", "Ishan", "Ishwar", "Ismail", "Ivaan", "Jagannath", "Jagdeep", 
-        "Jagdish", "Jagjeet", "Jagjit", "Jagmohan", "Jai", "Jaideep", "Jaikishan", "Jairaj", "Jaisal", 
-        "Jaiveer", "Janak", "Janardhan", "Jaskaran", "Jaskirat", "Jasmeet", "Jaspreet", "Jaswant", 
-        "Jaswinder", "Jatinder", "Jeet", "Jeetendra", "Jeevan", "Jitendra", "Jivan", "Jiya", "Junaid", 
-        "Jyoti", "Kailash", "Kamal", "Kamaljeet", "Kamran", "Kanav", "Kanhaiya", "Kanishk", "Kanwal", 
-        "Kanwar", "Karamjeet", "Karamveer", "Kartar", "Kaushal", "Kavi", "Kaviraj", "Keshav", "Khaled", 
-        "Khalid", "Khushal", "Kiran", "Kirit", "Kishan", "Kishore", "Kshitij", "Kuldip", "Kumar", "Kunal", 
-        "Kundan", "Kushal", "Lakhan", "Laksh", "Lakshay", "Lakshman", "Lakshya", "Lalit", "Lokesh", 
-        "Lovepreet", "Madhav", "Madhu", "Mahaveer", "Mahendra", "Mahesh", "Mahipal", "Mahir", "Makarand", 
-        "Malkeet", "Manan", "Manav", "Mandeep", "Mangal", "Maninder", "Maniram", "Manishankar", "Manit", 
-        "Manjeet", "Manjit", "Manmohan", "Mannat", "Manohar", "Manoj", "Mansoor", "Manvendra", "Manvir", 
-        "Mazhar", "Mehar", "Mehul", "Milind", "Misbah", "Mithun", "Mohan", "Mohit", "Mohnish", "Mubarak", 
-        "Muddasir", "Mudit", "Mukesh", "Mukund", "Mukul", "Muneer", "Murad", "Murali", "Murli", "Murtaza", 
-        "Nadim", "Nagarajan", "Nagendra", "Nagesh", "Nakul", "Nalin", "Namdev", "Nanak", "Nand", "Nandan", 
-        "Nandkumar", "Naqi", "Narang", "Narendra", "Nareshkumar", "Narinder", "Naseem", "Naveen", "Navin", 
-        "Navneet", "Navraj", "Nayan", "Neeraj", "Nikhil", "Nikhilesh", "Nilay", "Nilesh", "Nirmal", "Nirvan", 
-        "Nishant", "Nishit", "Nitesh", "Noman", "Noor", "Onkar", "Ojas", "Om", "Omprakash", "Paawan", 
-        "Padam", "Palash", "Pallav", "Pankaj", "Param", "Paramdeep", "Paramvir", "Paras", "Parikshit", 
-        "Parmeet", "Parmod", "Parth", "Parvinder", "Parvez", "Pavneet", "Phool", "Prabal", "Prabh", 
-        "Prabhjot", "Prabhu", "Pradip", "Prafull", "Prahlad", "Prajwal", "Prakas", "Prakash", "Pranav", 
-        "Pranay", "Prasanjit", "Prasanna", "Pratap", "Pratul", "Praveen", "Pravin", "Prem", "Pritam", 
-        "Prithvi", "Priyanshu", "Puneet", "Punit", "Purushottam", "Pushkar", "Qadir", "Qasim", "Raahul", 
-        "Rabindra", "Radha", "Radhe", "Raghav", "Raghunath", "Raghuveer", "Raheem", "Rahman", "Rai", 
-        "Raj", "Rajan", "Rajatdeep", "Rajdeep", "Rajeev", "Rajender", "Rajendra", "Rajiv", "Rajkumar", 
-        "Rajneesh", "Rajpal", "Rajveer", "Rajwinder", "Rakesh", "Ram", "Ramakant", "Raman", "Ramandeep", 
-        "Ramanjit", "Ramanpreet", "Ramdas", "Ramdev", "Ramit", "Ramkumar", "Ramneek", "Ramprakash", 
-        "Ramprasad", "Ramveer", "Ranbir", "Randhir", "Ranganathan", "Ranjan", "Ranveer", "Rasheed", "Ratan", 
-        "Ratinder", "Raveen", "Ravi", "Ravindra", "Raviraj", "Ravneet", "Raza", "Razi", "Rehmat", "Rishabh", 
-        "Rishi", "Ritvik", "Riyaz", "Ronak", "Roshan", "Rudraksh", "Rupesh", "Rupinder", "Rushil", "Saanjh", 
-        "Saba", "Sabeer", "Sacha", "Sada", "Sadanand", "Sadaqat", "Saddam", "Sadhu", "Sadiq", "Sagar", 
-        "Saheb", "Sahib", "Sahir", "Sajjan", "Saju", "Sakal", "Saket", "Saksham", "Salim", "Sam", "Samar", 
-        "Samarth", "Samay", "Sambit", "Samrat", "Samyak", "Sanchit", "Sandeepkumar", "Sandip", "Sangram", 
-        "Sanjeev", "Sanjiv", "Sankalp", "Sanket", "Sant", "Santokh", "Santosh", "Sanyam", "Sapan", "Saqlain", 
-        "Sarabjeet", "Sarabjit", "Sarfaraz", "Saroj", "Sarthak", "Sarvjeet", "Sarwan", "Satish", "Satnam", 
-        "Satpal", "Satveer", "Satvinder", "Satwant", "Satwinder", "Saurabh", "Saurav", "Sayam", "Sayeed", 
-        "Sayan", "Sehaj", "Shabaaz", "Shadab", "Shafeeq", "Shaheen", "Shahrukh", "Shahzaib", "Shailendra", 
-        "Shakti", "Shantanu", "Sharad", "Shardul", "Sharvan", "Shashank", "Shashwat", "Shaukat", "Shaurya", 
-        "Shekhar", "Sher", "Shes", "Shikhar", "Shiraz", "Shishir", "Shobhit", "Shravan", "Shrey", "Shreyas", 
-        "Shridhar", "Shubhandu", "Shyam", "Sia", "Siddhant", "Siddharth", "Simranjeet", "Simranjit", "Sohail", 
-        "Soham", "Sohan", "Somnath", "Sonu", "Sourav", "Sparsh", "Sridhar", "Sriman", "Srinivas", "Subhash", 
-        "Subodh", "Sudarshan", "Sudhir", "Sufiyan", "Sujal", "Sujan", "Sujit", "Sukhdeep", "Sukhi", "Sukhjit", 
-        "Sukhman", "Sukhpal", "Sukhpreet", "Sultan", "Sumer", "Sunil", "Suraj", "Surendra", "Suresh", 
-        "Surinder", "Surjeet", "Surjit", "Susheel", "Sushil", "Sushrut", "Suvir", "Swayam", "Swapnil", 
-        "Syed", "Taha", "Tahira", "Tajinder", "Talha", "Talwinder", "Tanay", "Tanmay", "Tanveer", "Tanvir", 
-        "Tapan", "Tapur", "Taran", "Taranjit", "Tej", "Tejinder", "Tejpal", "Tejveer", "Thakur", "Tilak", 
-        "Tirlok", "Trilochan", "Trilok", "Uday", "Udit", "Ujwal", "Upendra", "Uttam", "Vaibhav", "Varun", 
-        "Vasant", "Vasudev", "Ved", "Vedant", "Vedprakash", "Veer", "Venkat", "Vibhanshu", "Vibhor", "Vidit", 
-        "Vidur", "Vihan", "Vijaypal", "Vimal", "Vinay", "Vineet", "Vinod", "Vipan", "Vipul", "Vir", "Viraj", 
-        "Virendra", "Viresh", "Vishal", "Vishnu", "Vishva", "Vishvas", "Vishwanath", "Vishwajeet", "Vivan", 
-        "Vivek", "Vraj", "Vyas", "Wajid", "Wali", "Yadwinder", "Yagya", "Yashpal", "Yashvardhan", "Yashveer", 
-        "Yatin", "Yawar", "Yogesh", "Yoginder", "Yug", "Yuvan", "Yuvraj"
-    ];
-    
-    let shuffledNames = [];
-    let nameIndex = 0;
+    <script>
+        /* --- Odometer Logic --- */
+        const startVal = 10000;
+        const endVal = 500000;
+        const now = new Date();
+        const secondsPassedToday = (now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds();
+        let currentCount = Math.floor(startVal + ((secondsPassedToday / 86400) * (endVal - startVal)));
 
-    function shuffleArray(array) {
-        let newArray = [...array];
-        for (let i = newArray.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-        }
-        return newArray;
-    }
+        const odometerElement = document.getElementById('odometer');
 
-    function getRandomAmount(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
-    function updateAnnouncement() {
-        if (shuffledNames.length === 0 || nameIndex >= shuffledNames.length) {
-            shuffledNames = shuffleArray(rawNames);
-            nameIndex = 0;
+        function initOdometer() {
+            const countStr = currentCount.toString().padStart(6, '0');
+            odometerElement.innerHTML = '';
+            for (let i = 0; i < countStr.length; i++) {
+                const box = document.createElement('div');
+                box.className = 'digit-box';
+                const strip = document.createElement('div');
+                strip.className = 'digit-strip';
+                strip.id = `digit-${i}`;
+                for (let j = 0; j <= 9; j++) {
+                    const span = document.createElement('span');
+                    span.innerText = j;
+                    strip.appendChild(span);
+                }
+                box.appendChild(strip);
+                odometerElement.appendChild(box);
+                if (i === 2) {
+                    const comma = document.createElement('div');
+                    comma.className = 'comma';
+                    comma.innerText = ',';
+                    odometerElement.appendChild(comma);
+                }
+            }
+            updateOdometer(true);
         }
 
-        const textElement = document.getElementById('announcement-text');
-        const currentUser = shuffledNames[nameIndex];
-        nameIndex++;
-
-        const isWithdrawal = Math.random() > 0.5;
-        let message = "";
-
-        if (isWithdrawal) {
-            const withdrawOptions = [1000, 2500, 50000];
-            const amount = withdrawOptions[Math.floor(Math.random() * withdrawOptions.length)];
-            message = `💸 ${currentUser} Payment Withdrawal ₹${amount.toLocaleString('en-IN')}`;
-        } else {
-            const amount = Math.random() > 0.9 ? 80000 : getRandomAmount(200, 15000);
-            message = `🏆 ${currentUser} Winning ₹${amount.toLocaleString('en-IN')}`;
+        function updateOdometer(initial = false) {
+            const countStr = currentCount.toString().padStart(6, '0');
+            for (let i = 0; i < countStr.length; i++) {
+                const strip = document.getElementById(`digit-${i}`);
+                if (strip) {
+                    const digit = parseInt(countStr[i]);
+                    strip.style.transform = `translateY(${-digit * 45}px)`;
+                }
+            }
         }
 
-        textElement.style.opacity = 0;
-        textElement.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            textElement.innerText = message;
-            textElement.style.opacity = 1;
-            textElement.style.transform = 'translateY(0)';
-        }, 500);
+        setInterval(() => {
+            currentCount += Math.floor(Math.random() * 5) + 1;
+            updateOdometer();
+        }, 5000);
 
-        const nextSpeed = Math.floor(Math.random() * (15000 - 5000 + 1) + 5000);
-        setTimeout(updateAnnouncement, nextSpeed);
-    }
+        initOdometer();
 
-    updateAnnouncement();
-</script>
-
+        /* --- Announcement Logic --- */
+        const names = ["Zaid", "Arjun", "Rahul", "Mustafa", "Sunny", "Rohan", "Kabir", "Ishaan", "Vikram"];
+        function updateAnnouncement() {
+            const name = names[Math.floor(Math.random() * names.length)];
+            const amount = Math.floor(Math.random() * 5000) + 500;
+            const text = document.getElementById('announcement-text');
+            text.innerText = `🏆 ${name} Winning ₹${amount.toLocaleString('en-IN')}`;
+            setTimeout(updateAnnouncement, 5000);
+        }
+        updateAnnouncement();
+    </script>
 </body>
-  </html>
-  
+</html>
