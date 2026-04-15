@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Screen ke beech mein dikhane ke liye */
+        }
+        .history-container {
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .header-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px; /* Thoda gap kam kiya balance ke liye */
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        /* Balance Section */
+        .balance-container {
+            margin-bottom: 40px;
+        }
+        .balance-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .balance-amount {
+            font-size: 28px;
+            font-weight: bold;
+            color: #27ae60; /* Green colour for balance */
+        }
+        .no-data-content {
+            opacity: 0.5; /* 50% Opacity jaisa aapne manga */
+            margin-bottom: 30px;
+        }
+        .icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .msg {
+            font-size: 16px;
+            font-weight: 500;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="history-container">
+        <div class="header-text">Your History</div>
+
+        <div class="balance-container">
+            <div class="balance-label">Available Balance</div>
+            <div class="balance-amount">₹3084.5</div>
+        </div>
+
+        <div class="no-data-content">
+            <span class="icon">📁</span> 
+            <div class="msg">No transaction available</div>
+        </div>
+    </div>
+
+</body>
+</html>
