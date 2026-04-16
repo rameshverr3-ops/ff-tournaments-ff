@@ -28,10 +28,27 @@
         }
 
         /* --- Wallet Banner & Layout --- */
-        .top-banner { width: 100%; max-width: 800px; position: relative; }
-        .top-banner img { width: 100%; display: block; }
-        .banner-buttons { position: absolute; top: 15px; width: 100%; display: flex; justify-content: space-between; padding: 0 15px; box-sizing: border-box; z-index: 100; }
-        .header-btn { background-color: white; padding: 6px 14px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 4px; border: none; }
+        .top-banner { width: 100%; max-width: 800px; position: relative; aspect-ratio: 16/9; background: #000; overflow: hidden; }
+        
+        /* Video Wrapper Styles */
+        .video-container { width: 100%; height: 100%; position: relative; cursor: pointer; }
+        .video-container iframe { width: 100%; height: 100%; border: none; display: none; }
+        .video-thumbnail { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .play-overlay { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            background: rgba(245, 124, 0, 0.9); width: 70px; height: 70px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+        .play-overlay:hover { scale: 1.1; background: #ff4500; }
+        .play-icon { 
+            width: 0; height: 0; 
+            border-top: 15px solid transparent; border-bottom: 15px solid transparent; 
+            border-left: 25px solid white; margin-left: 5px;
+        }
+
+        .banner-buttons { position: absolute; top: 15px; width: 100%; display: flex; justify-content: space-between; padding: 0 15px; box-sizing: border-box; z-index: 100; pointer-events: none; }
+        .header-btn { pointer-events: auto; background-color: white; padding: 6px 14px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 4px; border: none; }
         .amount-text { color: #2ecc71; }
         .plus-icon { color: #ff0000; font-size: 16px; }
 
@@ -109,8 +126,15 @@
             <a href="adpay.html" class="header-btn"><span class="amount-text">₹ 00.0</span><span class="plus-icon">+</span></a>
             <a href="history.html" class="header-btn"><span class="history-text">History</span></a>
         </div>
-        <img src="Picsart_26-04-11_18-04-26-425.jpg" alt="Banner">
-    </div>
+        
+        <div class="video-container" onclick="startVideo()">
+            <img id="thumbImg" src="https://img.youtube.com/vi/JamxCok3YDY/maxresdefault.jpg" alt="Video Thumbnail" class="video-thumbnail">
+            <div id="playBtn" class="play-overlay">
+                <div class="play-icon"></div>
+            </div>
+            <iframe id="ytPlayer" src="https://www.youtube.com/embed/JamxCok3YDY?autoplay=1&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        </div>
 
     <div class="member-counter-section">
         <div class="counter-title"><span class="live-dot"></span> TOTAL ACTIVE PLAYERS JOINED</div>
@@ -168,6 +192,13 @@
     </div>
 
     <script>
+        // Start Video Function
+        function startVideo() {
+            document.getElementById('thumbImg').style.display = 'none';
+            document.getElementById('playBtn').style.display = 'none';
+            document.getElementById('ytPlayer').style.display = 'block';
+        }
+
         // Modal Logic
         const modal = document.getElementById("infoModal");
         const modalBody = document.getElementById("modalBody");
