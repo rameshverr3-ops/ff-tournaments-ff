@@ -18,7 +18,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background-color: var(--light); color: var(--dark); overflow-x: hidden; }
 
-        /* Curved Header */
         header {
             background: linear-gradient(135deg, #4f46e5, #9333ea);
             color: white;
@@ -30,157 +29,83 @@
 
         .container { max-width: 1000px; margin: -40px auto 20px; padding: 20px; }
 
-        /* Section Cards */
         .id-section {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            text-align: center;
+            background: white; border-radius: 20px; padding: 20px; margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center;
         }
 
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-        }
+        .image-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
+        .image-grid img { width: 100%; border-radius: 12px; border: 2px solid #eee; }
 
-        .image-grid img {
-            width: 100%;
-            border-radius: 12px;
-            border: 2px solid #eee;
-        }
-
-        .price-tag {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--success);
-            margin: 10px 0;
-        }
+        .price-tag { font-size: 24px; font-weight: bold; color: var(--success); margin: 10px 0; }
 
         .whatsapp-btn {
-            background: #25d366;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: bold;
-            transition: 0.3s;
+            background: #25d366; color: white; padding: 12px 25px; border-radius: 50px;
+            text-decoration: none; display: inline-block; font-weight: bold; transition: 0.3s;
         }
 
-        /* --- TRUST SECTION --- */
+        /* TRUST SECTION */
         .trust-container { margin-bottom: 40px; text-align: center; }
         .trust-title { font-size: 26px; margin-bottom: 25px; color: var(--dark); font-weight: 800; }
         .trust-title span { color: var(--primary); }
 
         .info-card {
-            background: white;
-            padding: 25px;
-            border-radius: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            text-align: left;
+            background: white; padding: 25px; border-radius: 25px; margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 20px; text-align: left;
         }
         .info-icon {
-            background: #f0f9ff;
-            color: var(--primary);
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
+            background: #f0f9ff; color: var(--primary); width: 60px; height: 60px;
+            border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 24px;
         }
         .info-content h4 { font-size: 18px; margin-bottom: 5px; color: var(--dark); }
         .info-content p { font-size: 14px; color: #64748b; line-height: 1.4; }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-        .stat-box {
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-        }
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .stat-box { padding: 20px; border-radius: 20px; text-align: center; }
         .blue-bg { background: #eff6ff; color: var(--primary); }
         .green-bg { background: #f0fdf4; color: var(--success); }
         .stat-box h2 { font-size: 24px; }
         .stat-box p { font-size: 12px; font-weight: bold; text-transform: uppercase; }
 
         .legal-box {
-            background: #0f172a;
-            color: white;
-            padding: 30px;
-            border-radius: 30px;
-            text-align: left;
-            margin-top: 20px;
+            background: #0f172a; color: white; padding: 30px; border-radius: 30px;
+            text-align: left; margin-top: 20px;
         }
         .legal-box h3 { margin-bottom: 15px; font-size: 22px; }
         .legal-box p { font-size: 14px; color: #94a3b8; margin-bottom: 20px; line-height: 1.6; }
-        .legal-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #1e293b;
-            font-size: 14px;
-        }
+        .legal-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1e293b; font-size: 14px; }
         .legal-item span:last-child { color: var(--success); font-weight: bold; }
 
-        /* Feedback Section */
+        /* FEEDBACK SECTION */
         .feedback-item {
-            background: white;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #edf2f7;
-            text-align: left;
+            background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px;
+            border-bottom: 1px solid #edf2f7; text-align: left;
         }
-
         .meta-info { font-size: 12px; color: #64748b; margin-bottom: 5px; }
         .interaction { display: flex; gap: 15px; margin-top: 10px; font-size: 14px; }
         .like-btn, .dislike-btn { cursor: pointer; color: #94a3b8; }
         .like-btn.active { color: #3b82f6; }
 
+        .stars { color: #cbd5e1; cursor: pointer; font-size: 25px; margin-bottom: 10px; }
+        .stars .active { color: var(--accent); }
+
+        .give-feedback-text { 
+            color: var(--success); font-weight: 600; cursor: pointer; 
+            text-decoration: underline; margin-bottom: 20px; display: inline-block;
+        }
+
         .loader { display: none; text-align: center; padding: 20px; }
         .btn-more {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 30px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin: 20px auto;
-            display: block;
+            background: var(--primary); color: white; border: none; padding: 10px 30px;
+            border-radius: 8px; cursor: pointer; margin: 20px auto; display: block;
         }
 
-        /* Success Msg Style */
         #thanksMsg {
-            display: none;
-            background: var(--success);
-            color: white;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-weight: bold;
+            display: none; background: var(--success); color: white; padding: 10px;
+            border-radius: 10px; margin-bottom: 15px; font-weight: bold;
         }
 
-        footer {
-            background: var(--dark);
-            color: #94a3b8;
-            padding: 40px 20px;
-            text-align: center;
-            font-size: 13px;
-        }
+        footer { background: var(--dark); color: #94a3b8; padding: 40px 20px; text-align: center; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -193,82 +118,62 @@
 <div class="container">
     <div class="id-section">
         <div class="image-grid">
-            <img src="id1.png" alt="ID Image">
-            <img src="id2.png" alt="ID Image">
-            <img src="id3.png" alt="ID Image">
-            <img src="id4.png" alt="ID Image">
+            <img src="id1.png" alt="ID Image"> <img src="id2.png" alt="ID Image">
+            <img src="id3.png" alt="ID Image"> <img src="id4.png" alt="ID Image">
         </div>
         <div class="price-tag">₹1200</div>
-        <a href="https://wa.me/9530004641?text=Hi, I want to buy this ID for 1200" class="whatsapp-btn">
-            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-        </a>
+        <a href="https://wa.me/9530004641?text=Hi, I want to buy this ID for 1200" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
     </div>
 
     <div class="id-section">
         <div class="image-grid">
-            <img src="2nd1.png" alt="ID Image">
-            <img src="2nd2.png" alt="ID Image">
-            <img src="2nd3.png" alt="ID Image">
-            <img src="2nd4.png" alt="ID Image">
+            <img src="2nd1.png" alt="ID Image"> <img src="2nd2.png" alt="ID Image">
+            <img src="2nd3.png" alt="ID Image"> <img src="2nd4.png" alt="ID Image">
         </div>
         <div class="price-tag">₹500</div>
-        <a href="https://wa.me/9530004641?text=Hi, I want to buy this ID for 500" class="whatsapp-btn">
-            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-        </a>
+        <a href="https://wa.me/9530004641?text=Hi, I want to buy this ID for 500" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
     </div>
 
     <div class="trust-container">
         <h2 class="trust-title">Aakhir Hum Par <span>Bharosa Kyon?</span></h2>
-        <div class="stat-box" style="background: white; border-radius: 20px; margin-bottom: 20px; text-align: left; padding: 25px;">
-            <h3 style="margin-bottom: 10px; color: var(--dark);">Hum Kaun Hain?</h3>
-            <p style="color: #64748b; font-size: 15px; line-height: 1.6;">Growth FF Store ek registered digital agency hai jo pichle 5 saalon se Free Fire community ko premium gaming IDs aur bundles provide karne mein leader rahi hai.</p>
+        <div class="info-card">
+            <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="info-content"><h4>100% Safe IDs</h4><p>Hum sirf verified aur secure account sell karte hain.</p></div>
         </div>
         <div class="stats-grid">
             <div class="stat-box blue-bg"><h2>50K+</h2><p>Happy Clients</p></div>
-            <div class="stat-box green-bg"><h2>100%</h2><p>Secure Delivery</p></div>
-        </div>
-        <div class="info-card">
-            <div class="info-icon"><i class="fas fa-headset"></i></div>
-            <div class="info-content"><h4>24/7 VIP Support</h4><p>WhatsApp par hamesha aapki madad ke liye taiyar.</p></div>
-        </div>
-        <div class="info-card">
-            <div class="info-icon" style="background:#fff7ed; color:#f97316;"><i class="fas fa-bolt"></i></div>
-            <div class="info-content"><h4>Instant Delivery</h4><p>Payment ke baad login details seconds mein mil jati hain.</p></div>
+            <div class="stat-box green-bg"><h2>100%</h2><p>Trust</p></div>
         </div>
         <div class="legal-box">
             <h3>Legal Transparency</h3>
             <div class="legal-item"><span>Business Registration</span><span>VERIFIED <i class="fas fa-check-circle"></i></span></div>
             <div class="legal-item"><span>Payment Security</span><span>SSL ENCRYPTED <i class="fas fa-check-circle"></i></span></div>
-            <div class="legal-item" style="border-bottom: none;"><span>User Privacy</span><span>256-BIT SECURE <i class="fas fa-check-circle"></i></span></div>
         </div>
     </div>
 
     <div class="id-section">
         <h3>Customer Reviews</h3>
-        <button class="btn-more" style="background:#10b981; margin-bottom:15px;" onclick="toggleFeedbackForm()">Give Feedback</button>
+        <span class="give-feedback-text" onclick="toggleFeedbackForm()">Give Feedback</span>
 
         <div id="thanksMsg">Thanks for feedback!</div>
 
-        <div id="feedbackForm" class="rating-input-area">
+        <div id="feedbackForm" class="rating-input-area" style="display:none; background:#f1f5f9; padding:20px; border-radius:15px; margin-bottom:20px;">
             <div class="stars" id="starInput">
-                <i class="fas fa-star" data-val="1"></i>
-                <i class="fas fa-star" data-val="2"></i>
-                <i class="fas fa-star" data-val="3"></i>
-                <i class="fas fa-star" data-val="4"></i>
+                <i class="fas fa-star" data-val="1"></i> <i class="fas fa-star" data-val="2"></i>
+                <i class="fas fa-star" data-val="3"></i> <i class="fas fa-star" data-val="4"></i>
                 <i class="fas fa-star" data-val="5"></i>
             </div>
-            <input type="text" id="userName" placeholder="Your Name" style="width:100%; margin:10px 0; padding:12px; border-radius:10px; border:1px solid #ddd;">
+            <input type="text" id="userName" placeholder="Your Name" style="width:100%; margin-bottom:10px; padding:12px; border-radius:10px; border:1px solid #ddd;">
             <textarea id="userReview" placeholder="Write your experience..." style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; height:80px;"></textarea>
             <button class="btn-more" onclick="submitReview()">Post Review</button>
         </div>
 
         <div id="userPosts"></div> 
-
         <div id="publicFeedback">
             <div class="feedback-item">
                 <div class="meta-info"><b>Rahul Sharma</b> • 2 days ago</div>
                 <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>Bhai ekdam mast ID mili, pehle laga tha scam hoga par payment ke 2 min baad hi login details mil gayi!</p>
+                <p>Bhai ekdam mast ID mili, pehle laga tha scam hoga par login turant mil gaya!</p>
                 <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 156</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 5</span></div>
             </div>
             <div class="feedback-item">
@@ -277,31 +182,31 @@
                 <p>Trust issue nahi hai bilkul, pricing bhi affordable hai.</p>
                 <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 842</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 12</span></div>
             </div>
-        </div>
-
-        <div id="moreComments" style="display:none">
             <div class="feedback-item">
-                <div class="meta-info"><b>Vikram Singh</b> • 8 months ago</div>
+                <div class="meta-info"><b>Aman_FF</b> • 3 months ago</div>
                 <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>Best price in the market. Dusre sites se kaafi sasta hai.</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 910</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 9</span></div>
+                <p>Samurai bundle wali ID mil gayi. Best store ever!</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 520</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 8</span></div>
+            </div>
+            <div class="feedback-item">
+                <div class="meta-info"><b>Suresh Kr.</b> • 6 months ago</div>
+                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <p>Good support team, WhatsApp par reply jaldi aata hai.</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 310</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 15</span></div>
             </div>
         </div>
+
+        <div id="dynamicFeedbackArea"></div>
 
         <div class="loader" id="loader"><i class="fas fa-spinner fa-spin"></i> Loading reviews...</div>
         <button class="btn-more" id="loadMoreBtn" onclick="loadMore()">See More</button>
     </div>
 </div>
 
-<footer>
-    <p><b>Growth FF Store © 2026</b></p>
-    <p>Registered Business | GSTIN: 08AAACV1234F1Z5</p>
-</footer>
+<footer><p><b>Growth FF Store © 2026</b></p></footer>
 
 <script>
-    function toggleFeedbackForm() {
-        document.getElementById('feedbackForm').style.display = 'block';
-    }
+    function toggleFeedbackForm() { document.getElementById('feedbackForm').style.display = 'block'; }
 
     const stars = document.querySelectorAll('#starInput i');
     let selectedRating = 0;
@@ -315,16 +220,10 @@
     function submitReview() {
         const name = document.getElementById('userName').value;
         const comment = document.getElementById('userReview').value;
-        
-        // Agar kuch khali ho toh chup-chap return (No alert)
         if(!name || !comment || selectedRating === 0) return;
-
-        // Form hide karo aur Thanks message dikhao
         document.getElementById('feedbackForm').style.display = 'none';
         const thanks = document.getElementById('thanksMsg');
         thanks.style.display = 'block';
-
-        // 2 Second ke baad thanks hategi aur comment aayega
         setTimeout(() => {
             thanks.style.display = 'none';
             const div = document.createElement('div');
@@ -336,8 +235,6 @@
                 <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 1</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 0</span></div>
             `;
             document.getElementById('userPosts').prepend(div);
-            
-            // Reset fields
             document.getElementById('userName').value = '';
             document.getElementById('userReview').value = '';
             selectedRating = 0;
@@ -352,15 +249,42 @@
         btn.classList.add('active');
     }
 
+    const reviewData = [
+        {name: "Vikram Pro", time: "5 days ago", comment: "Bhai log bilkul trusted h, aankh band karke lo.", likes: 890, dislikes: 4},
+        {name: "Saurabh Y.", time: "10 days ago", comment: "Old IDs ka collection mast h.", likes: 432, dislikes: 7},
+        {name: "Kabir FF", time: "2 weeks ago", comment: "Finally meri dream ID mil gayi.", likes: 120, dislikes: 3},
+        {name: "Rohit Gamer", time: "1 month ago", comment: "Fast delivery, no scam.", likes: 760, dislikes: 10},
+        {name: "Ankit Rajput", time: "3 days ago", comment: "Best service in India for FF IDs.", likes: 215, dislikes: 5},
+        {name: "Sameer Sheikh", time: "8 months ago", comment: "Maine 2 IDs li h, dono safe h.", likes: 1100, dislikes: 20},
+        {name: "Nitish King", time: "1 year ago", comment: "Purana seller h, trusted h.", likes: 1500, dislikes: 18},
+        {name: "Sumit Bhai", time: "4 months ago", comment: "Price thoda kam karo, baki sab mast h.", likes: 340, dislikes: 14}
+    ];
+
+    let currentIdx = 0;
     function loadMore() {
+        if(currentIdx >= reviewData.length) { alert("No more reviews!"); return; }
         document.getElementById('loadMoreBtn').style.display = 'none';
         document.getElementById('loader').style.display = 'block';
         setTimeout(() => {
             document.getElementById('loader').style.display = 'none';
-            document.getElementById('moreComments').style.display = 'block';
+            document.getElementById('loadMoreBtn').style.display = 'block';
+            for(let i=0; i<4; i++) {
+                if(reviewData[currentIdx]) {
+                    const item = reviewData[currentIdx];
+                    const div = document.createElement('div');
+                    div.className = 'feedback-item';
+                    div.innerHTML = `
+                        <div class="meta-info"><b>${item.name}</b> • ${item.time}</div>
+                        <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p>${item.comment}</p>
+                        <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> ${item.likes}</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> ${item.dislikes}</span></div>
+                    `;
+                    document.getElementById('dynamicFeedbackArea').appendChild(div);
+                    currentIdx++;
+                }
+            }
         }, 3000);
     }
 </script>
-
 </body>
 </html>
