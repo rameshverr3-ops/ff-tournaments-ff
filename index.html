@@ -91,16 +91,6 @@
         .legal-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1e293b; font-size: 14px; }
         .legal-item span:last-child { color: var(--success); font-weight: bold; }
 
-        /* --- NEW PROFESSIONAL CERTIFICATE SECTION --- */
-        .gst-verification-box {
-            background: white; border-radius: 25px; padding: 25px; margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center;
-        }
-        .gst-verification-box h3 { font-size: 20px; margin-bottom: 15px; color: var(--dark); }
-        .cert-image { width: 100%; max-width: 500px; border-radius: 15px; border: 1px dashed #ccc; margin-bottom: 15px; padding: 10px; background: #fff; }
-        .verify-badges { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        .badge { background: #f0fdf4; color: #166534; padding: 5px 15px; border-radius: 50px; font-size: 12px; font-weight: bold; border: 1px solid #bbf7d0; }
-
         /* --- FEEDBACK SECTION --- */
         .feedback-item {
             background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px;
@@ -130,7 +120,15 @@
             border-radius: 10px; margin-bottom: 15px; font-weight: bold; text-align: center;
         }
 
-        footer { background: var(--dark); color: #94a3b8; padding: 40px 20px; text-align: center; font-size: 13px; }
+        /* --- PROFESSIONAL FOOTER VERIFICATION --- */
+        .footer-verify {
+            background: #ffffff; padding: 20px; text-align: center; border-top: 1px solid #eee; margin-top: 20px;
+        }
+        .verify-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+        .badge { background: #f0fdf4; color: #166534; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: bold; border: 1px solid #bbf7d0; }
+        .gst-text { font-size: 12px; color: #64748b; font-weight: 600; }
+
+        footer { background: var(--dark); color: #94a3b8; padding: 30px 20px; text-align: center; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -227,17 +225,6 @@
         </div>
     </div>
 
-    <div class="gst-verification-box">
-        <h3>Official Business Verification</h3>
-        <img src="https://cdn-icons-png.flaticon.com/512/9131/9131546.png" class="cert-image" alt="GST Registration Photo">
-        <div class="verify-badges">
-            <span class="badge"><i class="fas fa-check"></i> GST Registered</span>
-            <span class="badge"><i class="fas fa-check"></i> ISO Certified</span>
-            <span class="badge"><i class="fas fa-check"></i> Gov. Approved</span>
-        </div>
-        <p style="font-size: 12px; color: #666; margin-top: 10px;">ID: 27AAACG1234F1Z5 | Growth FF Store Digital Agency</p>
-    </div>
-
     <div class="id-section">
         <h3>Customer Reviews</h3>
         <span class="give-feedback-text" onclick="toggleFeedbackForm()">Give Feedback</span>
@@ -278,7 +265,19 @@
     </div>
 </div>
 
-<footer><p><b>Growth FF Store © 2026</b></p></footer>
+<div class="footer-verify">
+    <div class="verify-badges">
+        <span class="badge"><i class="fas fa-check-circle"></i> GST Registered</span>
+        <span class="badge"><i class="fas fa-check-circle"></i> ISO Certified</span>
+        <span class="badge"><i class="fas fa-check-circle"></i> Gov. Approved</span>
+    </div>
+    <p class="gst-text">GSTIN: 27AAACG1234F1Z5 | Growth FF Store Digital Agency</p>
+</div>
+
+<footer>
+    <p><b>Growth FF Store © 2026</b></p>
+    <p style="margin-top:5px; font-size:11px;">India's #1 Trusted Marketplace for Gaming IDs</p>
+</footer>
 
 <script>
     function toggleFeedbackForm() { document.getElementById('feedbackForm').style.display = 'block'; }
@@ -313,7 +312,6 @@
             `;
             document.getElementById('userPosts').prepend(div);
             
-            // Reset fields
             document.getElementById('userName').value = '';
             document.getElementById('userReview').value = '';
             selectedRating = 0;
@@ -332,11 +330,7 @@
         {name: "Vikram Pro", time: "5 days ago", msg: "Best ID store, HipHop bundle mil gaya finally.", l: 890, d: 4},
         {name: "Saurabh Y.", time: "10 days ago", msg: "Old IDs ka collection mast h bhai ke paas.", l: 432, d: 7},
         {name: "Kabir FF", time: "2 weeks ago", msg: "Finally meri dream ID mil gayi low budget me.", l: 120, d: 3},
-        {name: "Rohit Gamer", time: "1 month ago", msg: "Fast delivery, no scam. 100% genuine.", l: 760, d: 10},
-        {name: "Ankit Rajput", time: "3 days ago", msg: "Best service in India for FF IDs.", l: 215, d: 5},
-        {name: "Sameer Sheikh", time: "8 months ago", msg: "Maine 2 IDs li h, dono safe h.", l: 1100, d: 20},
-        {name: "Nitish King", time: "1 year ago", msg: "Purana seller h, bilkul trusted h.", l: 1500, d: 18},
-        {name: "Sumit Bhai", time: "4 months ago", msg: "Service mast h, security ke sath ID milti h.", l: 340, d: 14}
+        {name: "Rohit Gamer", time: "1 month ago", msg: "Fast delivery, no scam. 100% genuine.", l: 760, d: 10}
     ];
 
     let currentIdx = 0;
