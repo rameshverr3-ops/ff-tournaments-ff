@@ -44,7 +44,7 @@
             text-decoration: none; display: inline-block; font-weight: bold; transition: 0.3s;
         }
 
-        /* TRUST SECTION */
+        /* --- TRUST SECTION --- */
         .trust-container { margin-bottom: 40px; text-align: center; }
         .trust-title { font-size: 26px; margin-bottom: 25px; color: var(--dark); font-weight: 800; }
         .trust-title span { color: var(--primary); }
@@ -76,7 +76,7 @@
         .legal-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1e293b; font-size: 14px; }
         .legal-item span:last-child { color: var(--success); font-weight: bold; }
 
-        /* FEEDBACK SECTION */
+        /* --- FEEDBACK SECTION --- */
         .feedback-item {
             background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px;
             border-bottom: 1px solid #edf2f7; text-align: left;
@@ -102,7 +102,7 @@
 
         #thanksMsg {
             display: none; background: var(--success); color: white; padding: 10px;
-            border-radius: 10px; margin-bottom: 15px; font-weight: bold;
+            border-radius: 10px; margin-bottom: 15px; font-weight: bold; text-align: center;
         }
 
         footer { background: var(--dark); color: #94a3b8; padding: 40px 20px; text-align: center; font-size: 13px; }
@@ -136,18 +136,40 @@
 
     <div class="trust-container">
         <h2 class="trust-title">Aakhir Hum Par <span>Bharosa Kyon?</span></h2>
+        
         <div class="info-card">
             <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="info-content"><h4>100% Safe IDs</h4><p>Hum sirf verified aur secure account sell karte hain.</p></div>
+            <div class="info-content">
+                <h4>100% Safe IDs</h4>
+                <p>Hum sirf verified aur secure accounts sell karte hain. Privacy hamari pehli priority hai.</p>
+            </div>
         </div>
+
         <div class="stats-grid">
-            <div class="stat-box blue-bg"><h2>50K+</h2><p>Happy Clients</p></div>
-            <div class="stat-box green-bg"><h2>100%</h2><p>Trust</p></div>
+            <div class="stat-box blue-bg">
+                <h2>50K+</h2>
+                <p>Happy Clients</p>
+            </div>
+            <div class="stat-box green-bg">
+                <h2>100%</h2>
+                <p>Secure Payment</p>
+            </div>
         </div>
+
+        <div class="info-card">
+            <div class="info-icon" style="background:#f0fdf4; color:var(--success);"><i class="fas fa-bolt"></i></div>
+            <div class="info-content">
+                <h4>Instant Delivery</h4>
+                <p>Payment ke baad login details aapko WhatsApp par seconds mein mil jati hain.</p>
+            </div>
+        </div>
+
         <div class="legal-box">
             <h3>Legal Transparency</h3>
+            <p>Hum poori tarah se business compliance ko follow karte hain aur har transaction safe hota hai.</p>
             <div class="legal-item"><span>Business Registration</span><span>VERIFIED <i class="fas fa-check-circle"></i></span></div>
             <div class="legal-item"><span>Payment Security</span><span>SSL ENCRYPTED <i class="fas fa-check-circle"></i></span></div>
+            <div class="legal-item" style="border-bottom: none;"><span>User Privacy</span><span>256-BIT SECURE <i class="fas fa-check-circle"></i></span></div>
         </div>
     </div>
 
@@ -179,20 +201,20 @@
             <div class="feedback-item">
                 <div class="meta-info"><b>Deepak Gamer</b> • 1 month ago</div>
                 <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
-                <p>Trust issue nahi hai bilkul, pricing bhi affordable hai.</p>
+                <p>Trust issue nahi hai bilkul, pricing bhi affordable hai. Recommended.</p>
                 <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 842</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 12</span></div>
             </div>
             <div class="feedback-item">
-                <div class="meta-info"><b>Aman_FF</b> • 3 months ago</div>
+                <div class="meta-info"><b>Aman_FF_King</b> • 3 months ago</div>
                 <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>Samurai bundle wali ID mil gayi. Best store ever!</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 520</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 8</span></div>
+                <p>Samurai bundle finally mil gaya. Admin bahut helpful h.</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 410</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 3</span></div>
             </div>
             <div class="feedback-item">
-                <div class="meta-info"><b>Suresh Kr.</b> • 6 months ago</div>
-                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
-                <p>Good support team, WhatsApp par reply jaldi aata hai.</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 310</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 15</span></div>
+                <div class="meta-info"><b>Suresh Rajput</b> • 2 weeks ago</div>
+                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>Safe and Secure. Don't worry, payment ke baad turant mil jata h account.</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 230</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 9</span></div>
             </div>
         </div>
 
@@ -221,9 +243,11 @@
         const name = document.getElementById('userName').value;
         const comment = document.getElementById('userReview').value;
         if(!name || !comment || selectedRating === 0) return;
+
         document.getElementById('feedbackForm').style.display = 'none';
         const thanks = document.getElementById('thanksMsg');
         thanks.style.display = 'block';
+
         setTimeout(() => {
             thanks.style.display = 'none';
             const div = document.createElement('div');
@@ -235,6 +259,8 @@
                 <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 1</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 0</span></div>
             `;
             document.getElementById('userPosts').prepend(div);
+            
+            // Reset
             document.getElementById('userName').value = '';
             document.getElementById('userReview').value = '';
             selectedRating = 0;
@@ -249,35 +275,44 @@
         btn.classList.add('active');
     }
 
-    const reviewData = [
-        {name: "Vikram Pro", time: "5 days ago", comment: "Bhai log bilkul trusted h, aankh band karke lo.", likes: 890, dislikes: 4},
-        {name: "Saurabh Y.", time: "10 days ago", comment: "Old IDs ka collection mast h.", likes: 432, dislikes: 7},
-        {name: "Kabir FF", time: "2 weeks ago", comment: "Finally meri dream ID mil gayi.", likes: 120, dislikes: 3},
-        {name: "Rohit Gamer", time: "1 month ago", comment: "Fast delivery, no scam.", likes: 760, dislikes: 10},
-        {name: "Ankit Rajput", time: "3 days ago", comment: "Best service in India for FF IDs.", likes: 215, dislikes: 5},
-        {name: "Sameer Sheikh", time: "8 months ago", comment: "Maine 2 IDs li h, dono safe h.", likes: 1100, dislikes: 20},
-        {name: "Nitish King", time: "1 year ago", comment: "Purana seller h, trusted h.", likes: 1500, dislikes: 18},
-        {name: "Sumit Bhai", time: "4 months ago", comment: "Price thoda kam karo, baki sab mast h.", likes: 340, dislikes: 14}
+    const reviewPool = [
+        {name: "Vikram Pro", time: "5 days ago", msg: "Best ID store, payment ke baad call bhi aaya tha login karane ke liye.", l: 890, d: 4},
+        {name: "Saurabh Y.", time: "10 days ago", msg: "Old IDs ka collection mast h bhai ke paas.", l: 432, d: 7},
+        {name: "Kabir FF", time: "2 weeks ago", msg: "Finally meri dream ID mil gayi low budget me.", l: 120, d: 3},
+        {name: "Rohit Gamer", time: "1 month ago", msg: "Fast delivery, no scam. 100% genuine accounts.", l: 760, d: 10},
+        {name: "Ankit Rajput", time: "3 days ago", msg: "Best service in India for FF IDs. No doubt.", l: 215, d: 5},
+        {name: "Sameer Sheikh", time: "8 months ago", msg: "Maine 2 IDs li h, dono abhi tak sahi chal rahi h.", l: 1100, d: 20},
+        {name: "Nitish King", time: "1 year ago", msg: "Purana seller h, bilkul trusted h.", l: 1500, d: 18},
+        {name: "Sumit Bhai", time: "4 months ago", msg: "Service mast h, security ke sath ID milti h.", l: 340, d: 14},
+        {name: "Jatin_Legend", time: "6 days ago", msg: "Bundles ekdam rare milte h yahan pe.", l: 290, d: 2},
+        {name: "Sahil Khan", time: "5 months ago", msg: "Maine friend ko bhi recommend kiya h.", l: 560, d: 8},
+        {name: "Piyush FF", time: "9 days ago", msg: "Instant reply aata h WhatsApp par.", l: 180, d: 4},
+        {name: "Rahul_Vip", time: "11 months ago", msg: "Aankh band karke trust kar sakte ho.", l: 2000, d: 22}
     ];
 
     let currentIdx = 0;
     function loadMore() {
-        if(currentIdx >= reviewData.length) { alert("No more reviews!"); return; }
+        if(currentIdx >= reviewPool.length) {
+            document.getElementById('loadMoreBtn').innerText = "No More Reviews";
+            return;
+        }
         document.getElementById('loadMoreBtn').style.display = 'none';
         document.getElementById('loader').style.display = 'block';
+        
         setTimeout(() => {
             document.getElementById('loader').style.display = 'none';
             document.getElementById('loadMoreBtn').style.display = 'block';
+            
             for(let i=0; i<4; i++) {
-                if(reviewData[currentIdx]) {
-                    const item = reviewData[currentIdx];
+                if(reviewPool[currentIdx]) {
+                    const item = reviewPool[currentIdx];
                     const div = document.createElement('div');
                     div.className = 'feedback-item';
                     div.innerHTML = `
                         <div class="meta-info"><b>${item.name}</b> • ${item.time}</div>
                         <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <p>${item.comment}</p>
-                        <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> ${item.likes}</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> ${item.dislikes}</span></div>
+                        <p>${item.msg}</p>
+                        <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> ${item.l}</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> ${item.d}</span></div>
                     `;
                     document.getElementById('dynamicFeedbackArea').appendChild(div);
                     currentIdx++;
@@ -287,4 +322,5 @@
     }
 </script>
 </body>
-</html>
+    </html>
+    
