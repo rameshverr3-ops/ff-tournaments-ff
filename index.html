@@ -71,7 +71,7 @@
             transition: 0.3s;
         }
 
-        /* --- UPGRADED TRUST SECTION (Based on Images) --- */
+        /* --- TRUST SECTION --- */
         .trust-container { margin-bottom: 40px; text-align: center; }
         .trust-title { font-size: 26px; margin-bottom: 25px; color: var(--dark); font-weight: 800; }
         .trust-title span { color: var(--primary); }
@@ -135,7 +135,6 @@
             font-size: 14px;
         }
         .legal-item span:last-child { color: var(--success); font-weight: bold; }
-        /* ---------------------------------------------- */
 
         /* Feedback Section */
         .feedback-item {
@@ -162,6 +161,17 @@
             cursor: pointer;
             margin: 20px auto;
             display: block;
+        }
+
+        /* Success Msg Style */
+        #thanksMsg {
+            display: none;
+            background: var(--success);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
         }
 
         footer {
@@ -209,69 +219,35 @@
 
     <div class="trust-container">
         <h2 class="trust-title">Aakhir Hum Par <span>Bharosa Kyon?</span></h2>
-        
         <div class="stat-box" style="background: white; border-radius: 20px; margin-bottom: 20px; text-align: left; padding: 25px;">
             <h3 style="margin-bottom: 10px; color: var(--dark);">Hum Kaun Hain?</h3>
-            <p style="color: #64748b; font-size: 15px; line-height: 1.6;">Growth FF Store ek registered digital agency hai jo pichle 5 saalon se Free Fire community ko premium gaming IDs aur bundles provide karne mein leader rahi hai. Hamara maksad har player ko "Dream ID" dena hai woh bhi sabse saste daam par.</p>
+            <p style="color: #64748b; font-size: 15px; line-height: 1.6;">Growth FF Store ek registered digital agency hai jo pichle 5 saalon se Free Fire community ko premium gaming IDs aur bundles provide karne mein leader rahi hai.</p>
         </div>
-
         <div class="stats-grid">
-            <div class="stat-box blue-bg">
-                <h2>50K+</h2>
-                <p>Happy Clients</p>
-            </div>
-            <div class="stat-box green-bg">
-                <h2>100%</h2>
-                <p>Secure Delivery</p>
-            </div>
+            <div class="stat-box blue-bg"><h2>50K+</h2><p>Happy Clients</p></div>
+            <div class="stat-box green-bg"><h2>100%</h2><p>Secure Delivery</p></div>
         </div>
-
         <div class="info-card">
             <div class="info-icon"><i class="fas fa-headset"></i></div>
-            <div class="info-content">
-                <h4>24/7 VIP Support</h4>
-                <p>WhatsApp par hamesha aapki madad ke liye taiyar. ID login tak full support.</p>
-            </div>
+            <div class="info-content"><h4>24/7 VIP Support</h4><p>WhatsApp par hamesha aapki madad ke liye taiyar.</p></div>
         </div>
-
         <div class="info-card">
             <div class="info-icon" style="background:#fff7ed; color:#f97316;"><i class="fas fa-bolt"></i></div>
-            <div class="info-content">
-                <h4>Instant Delivery</h4>
-                <p>Payment ke baad aapko login details seconds mein mil jati hain.</p>
-            </div>
+            <div class="info-content"><h4>Instant Delivery</h4><p>Payment ke baad login details seconds mein mil jati hain.</p></div>
         </div>
-
-        <div class="info-card">
-            <div class="info-icon" style="background:#f0fdf4; color:var(--success);"><i class="fas fa-shield-alt"></i></div>
-            <div class="info-content">
-                <h4>Anti-Ban Guarantee</h4>
-                <p>Hamari sabhi IDs 100% genuine aur safe hain, koi ban issue nahi aayega.</p>
-            </div>
-        </div>
-
         <div class="legal-box">
             <h3>Legal Transparency</h3>
-            <p>Hum poori tarah se business compliance ko follow karte hain aur har transaction mein transparency banaye rakhte hain.</p>
-            
-            <div class="legal-item">
-                <span>Business Registration</span>
-                <span>VERIFIED <i class="fas fa-check-circle"></i></span>
-            </div>
-            <div class="legal-item">
-                <span>Payment Security</span>
-                <span>SSL ENCRYPTED <i class="fas fa-check-circle"></i></span>
-            </div>
-            <div class="legal-item" style="border-bottom: none;">
-                <span>User Privacy</span>
-                <span>256-BIT SECURE <i class="fas fa-check-circle"></i></span>
-            </div>
+            <div class="legal-item"><span>Business Registration</span><span>VERIFIED <i class="fas fa-check-circle"></i></span></div>
+            <div class="legal-item"><span>Payment Security</span><span>SSL ENCRYPTED <i class="fas fa-check-circle"></i></span></div>
+            <div class="legal-item" style="border-bottom: none;"><span>User Privacy</span><span>256-BIT SECURE <i class="fas fa-check-circle"></i></span></div>
         </div>
     </div>
 
     <div class="id-section">
         <h3>Customer Reviews</h3>
         <button class="btn-more" style="background:#10b981; margin-bottom:15px;" onclick="toggleFeedbackForm()">Give Feedback</button>
+
+        <div id="thanksMsg">Thanks for feedback!</div>
 
         <div id="feedbackForm" class="rating-input-area">
             <div class="stars" id="starInput">
@@ -298,20 +274,8 @@
             <div class="feedback-item">
                 <div class="meta-info"><b>Deepak Gamer</b> • 1 month ago</div>
                 <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
-                <p>Trust issue nahi hai bilkul, pricing bhi affordable hai. Highly recommended.</p>
+                <p>Trust issue nahi hai bilkul, pricing bhi affordable hai.</p>
                 <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 842</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 12</span></div>
-            </div>
-            <div class="feedback-item">
-                <div class="meta-info"><b>Aman_FF_King</b> • 3 months ago</div>
-                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>Old IDs ka collection best hai inke paas. Samurai bundle mil gaya finally!</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 1205</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 18</span></div>
-            </div>
-            <div class="feedback-item">
-                <div class="meta-info"><b>Suresh Rajput</b> • 6 months ago</div>
-                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
-                <p>Good support team, WhatsApp par reply jaldi aata hai.</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 430</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 21</span></div>
             </div>
         </div>
 
@@ -321,24 +285,6 @@
                 <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                 <p>Best price in the market. Dusre sites se kaafi sasta hai.</p>
                 <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 910</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 9</span></div>
-            </div>
-            <div class="feedback-item">
-                <div class="meta-info"><b>Rohit FF</b> • 1 year ago</div>
-                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>Trusted seller. Multiple IDs kharidi hain maine abhi tak.</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 1420</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 14</span></div>
-            </div>
-            <div class="feedback-item">
-                <div class="meta-info"><b>Saurabh Y.</b> • 4 months ago</div>
-                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
-                <p>Bhai ID me glitch tha pehle, fir inko message kiya toh thik kar diya.</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 650</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 7</span></div>
-            </div>
-            <div class="feedback-item">
-                <div class="meta-info"><b>Kabir Legend</b> • 2 days ago</div>
-                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>Account ekdam safe hai. Bind karne me puri help ki admin ne.</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 210</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 4</span></div>
             </div>
         </div>
 
@@ -350,7 +296,6 @@
 <footer>
     <p><b>Growth FF Store © 2026</b></p>
     <p>Registered Business | GSTIN: 08AAACV1234F1Z5</p>
-    <p style="margin-top:10px; font-size:10px;">Free Fire is a trademark of Garena. We are a secondary marketplace.</p>
 </footer>
 
 <script>
@@ -370,23 +315,34 @@
     function submitReview() {
         const name = document.getElementById('userName').value;
         const comment = document.getElementById('userReview').value;
-        if(!name || !comment || selectedRating === 0) return alert('Please fill everything');
-
-        const div = document.createElement('div');
-        div.className = 'feedback-item';
-        div.innerHTML = `
-            <div class="meta-info"><b>${name}</b> • 0 seconds ago</div>
-            <div style="color:var(--accent)">${'<i class="fas fa-star"></i>'.repeat(selectedRating)}</div>
-            <p>${comment}</p>
-            <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 1</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 0</span></div>
-        `;
-        document.getElementById('userPosts').prepend(div);
         
-        document.getElementById('userName').value = '';
-        document.getElementById('userReview').value = '';
-        selectedRating = 0;
-        stars.forEach(s => s.classList.remove('active'));
+        // Agar kuch khali ho toh chup-chap return (No alert)
+        if(!name || !comment || selectedRating === 0) return;
+
+        // Form hide karo aur Thanks message dikhao
         document.getElementById('feedbackForm').style.display = 'none';
+        const thanks = document.getElementById('thanksMsg');
+        thanks.style.display = 'block';
+
+        // 2 Second ke baad thanks hategi aur comment aayega
+        setTimeout(() => {
+            thanks.style.display = 'none';
+            const div = document.createElement('div');
+            div.className = 'feedback-item';
+            div.innerHTML = `
+                <div class="meta-info"><b>${name}</b> • 0 seconds ago</div>
+                <div style="color:var(--accent)">${'<i class="fas fa-star"></i>'.repeat(selectedRating)}</div>
+                <p>${comment}</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 1</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 0</span></div>
+            `;
+            document.getElementById('userPosts').prepend(div);
+            
+            // Reset fields
+            document.getElementById('userName').value = '';
+            document.getElementById('userReview').value = '';
+            selectedRating = 0;
+            stars.forEach(s => s.classList.remove('active'));
+        }, 2000);
     }
 
     function handleLike(btn) {
