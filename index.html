@@ -44,10 +44,24 @@
             text-decoration: none; display: inline-block; font-weight: bold; transition: 0.3s;
         }
 
-        /* --- TRUST SECTION --- */
+        /* --- VIPSMM STYLE TRUST SECTION --- */
         .trust-container { margin-bottom: 40px; text-align: center; }
         .trust-title { font-size: 26px; margin-bottom: 25px; color: var(--dark); font-weight: 800; }
         .trust-title span { color: var(--primary); }
+
+        .hum-kaun-hain {
+            background: white; border-radius: 25px; padding: 25px; text-align: left; margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .hum-kaun-hain h3 { margin-bottom: 10px; font-size: 20px; }
+        .hum-kaun-hain p { color: #64748b; line-height: 1.6; font-size: 15px; }
+
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+        .stat-box { padding: 20px; border-radius: 20px; text-align: center; }
+        .blue-bg { background: #eff6ff; color: var(--primary); }
+        .green-bg { background: #f0fdf4; color: var(--success); }
+        .stat-box h2 { font-size: 24px; }
+        .stat-box p { font-size: 12px; font-weight: bold; }
 
         .info-card {
             background: white; padding: 25px; border-radius: 25px; margin-bottom: 20px;
@@ -57,22 +71,23 @@
             background: #f0f9ff; color: var(--primary); width: 60px; height: 60px;
             border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 24px;
         }
-        .info-content h4 { font-size: 18px; margin-bottom: 5px; color: var(--dark); }
-        .info-content p { font-size: 14px; color: #64748b; line-height: 1.4; }
+        .info-content h4 { font-size: 18px; margin-bottom: 5px; }
+        .info-content p { font-size: 14px; color: #64748b; }
 
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
-        .stat-box { padding: 20px; border-radius: 20px; text-align: center; }
-        .blue-bg { background: #eff6ff; color: var(--primary); }
-        .green-bg { background: #f0fdf4; color: var(--success); }
-        .stat-box h2 { font-size: 24px; }
-        .stat-box p { font-size: 12px; font-weight: bold; text-transform: uppercase; }
+        .reason-box {
+            background: #f8faff; border-radius: 25px; padding: 25px; margin-bottom: 20px; text-align: left;
+            border-left: 5px solid var(--primary);
+        }
+        .reason-item { display: flex; gap: 15px; margin-bottom: 20px; }
+        .reason-item i { color: var(--primary); margin-top: 5px; }
+        .reason-item b { display: block; font-size: 16px; margin-bottom: 3px; }
+        .reason-item p { font-size: 14px; color: #64748b; }
 
         .legal-box {
             background: #0f172a; color: white; padding: 30px; border-radius: 30px;
             text-align: left; margin-top: 20px;
         }
         .legal-box h3 { margin-bottom: 15px; font-size: 22px; }
-        .legal-box p { font-size: 14px; color: #94a3b8; margin-bottom: 20px; line-height: 1.6; }
         .legal-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1e293b; font-size: 14px; }
         .legal-item span:last-child { color: var(--success); font-weight: bold; }
 
@@ -135,38 +150,67 @@
     </div>
 
     <div class="trust-container">
-        <h2 class="trust-title">Aakhir Hum Par <span>Bharosa Kyon?</span></h2>
-        
-        <div class="info-card">
-            <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
-            <div class="info-content">
-                <h4>100% Safe IDs</h4>
-                <p>Hum sirf verified aur secure accounts sell karte hain. Privacy hamari pehli priority hai.</p>
-            </div>
+        <div class="hum-kaun-hain">
+            <h3>Hum Kaun Hain?</h3>
+            <p>Growth FF Store ek registered digital agency hai jo pichle 5 saalon se Free Fire community ko premium gaming IDs aur rare bundles provide karne mein leader rahi hai. Hamara maksad har gamer ko uski pasandida ID sabse saste daam par dena hai.</p>
         </div>
 
         <div class="stats-grid">
             <div class="stat-box blue-bg">
                 <h2>50K+</h2>
-                <p>Happy Clients</p>
+                <p>HAPPY CLIENTS</p>
             </div>
             <div class="stat-box green-bg">
                 <h2>100%</h2>
-                <p>Secure Payment</p>
+                <p>SECURE PAYMENT</p>
+            </div>
+        </div>
+
+        <h2 class="trust-title">Aakhir Hum Par <span>Bharosa Kyon?</span></h2>
+
+        <div class="reason-box">
+            <div class="reason-item">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <b>Bulk Inventory:</b>
+                    <p>Hum direct bade collectors aur top players se bulk mein IDs purchase karte hain, isliye hamare rates market mein sabse kam hain.</p>
+                </div>
+            </div>
+            <div class="reason-item">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <b>Corporate Partnership:</b>
+                    <p>Hamari gaming communities ke saath special ties hain jo hamein rare bundles (Samurai, HipHop) wali IDs jaldi dilwati hain.</p>
+                </div>
+            </div>
+            <div class="reason-item">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                    <b>Zero Marketing Cost:</b>
+                    <p>Hum ads par paisa kharch karne ke bajaye wahi discount apne users ko dete hain taaki aapko sasti ID mil sake.</p>
+                </div>
             </div>
         </div>
 
         <div class="info-card">
-            <div class="info-icon" style="background:#f0fdf4; color:var(--success);"><i class="fas fa-bolt"></i></div>
+            <div class="info-icon"><i class="fas fa-bolt" style="color:#f97316;"></i></div>
             <div class="info-content">
                 <h4>Instant Delivery</h4>
-                <p>Payment ke baad login details aapko WhatsApp par seconds mein mil jati hain.</p>
+                <p>Aapka order seconds mein start hota hai aur login details WhatsApp par mil jati hain.</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon"><i class="fas fa-headset"></i></div>
+            <div class="info-content">
+                <h4>24/7 VIP Support</h4>
+                <p>WhatsApp par hamesha aapki madad ke liye taiyar. ID secure karne mein poori help.</p>
             </div>
         </div>
 
         <div class="legal-box">
             <h3>Legal Transparency</h3>
-            <p>Hum poori tarah se business compliance ko follow karte hain aur har transaction safe hota hai.</p>
+            <p>Hamari company Maharashtra (Mumbai) se operate hoti hai. Hum poori tarah se business compliance ko follow karte hain.</p>
             <div class="legal-item"><span>Business Registration</span><span>VERIFIED <i class="fas fa-check-circle"></i></span></div>
             <div class="legal-item"><span>Payment Security</span><span>SSL ENCRYPTED <i class="fas fa-check-circle"></i></span></div>
             <div class="legal-item" style="border-bottom: none;"><span>User Privacy</span><span>256-BIT SECURE <i class="fas fa-check-circle"></i></span></div>
@@ -203,18 +247,6 @@
                 <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
                 <p>Trust issue nahi hai bilkul, pricing bhi affordable hai. Recommended.</p>
                 <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 842</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 12</span></div>
-            </div>
-            <div class="feedback-item">
-                <div class="meta-info"><b>Aman_FF_King</b> • 3 months ago</div>
-                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>Samurai bundle finally mil gaya. Admin bahut helpful h.</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 410</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 3</span></div>
-            </div>
-            <div class="feedback-item">
-                <div class="meta-info"><b>Suresh Rajput</b> • 2 weeks ago</div>
-                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>Safe and Secure. Don't worry, payment ke baad turant mil jata h account.</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 230</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 9</span></div>
             </div>
         </div>
 
@@ -260,7 +292,7 @@
             `;
             document.getElementById('userPosts').prepend(div);
             
-            // Reset
+            // Reset fields
             document.getElementById('userName').value = '';
             document.getElementById('userReview').value = '';
             selectedRating = 0;
@@ -276,18 +308,14 @@
     }
 
     const reviewPool = [
-        {name: "Vikram Pro", time: "5 days ago", msg: "Best ID store, payment ke baad call bhi aaya tha login karane ke liye.", l: 890, d: 4},
+        {name: "Vikram Pro", time: "5 days ago", msg: "Best ID store, HipHop bundle mil gaya finally.", l: 890, d: 4},
         {name: "Saurabh Y.", time: "10 days ago", msg: "Old IDs ka collection mast h bhai ke paas.", l: 432, d: 7},
         {name: "Kabir FF", time: "2 weeks ago", msg: "Finally meri dream ID mil gayi low budget me.", l: 120, d: 3},
-        {name: "Rohit Gamer", time: "1 month ago", msg: "Fast delivery, no scam. 100% genuine accounts.", l: 760, d: 10},
-        {name: "Ankit Rajput", time: "3 days ago", msg: "Best service in India for FF IDs. No doubt.", l: 215, d: 5},
-        {name: "Sameer Sheikh", time: "8 months ago", msg: "Maine 2 IDs li h, dono abhi tak sahi chal rahi h.", l: 1100, d: 20},
+        {name: "Rohit Gamer", time: "1 month ago", msg: "Fast delivery, no scam. 100% genuine.", l: 760, d: 10},
+        {name: "Ankit Rajput", time: "3 days ago", msg: "Best service in India for FF IDs.", l: 215, d: 5},
+        {name: "Sameer Sheikh", time: "8 months ago", msg: "Maine 2 IDs li h, dono safe h.", l: 1100, d: 20},
         {name: "Nitish King", time: "1 year ago", msg: "Purana seller h, bilkul trusted h.", l: 1500, d: 18},
-        {name: "Sumit Bhai", time: "4 months ago", msg: "Service mast h, security ke sath ID milti h.", l: 340, d: 14},
-        {name: "Jatin_Legend", time: "6 days ago", msg: "Bundles ekdam rare milte h yahan pe.", l: 290, d: 2},
-        {name: "Sahil Khan", time: "5 months ago", msg: "Maine friend ko bhi recommend kiya h.", l: 560, d: 8},
-        {name: "Piyush FF", time: "9 days ago", msg: "Instant reply aata h WhatsApp par.", l: 180, d: 4},
-        {name: "Rahul_Vip", time: "11 months ago", msg: "Aankh band karke trust kar sakte ho.", l: 2000, d: 22}
+        {name: "Sumit Bhai", time: "4 months ago", msg: "Service mast h, security ke sath ID milti h.", l: 340, d: 14}
     ];
 
     let currentIdx = 0;
@@ -322,5 +350,5 @@
     }
 </script>
 </body>
-    </html>
-    
+                                                                                                                                                                 </html>
+                                                                                                                                                                 
