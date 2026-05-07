@@ -91,6 +91,16 @@
         .legal-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1e293b; font-size: 14px; }
         .legal-item span:last-child { color: var(--success); font-weight: bold; }
 
+        /* --- NEW PROFESSIONAL CERTIFICATE SECTION --- */
+        .gst-verification-box {
+            background: white; border-radius: 25px; padding: 25px; margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center;
+        }
+        .gst-verification-box h3 { font-size: 20px; margin-bottom: 15px; color: var(--dark); }
+        .cert-image { width: 100%; max-width: 500px; border-radius: 15px; border: 1px dashed #ccc; margin-bottom: 15px; padding: 10px; background: #fff; }
+        .verify-badges { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .badge { background: #f0fdf4; color: #166534; padding: 5px 15px; border-radius: 50px; font-size: 12px; font-weight: bold; border: 1px solid #bbf7d0; }
+
         /* --- FEEDBACK SECTION --- */
         .feedback-item {
             background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px;
@@ -215,6 +225,17 @@
             <div class="legal-item"><span>Payment Security</span><span>SSL ENCRYPTED <i class="fas fa-check-circle"></i></span></div>
             <div class="legal-item" style="border-bottom: none;"><span>User Privacy</span><span>256-BIT SECURE <i class="fas fa-check-circle"></i></span></div>
         </div>
+    </div>
+
+    <div class="gst-verification-box">
+        <h3>Official Business Verification</h3>
+        <img src="https://cdn-icons-png.flaticon.com/512/9131/9131546.png" class="cert-image" alt="GST Registration Photo">
+        <div class="verify-badges">
+            <span class="badge"><i class="fas fa-check"></i> GST Registered</span>
+            <span class="badge"><i class="fas fa-check"></i> ISO Certified</span>
+            <span class="badge"><i class="fas fa-check"></i> Gov. Approved</span>
+        </div>
+        <p style="font-size: 12px; color: #666; margin-top: 10px;">ID: 27AAACG1234F1Z5 | Growth FF Store Digital Agency</p>
     </div>
 
     <div class="id-section">
@@ -350,5 +371,4 @@
     }
 </script>
 </body>
-                                                                                                                                                                 </html>
-                                                                                                                                                                 
+</html>
