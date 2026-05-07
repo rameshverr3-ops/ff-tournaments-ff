@@ -12,6 +12,7 @@
             --dark: #0f172a;
             --light: #f8fafc;
             --white: #ffffff;
+            --success: #10b981;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
@@ -55,7 +56,7 @@
         .price-tag {
             font-size: 24px;
             font-weight: bold;
-            color: #10b981;
+            color: var(--success);
             margin: 10px 0;
         }
 
@@ -70,27 +71,71 @@
             transition: 0.3s;
         }
 
-        /* Trust Section */
-        .trust-box {
-            text-align: center;
-            padding: 40px 20px;
-            background: #fff;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            border-left: 5px solid var(--accent);
-        }
+        /* --- UPGRADED TRUST SECTION (Based on Images) --- */
+        .trust-container { margin-bottom: 40px; text-align: center; }
+        .trust-title { font-size: 26px; margin-bottom: 25px; color: var(--dark); font-weight: 800; }
+        .trust-title span { color: var(--primary); }
 
-        /* Rating System */
-        .rating-input-area {
-            background: #f1f5f9;
-            padding: 20px;
-            border-radius: 15px;
+        .info-card {
+            background: white;
+            padding: 25px;
+            border-radius: 25px;
             margin-bottom: 20px;
-            display: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-align: left;
         }
+        .info-icon {
+            background: #f0f9ff;
+            color: var(--primary);
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .info-content h4 { font-size: 18px; margin-bottom: 5px; color: var(--dark); }
+        .info-content p { font-size: 14px; color: #64748b; line-height: 1.4; }
 
-        .stars { color: #cbd5e1; cursor: pointer; font-size: 25px; }
-        .stars .active { color: var(--accent); }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .stat-box {
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .blue-bg { background: #eff6ff; color: var(--primary); }
+        .green-bg { background: #f0fdf4; color: var(--success); }
+        .stat-box h2 { font-size: 24px; }
+        .stat-box p { font-size: 12px; font-weight: bold; text-transform: uppercase; }
+
+        .legal-box {
+            background: #0f172a;
+            color: white;
+            padding: 30px;
+            border-radius: 30px;
+            text-align: left;
+            margin-top: 20px;
+        }
+        .legal-box h3 { margin-bottom: 15px; font-size: 22px; }
+        .legal-box p { font-size: 14px; color: #94a3b8; margin-bottom: 20px; line-height: 1.6; }
+        .legal-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #1e293b;
+            font-size: 14px;
+        }
+        .legal-item span:last-child { color: var(--success); font-weight: bold; }
+        /* ---------------------------------------------- */
 
         /* Feedback Section */
         .feedback-item {
@@ -162,11 +207,66 @@
         </a>
     </div>
 
-    <div class="trust-box">
-        <h2 style="color:var(--primary); margin-bottom: 10px;">Why Trust Growth FF Store?</h2>
-        <p><strong>100% Guaranteed Secure IDs.</strong> Hamari sabhi IDs verified hoti hain aur hum instant delivery dete hain. 
-        Privacy aur security hamari pehli priority hai. Join thousands of happy gamers today!</p>
-        <p style="margin-top: 10px; font-style: italic;">ID lene ke baad aapko poora support milega jab tak aapka login successfully na ho jaye.</p>
+    <div class="trust-container">
+        <h2 class="trust-title">Aakhir Hum Par <span>Bharosa Kyon?</span></h2>
+        
+        <div class="stat-box" style="background: white; border-radius: 20px; margin-bottom: 20px; text-align: left; padding: 25px;">
+            <h3 style="margin-bottom: 10px; color: var(--dark);">Hum Kaun Hain?</h3>
+            <p style="color: #64748b; font-size: 15px; line-height: 1.6;">Growth FF Store ek registered digital agency hai jo pichle 5 saalon se Free Fire community ko premium gaming IDs aur bundles provide karne mein leader rahi hai. Hamara maksad har player ko "Dream ID" dena hai woh bhi sabse saste daam par.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box blue-bg">
+                <h2>50K+</h2>
+                <p>Happy Clients</p>
+            </div>
+            <div class="stat-box green-bg">
+                <h2>100%</h2>
+                <p>Secure Delivery</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon"><i class="fas fa-headset"></i></div>
+            <div class="info-content">
+                <h4>24/7 VIP Support</h4>
+                <p>WhatsApp par hamesha aapki madad ke liye taiyar. ID login tak full support.</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon" style="background:#fff7ed; color:#f97316;"><i class="fas fa-bolt"></i></div>
+            <div class="info-content">
+                <h4>Instant Delivery</h4>
+                <p>Payment ke baad aapko login details seconds mein mil jati hain.</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon" style="background:#f0fdf4; color:var(--success);"><i class="fas fa-shield-alt"></i></div>
+            <div class="info-content">
+                <h4>Anti-Ban Guarantee</h4>
+                <p>Hamari sabhi IDs 100% genuine aur safe hain, koi ban issue nahi aayega.</p>
+            </div>
+        </div>
+
+        <div class="legal-box">
+            <h3>Legal Transparency</h3>
+            <p>Hum poori tarah se business compliance ko follow karte hain aur har transaction mein transparency banaye rakhte hain.</p>
+            
+            <div class="legal-item">
+                <span>Business Registration</span>
+                <span>VERIFIED <i class="fas fa-check-circle"></i></span>
+            </div>
+            <div class="legal-item">
+                <span>Payment Security</span>
+                <span>SSL ENCRYPTED <i class="fas fa-check-circle"></i></span>
+            </div>
+            <div class="legal-item" style="border-bottom: none;">
+                <span>User Privacy</span>
+                <span>256-BIT SECURE <i class="fas fa-check-circle"></i></span>
+            </div>
+        </div>
     </div>
 
     <div class="id-section">
@@ -181,12 +281,14 @@
                 <i class="fas fa-star" data-val="4"></i>
                 <i class="fas fa-star" data-val="5"></i>
             </div>
-            <input type="text" id="userName" placeholder="Your Name" style="width:100%; margin:10px 0; padding:8px; border-radius:5px; border:1px solid #ddd;">
-            <textarea id="userReview" placeholder="Write your experience..." style="width:100%; padding:8px; border-radius:5px; border:1px solid #ddd; height:80px;"></textarea>
+            <input type="text" id="userName" placeholder="Your Name" style="width:100%; margin:10px 0; padding:12px; border-radius:10px; border:1px solid #ddd;">
+            <textarea id="userReview" placeholder="Write your experience..." style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; height:80px;"></textarea>
             <button class="btn-more" onclick="submitReview()">Post Review</button>
         </div>
 
-        <div id="userPosts"></div> <div id="publicFeedback">
+        <div id="userPosts"></div> 
+
+        <div id="publicFeedback">
             <div class="feedback-item">
                 <div class="meta-info"><b>Rahul Sharma</b> • 2 days ago</div>
                 <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
@@ -256,7 +358,6 @@
         document.getElementById('feedbackForm').style.display = 'block';
     }
 
-    // Star Rating Logic
     const stars = document.querySelectorAll('#starInput i');
     let selectedRating = 0;
     stars.forEach(star => {
@@ -273,7 +374,6 @@
 
         const div = document.createElement('div');
         div.className = 'feedback-item';
-        // Yahan 0 seconds ago wala logic hai
         div.innerHTML = `
             <div class="meta-info"><b>${name}</b> • 0 seconds ago</div>
             <div style="color:var(--accent)">${'<i class="fas fa-star"></i>'.repeat(selectedRating)}</div>
@@ -282,7 +382,6 @@
         `;
         document.getElementById('userPosts').prepend(div);
         
-        // Reset inputs
         document.getElementById('userName').value = '';
         document.getElementById('userReview').value = '';
         selectedRating = 0;
@@ -292,8 +391,7 @@
 
     function handleLike(btn) {
         if(btn.classList.contains('active')) return;
-        let countStr = btn.innerText.trim();
-        let count = parseInt(countStr);
+        let count = parseInt(btn.innerText.trim());
         btn.innerHTML = `<i class="fas fa-thumbs-up"></i> ${count + 1}`;
         btn.classList.add('active');
     }
