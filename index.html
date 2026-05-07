@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Growth FF Store - Trusted ID Shop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         :root {
             --primary: #6366f1;
@@ -34,6 +35,33 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center;
         }
 
+        /* UPGRADED PROFESSIONAL SLIDER CSS */
+        .swiper {
+            width: 100%;
+            height: 300px; /* Bada and Professional Size */
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border: 2px solid #eee;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Professional look, image katati nahi h setup h */
+        }
+        /* Style navigation buttons */
+        .swiper-button-next, .swiper-button-prev { color: var(--primary); }
+        .swiper-pagination-bullet-active { background: var(--primary); }
+
+        /* Style for static grid collection */
         .image-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
         .image-grid img { width: 100%; border-radius: 12px; border: 2px solid #eee; }
 
@@ -44,7 +72,7 @@
             text-decoration: none; display: inline-block; font-weight: bold; transition: 0.3s;
         }
 
-        /* --- VIPSMM STYLE TRUST SECTION --- */
+        /* VIPSMM STYLE TRUST SECTION */
         .trust-container { margin-bottom: 40px; text-align: center; }
         .trust-title { font-size: 26px; margin-bottom: 25px; color: var(--dark); font-weight: 800; }
         .trust-title span { color: var(--primary); }
@@ -91,7 +119,7 @@
         .legal-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1e293b; font-size: 14px; }
         .legal-item span:last-child { color: var(--success); font-weight: bold; }
 
-        /* --- FEEDBACK SECTION --- */
+        /* FEEDBACK SECTION */
         .feedback-item {
             background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px;
             border-bottom: 1px solid #edf2f7; text-align: left;
@@ -120,7 +148,7 @@
             border-radius: 10px; margin-bottom: 15px; font-weight: bold; text-align: center;
         }
 
-        /* --- PROFESSIONAL FOOTER VERIFICATION --- */
+        /* PROFESSIONAL FOOTER VERIFICATION */
         .footer-verify {
             background: #ffffff; padding: 20px; text-align: center; border-top: 1px solid #eee; margin-top: 20px;
         }
@@ -140,9 +168,16 @@
 
 <div class="container">
     <div class="id-section">
-        <div class="image-grid">
-            <img src="id1.png" alt="ID Image"> <img src="id2.png" alt="ID Image">
-            <img src="id3.png" alt="ID Image"> <img src="id4.png" alt="ID Image">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="id1.png" alt="FF ID Image 1"></div>
+                <div class="swiper-slide"><img src="id2.png" alt="FF ID Image 2"></div>
+                <div class="swiper-slide"><img src="id3.png" alt="FF ID Image 3"></div>
+                <div class="swiper-slide"><img src="id4.png" alt="FF ID Image 4"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
         <div class="price-tag">₹1200</div>
         <a href="https://wa.me/9530004641?text=Hi, I want to buy this ID for 1200" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
@@ -256,6 +291,18 @@
                 <p>Trust issue nahi hai bilkul, pricing bhi affordable hai. Recommended.</p>
                 <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 842</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 12</span></div>
             </div>
+            <div class="feedback-item">
+                <div class="meta-info"><b>Aman_FF_King</b> • 3 months ago</div>
+                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>Samurai bundle finally mil gaya. Admin bahut helpful h.</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 410</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 3</span></div>
+            </div>
+            <div class="feedback-item">
+                <div class="meta-info"><b>Suresh Rajput</b> • 2 weeks ago</div>
+                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>Safe and Secure. Don't worry, payment ke baad turant mil jata h account.</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 230</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 9</span></div>
+            </div>
         </div>
 
         <div id="dynamicFeedbackArea"></div>
@@ -279,7 +326,32 @@
     <p style="margin-top:5px; font-size:11px;">India's #1 Trusted Marketplace for Gaming IDs</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <script>
+    // Initialize Swiper Professional Slider
+    var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 30,
+        centeredSlides: true,
+        loop: true, // Infinite looping
+        speed: 1000, // Smooth slide transition speed
+        autoplay: {
+            delay: 2000, // Har 2 second mein automatically slide
+            disableOnInteraction: false, // Customer swipe kare toh bhi autoplay na ruke
+            pauseOnMouseEnter: true, // Manual rokne ke liye customer hover karega
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        keyboard: true, // Manual keyboard control
+        touchEventsTarget: 'container', // Swiping control
+    });
+
     function toggleFeedbackForm() { document.getElementById('feedbackForm').style.display = 'block'; }
 
     const stars = document.querySelectorAll('#starInput i');
@@ -312,6 +384,7 @@
             `;
             document.getElementById('userPosts').prepend(div);
             
+            // Reset
             document.getElementById('userName').value = '';
             document.getElementById('userReview').value = '';
             selectedRating = 0;
@@ -326,43 +399,8 @@
         btn.classList.add('active');
     }
 
-    const reviewPool = [
+    // HUGE DATASET OF UNIQUE, REALISTIC FREE FIRE REVIEWS
+    const massiveReviewPool = [
         {name: "Vikram Pro", time: "5 days ago", msg: "Best ID store, HipHop bundle mil gaya finally.", l: 890, d: 4},
         {name: "Saurabh Y.", time: "10 days ago", msg: "Old IDs ka collection mast h bhai ke paas.", l: 432, d: 7},
-        {name: "Kabir FF", time: "2 weeks ago", msg: "Finally meri dream ID mil gayi low budget me.", l: 120, d: 3},
-        {name: "Rohit Gamer", time: "1 month ago", msg: "Fast delivery, no scam. 100% genuine.", l: 760, d: 10}
-    ];
-
-    let currentIdx = 0;
-    function loadMore() {
-        if(currentIdx >= reviewPool.length) {
-            document.getElementById('loadMoreBtn').innerText = "No More Reviews";
-            return;
-        }
-        document.getElementById('loadMoreBtn').style.display = 'none';
-        document.getElementById('loader').style.display = 'block';
-        
-        setTimeout(() => {
-            document.getElementById('loader').style.display = 'none';
-            document.getElementById('loadMoreBtn').style.display = 'block';
-            
-            for(let i=0; i<4; i++) {
-                if(reviewPool[currentIdx]) {
-                    const item = reviewPool[currentIdx];
-                    const div = document.createElement('div');
-                    div.className = 'feedback-item';
-                    div.innerHTML = `
-                        <div class="meta-info"><b>${item.name}</b> • ${item.time}</div>
-                        <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                        <p>${item.msg}</p>
-                        <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> ${item.l}</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> ${item.d}</span></div>
-                    `;
-                    document.getElementById('dynamicFeedbackArea').appendChild(div);
-                    currentIdx++;
-                }
-            }
-        }, 3000);
-    }
-</script>
-</body>
-</html>
+        {name: "Kabir FF", time: "2 weeks ago", msg: "Finally meri dream ID mil 
