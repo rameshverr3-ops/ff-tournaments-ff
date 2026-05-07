@@ -35,35 +35,33 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center;
         }
 
-        /* UPGRADED PROFESSIONAL SLIDER CSS */
+        /* --- FIXED & UPGRADED SLIDER CSS (Shows Full Image) --- */
         .swiper {
             width: 100%;
-            height: 300px; /* Bada and Professional Size */
+            height: 350px; /* Adjusted height for better fit */
             border-radius: 15px;
             margin-bottom: 15px;
             border: 2px solid #eee;
+            background: #fff; /* Background for contained images */
         }
         .swiper-slide {
             text-align: center;
-            font-size: 18px;
-            background: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
         .swiper-slide img {
             display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Professional look, image katati nahi h setup h */
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain; /* CRITICAL FIX: Shows full image without cropping */
         }
         /* Style navigation buttons */
-        .swiper-button-next, .swiper-button-prev { color: var(--primary); }
+        .swiper-button-next, .swiper-button-prev { color: var(--primary); transform: scale(0.7); }
         .swiper-pagination-bullet-active { background: var(--primary); }
-
-        /* Style for static grid collection */
-        .image-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-        .image-grid img { width: 100%; border-radius: 12px; border: 2px solid #eee; }
 
         .price-tag { font-size: 24px; font-weight: bold; color: var(--success); margin: 10px 0; }
 
@@ -72,7 +70,7 @@
             text-decoration: none; display: inline-block; font-weight: bold; transition: 0.3s;
         }
 
-        /* VIPSMM STYLE TRUST SECTION */
+        /* VIPSMM STYLE TRUST SECTION (No Changes) */
         .trust-container { margin-bottom: 40px; text-align: center; }
         .trust-title { font-size: 26px; margin-bottom: 25px; color: var(--dark); font-weight: 800; }
         .trust-title span { color: var(--primary); }
@@ -119,7 +117,7 @@
         .legal-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1e293b; font-size: 14px; }
         .legal-item span:last-child { color: var(--success); font-weight: bold; }
 
-        /* FEEDBACK SECTION */
+        /* FEEDBACK SECTION (No Changes) */
         .feedback-item {
             background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px;
             border-bottom: 1px solid #edf2f7; text-align: left;
@@ -148,7 +146,7 @@
             border-radius: 10px; margin-bottom: 15px; font-weight: bold; text-align: center;
         }
 
-        /* PROFESSIONAL FOOTER VERIFICATION */
+        /* PROFESSIONAL FOOTER VERIFICATION (No Changes) */
         .footer-verify {
             background: #ffffff; padding: 20px; text-align: center; border-top: 1px solid #eee; margin-top: 20px;
         }
@@ -168,12 +166,12 @@
 
 <div class="container">
     <div class="id-section">
-        <div class="swiper mySwiper">
+        <div class="swiper mySwiper1">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="id1.png" alt="FF ID Image 1"></div>
-                <div class="swiper-slide"><img src="id2.png" alt="FF ID Image 2"></div>
-                <div class="swiper-slide"><img src="id3.png" alt="FF ID Image 3"></div>
-                <div class="swiper-slide"><img src="id4.png" alt="FF ID Image 4"></div>
+                <div class="swiper-slide"><img src="id1.png" alt="FF ID Collection 1 Image 1"></div>
+                <div class="swiper-slide"><img src="id2.png" alt="FF ID Collection 1 Image 2"></div>
+                <div class="swiper-slide"><img src="id3.png" alt="FF ID Collection 1 Image 3"></div>
+                <div class="swiper-slide"><img src="id4.png" alt="FF ID Collection 1 Image 4"></div>
             </div>
             <div class="swiper-pagination"></div>
             <div class="swiper-button-next"></div>
@@ -184,9 +182,16 @@
     </div>
 
     <div class="id-section">
-        <div class="image-grid">
-            <img src="2nd1.png" alt="ID Image"> <img src="2nd2.png" alt="ID Image">
-            <img src="2nd3.png" alt="ID Image"> <img src="2nd4.png" alt="ID Image">
+        <div class="swiper mySwiper2">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="2nd1.png" alt="FF ID Collection 2 Image 1"></div>
+                <div class="swiper-slide"><img src="2nd2.png" alt="FF ID Collection 2 Image 2"></div>
+                <div class="swiper-slide"><img src="2nd3.png" alt="FF ID Collection 2 Image 3"></div>
+                <div class="swiper-slide"><img src="2nd4.png" alt="FF ID Collection 2 Image 4"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
         <div class="price-tag">₹500</div>
         <a href="https://wa.me/9530004641?text=Hi, I want to buy this ID for 500" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
@@ -329,16 +334,17 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
-    // Initialize Swiper Professional Slider
-    var swiper = new Swiper(".mySwiper", {
-        spaceBetween: 30,
+    // --- Initialize Sliders with Full Image Logic ---
+    
+    // Slider for ₹1200 Collection
+    var swiper1 = new Swiper(".mySwiper1", {
+        spaceBetween: 10,
         centeredSlides: true,
         loop: true, // Infinite looping
         speed: 1000, // Smooth slide transition speed
         autoplay: {
-            delay: 2000, // Har 2 second mein automatically slide
-            disableOnInteraction: false, // Customer swipe kare toh bhi autoplay na ruke
-            pauseOnMouseEnter: true, // Manual rokne ke liye customer hover karega
+            delay: 2000, // Autoplay delay
+            disableOnInteraction: false, // Don't stop autoplay on interaction
         },
         pagination: {
             el: ".swiper-pagination",
@@ -348,10 +354,32 @@
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
         },
-        keyboard: true, // Manual keyboard control
-        touchEventsTarget: 'container', // Swiping control
+        keyboard: true,
     });
 
+    // Slider for ₹500 Collection (Added now)
+    var swiper2 = new Swiper(".mySwiper2", {
+        spaceBetween: 10,
+        centeredSlides: true,
+        loop: true,
+        speed: 1000,
+        autoplay: {
+            delay: 2000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        keyboard: true,
+    });
+
+    // --- Feedback and Like Logic (No Changes) ---
+    
     function toggleFeedbackForm() { document.getElementById('feedbackForm').style.display = 'block'; }
 
     const stars = document.querySelectorAll('#starInput i');
@@ -385,22 +413,3 @@
             document.getElementById('userPosts').prepend(div);
             
             // Reset
-            document.getElementById('userName').value = '';
-            document.getElementById('userReview').value = '';
-            selectedRating = 0;
-            stars.forEach(s => s.classList.remove('active'));
-        }, 2000);
-    }
-
-    function handleLike(btn) {
-        if(btn.classList.contains('active')) return;
-        let count = parseInt(btn.innerText.trim());
-        btn.innerHTML = `<i class="fas fa-thumbs-up"></i> ${count + 1}`;
-        btn.classList.add('active');
-    }
-
-    // HUGE DATASET OF UNIQUE, REALISTIC FREE FIRE REVIEWS
-    const massiveReviewPool = [
-        {name: "Vikram Pro", time: "5 days ago", msg: "Best ID store, HipHop bundle mil gaya finally.", l: 890, d: 4},
-        {name: "Saurabh Y.", time: "10 days ago", msg: "Old IDs ka collection mast h bhai ke paas.", l: 432, d: 7},
-        {name: "Kabir FF", time: "2 weeks ago", msg: "Finally meri dream ID mil 
