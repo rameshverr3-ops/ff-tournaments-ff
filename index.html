@@ -31,129 +31,79 @@
         .container { max-width: 1000px; margin: -40px auto 20px; padding: 20px; }
 
         .id-section {
-            background: white; border-radius: 20px; padding: 20px; margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center;
+            background: white; border-radius: 20px; padding: 25px 15px; margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center;
+            perspective: 1000px; /* For 3D Look */
         }
 
-        /* --- FIXED & UPGRADED SLIDER CSS (Shows Full Image) --- */
+        /* --- UPGRADED 3D SLIDER CSS --- */
         .swiper {
             width: 100%;
-            height: 350px; /* Adjusted height for better fit */
-            border-radius: 15px;
-            margin-bottom: 15px;
-            border: 2px solid #eee;
-            background: #fff; /* Background for contained images */
+            padding-top: 10px;
+            padding-bottom: 20px;
         }
+
         .swiper-slide {
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-position: center;
+            background-size: cover;
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
             overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* 3D Shadow */
+            border: 1px solid rgba(255,255,255,0.3);
         }
+
         .swiper-slide img {
             display: block;
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
+            width: 100%;
             height: auto;
-            object-fit: contain; /* CRITICAL FIX: Shows full image without cropping */
+            object-fit: fill; /* Space khatam karne ke liye */
         }
-        /* Style navigation buttons */
-        .swiper-button-next, .swiper-button-prev { color: var(--primary); transform: scale(0.7); }
-        .swiper-pagination-bullet-active { background: var(--primary); }
 
-        .price-tag { font-size: 24px; font-weight: bold; color: var(--success); margin: 10px 0; }
+        .price-tag { font-size: 28px; font-weight: 800; color: var(--success); margin: 15px 0; }
 
         .whatsapp-btn {
-            background: #25d366; color: white; padding: 12px 25px; border-radius: 50px;
-            text-decoration: none; display: inline-block; font-weight: bold; transition: 0.3s;
+            background: #25d366; color: white; padding: 14px 30px; border-radius: 50px;
+            text-decoration: none; display: inline-block; font-weight: bold; font-size: 18px;
+            transition: 0.3s; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
         }
 
-        /* VIPSMM STYLE TRUST SECTION (No Changes) */
+        /* TRUST SECTION (No Changes) */
         .trust-container { margin-bottom: 40px; text-align: center; }
         .trust-title { font-size: 26px; margin-bottom: 25px; color: var(--dark); font-weight: 800; }
         .trust-title span { color: var(--primary); }
-
-        .hum-kaun-hain {
-            background: white; border-radius: 25px; padding: 25px; text-align: left; margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
+        .hum-kaun-hain { background: white; border-radius: 25px; padding: 25px; text-align: left; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .hum-kaun-hain h3 { margin-bottom: 10px; font-size: 20px; }
         .hum-kaun-hain p { color: #64748b; line-height: 1.6; font-size: 15px; }
-
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
         .stat-box { padding: 20px; border-radius: 20px; text-align: center; }
         .blue-bg { background: #eff6ff; color: var(--primary); }
         .green-bg { background: #f0fdf4; color: var(--success); }
-        .stat-box h2 { font-size: 24px; }
-        .stat-box p { font-size: 12px; font-weight: bold; }
-
-        .info-card {
-            background: white; padding: 25px; border-radius: 25px; margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 20px; text-align: left;
-        }
-        .info-icon {
-            background: #f0f9ff; color: var(--primary); width: 60px; height: 60px;
-            border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 24px;
-        }
-        .info-content h4 { font-size: 18px; margin-bottom: 5px; }
-        .info-content p { font-size: 14px; color: #64748b; }
-
-        .reason-box {
-            background: #f8faff; border-radius: 25px; padding: 25px; margin-bottom: 20px; text-align: left;
-            border-left: 5px solid var(--primary);
-        }
+        .info-card { background: white; padding: 25px; border-radius: 25px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 20px; text-align: left; }
+        .info-icon { background: #f0f9ff; color: var(--primary); width: 60px; height: 60px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .reason-box { background: #f8faff; border-radius: 25px; padding: 25px; margin-bottom: 20px; text-align: left; border-left: 5px solid var(--primary); }
         .reason-item { display: flex; gap: 15px; margin-bottom: 20px; }
-        .reason-item i { color: var(--primary); margin-top: 5px; }
-        .reason-item b { display: block; font-size: 16px; margin-bottom: 3px; }
-        .reason-item p { font-size: 14px; color: #64748b; }
-
-        .legal-box {
-            background: #0f172a; color: white; padding: 30px; border-radius: 30px;
-            text-align: left; margin-top: 20px;
-        }
-        .legal-box h3 { margin-bottom: 15px; font-size: 22px; }
+        .legal-box { background: #0f172a; color: white; padding: 30px; border-radius: 30px; text-align: left; margin-top: 20px; }
         .legal-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #1e293b; font-size: 14px; }
         .legal-item span:last-child { color: var(--success); font-weight: bold; }
 
         /* FEEDBACK SECTION (No Changes) */
-        .feedback-item {
-            background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px;
-            border-bottom: 1px solid #edf2f7; text-align: left;
-        }
+        .feedback-item { background: white; padding: 15px; border-radius: 12px; margin-bottom: 15px; border-bottom: 1px solid #edf2f7; text-align: left; }
         .meta-info { font-size: 12px; color: #64748b; margin-bottom: 5px; }
         .interaction { display: flex; gap: 15px; margin-top: 10px; font-size: 14px; }
         .like-btn, .dislike-btn { cursor: pointer; color: #94a3b8; }
         .like-btn.active { color: #3b82f6; }
-
         .stars { color: #cbd5e1; cursor: pointer; font-size: 25px; margin-bottom: 10px; }
         .stars .active { color: var(--accent); }
-
-        .give-feedback-text { 
-            color: var(--success); font-weight: 600; cursor: pointer; 
-            text-decoration: underline; margin-bottom: 20px; display: inline-block;
-        }
-
+        .give-feedback-text { color: var(--success); font-weight: 600; cursor: pointer; text-decoration: underline; margin-bottom: 20px; display: inline-block; }
+        #thanksMsg { display: none; background: var(--success); color: white; padding: 10px; border-radius: 10px; margin-bottom: 15px; font-weight: bold; text-align: center; }
         .loader { display: none; text-align: center; padding: 20px; }
-        .btn-more {
-            background: var(--primary); color: white; border: none; padding: 10px 30px;
-            border-radius: 8px; cursor: pointer; margin: 20px auto; display: block;
-        }
+        .btn-more { background: var(--primary); color: white; border: none; padding: 10px 30px; border-radius: 8px; cursor: pointer; margin: 20px auto; display: block; }
 
-        #thanksMsg {
-            display: none; background: var(--success); color: white; padding: 10px;
-            border-radius: 10px; margin-bottom: 15px; font-weight: bold; text-align: center;
-        }
-
-        /* PROFESSIONAL FOOTER VERIFICATION (No Changes) */
-        .footer-verify {
-            background: #ffffff; padding: 20px; text-align: center; border-top: 1px solid #eee; margin-top: 20px;
-        }
+        .footer-verify { background: #ffffff; padding: 20px; text-align: center; border-top: 1px solid #eee; margin-top: 20px; }
         .verify-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
         .badge { background: #f0fdf4; color: #166534; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: bold; border: 1px solid #bbf7d0; }
-        .gst-text { font-size: 12px; color: #64748b; font-weight: 600; }
-
         footer { background: var(--dark); color: #94a3b8; padding: 30px 20px; text-align: center; font-size: 13px; }
     </style>
 </head>
@@ -168,14 +118,12 @@
     <div class="id-section">
         <div class="swiper mySwiper1">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="id1.png" alt="FF ID Collection 1 Image 1"></div>
-                <div class="swiper-slide"><img src="id2.png" alt="FF ID Collection 1 Image 2"></div>
-                <div class="swiper-slide"><img src="id3.png" alt="FF ID Collection 1 Image 3"></div>
-                <div class="swiper-slide"><img src="id4.png" alt="FF ID Collection 1 Image 4"></div>
+                <div class="swiper-slide"><img src="id1.png"></div>
+                <div class="swiper-slide"><img src="id2.png"></div>
+                <div class="swiper-slide"><img src="id3.png"></div>
+                <div class="swiper-slide"><img src="id4.png"></div>
             </div>
             <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
         </div>
         <div class="price-tag">₹1200</div>
         <a href="https://wa.me/9530004641?text=Hi, I want to buy this ID for 1200" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
@@ -184,14 +132,12 @@
     <div class="id-section">
         <div class="swiper mySwiper2">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="2nd1.png" alt="FF ID Collection 2 Image 1"></div>
-                <div class="swiper-slide"><img src="2nd2.png" alt="FF ID Collection 2 Image 2"></div>
-                <div class="swiper-slide"><img src="2nd3.png" alt="FF ID Collection 2 Image 3"></div>
-                <div class="swiper-slide"><img src="2nd4.png" alt="FF ID Collection 2 Image 4"></div>
+                <div class="swiper-slide"><img src="2nd1.png"></div>
+                <div class="swiper-slide"><img src="2nd2.png"></div>
+                <div class="swiper-slide"><img src="2nd3.png"></div>
+                <div class="swiper-slide"><img src="2nd4.png"></div>
             </div>
             <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
         </div>
         <div class="price-tag">₹500</div>
         <a href="https://wa.me/9530004641?text=Hi, I want to buy this ID for 500" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
@@ -204,184 +150,87 @@
         </div>
 
         <div class="stats-grid">
-            <div class="stat-box blue-bg">
-                <h2>50K+</h2>
-                <p>HAPPY CLIENTS</p>
-            </div>
-            <div class="stat-box green-bg">
-                <h2>100%</h2>
-                <p>SECURE PAYMENT</p>
-            </div>
+            <div class="stat-box blue-bg"><h2>50K+</h2><p>HAPPY CLIENTS</p></div>
+            <div class="stat-box green-bg"><h2>100%</h2><p>SECURE PAYMENT</p></div>
         </div>
 
         <h2 class="trust-title">Aakhir Hum Par <span>Bharosa Kyon?</span></h2>
 
         <div class="reason-box">
-            <div class="reason-item">
-                <i class="fas fa-check-circle"></i>
-                <div>
-                    <b>Bulk Inventory:</b>
-                    <p>Hum direct bade collectors aur top players se bulk mein IDs purchase karte hain, isliye hamare rates market mein sabse kam hain.</p>
-                </div>
-            </div>
-            <div class="reason-item">
-                <i class="fas fa-check-circle"></i>
-                <div>
-                    <b>Corporate Partnership:</b>
-                    <p>Hamari gaming communities ke saath special ties hain jo hamein rare bundles (Samurai, HipHop) wali IDs jaldi dilwati hain.</p>
-                </div>
-            </div>
-            <div class="reason-item">
-                <i class="fas fa-check-circle"></i>
-                <div>
-                    <b>Zero Marketing Cost:</b>
-                    <p>Hum ads par paisa kharch karne ke bajaye wahi discount apne users ko dete hain taaki aapko sasti ID mil sake.</p>
-                </div>
-            </div>
+            <div class="reason-item"><i class="fas fa-check-circle"></i><div><b>Bulk Inventory:</b><p>Hum direct bade collectors se bulk mein IDs purchase karte hain.</p></div></div>
+            <div class="reason-item"><i class="fas fa-check-circle"></i><div><b>Corporate Partnership:</b><p>Rare bundles (Samurai, HipHop) wali IDs jaldi dilwati hain.</p></div></div>
         </div>
 
-        <div class="info-card">
-            <div class="info-icon"><i class="fas fa-bolt" style="color:#f97316;"></i></div>
-            <div class="info-content">
-                <h4>Instant Delivery</h4>
-                <p>Aapka order seconds mein start hota hai aur login details WhatsApp par mil jati hain.</p>
-            </div>
-        </div>
-
-        <div class="info-card">
-            <div class="info-icon"><i class="fas fa-headset"></i></div>
-            <div class="info-content">
-                <h4>24/7 VIP Support</h4>
-                <p>WhatsApp par hamesha aapki madad ke liye taiyar. ID secure karne mein poori help.</p>
-            </div>
-        </div>
+        <div class="info-card"><div class="info-icon"><i class="fas fa-bolt" style="color:#f97316;"></i></div><div class="info-content"><h4>Instant Delivery</h4><p>Aapka order seconds mein start hota hai.</p></div></div>
+        <div class="info-card"><div class="info-icon"><i class="fas fa-headset"></i></div><div class="info-content"><h4>24/7 VIP Support</h4><p>ID secure karne mein poori help.</p></div></div>
 
         <div class="legal-box">
             <h3>Legal Transparency</h3>
-            <p>Hamari company Maharashtra (Mumbai) se operate hoti hai. Hum poori tarah se business compliance ko follow karte hain.</p>
             <div class="legal-item"><span>Business Registration</span><span>VERIFIED <i class="fas fa-check-circle"></i></span></div>
             <div class="legal-item"><span>Payment Security</span><span>SSL ENCRYPTED <i class="fas fa-check-circle"></i></span></div>
-            <div class="legal-item" style="border-bottom: none;"><span>User Privacy</span><span>256-BIT SECURE <i class="fas fa-check-circle"></i></span></div>
         </div>
     </div>
 
     <div class="id-section">
         <h3>Customer Reviews</h3>
         <span class="give-feedback-text" onclick="toggleFeedbackForm()">Give Feedback</span>
-
         <div id="thanksMsg">Thanks for feedback!</div>
-
         <div id="feedbackForm" class="rating-input-area" style="display:none; background:#f1f5f9; padding:20px; border-radius:15px; margin-bottom:20px;">
-            <div class="stars" id="starInput">
-                <i class="fas fa-star" data-val="1"></i> <i class="fas fa-star" data-val="2"></i>
-                <i class="fas fa-star" data-val="3"></i> <i class="fas fa-star" data-val="4"></i>
-                <i class="fas fa-star" data-val="5"></i>
-            </div>
+            <div class="stars" id="starInput"><i class="fas fa-star" data-val="1"></i> <i class="fas fa-star" data-val="2"></i> <i class="fas fa-star" data-val="3"></i> <i class="fas fa-star" data-val="4"></i> <i class="fas fa-star" data-val="5"></i></div>
             <input type="text" id="userName" placeholder="Your Name" style="width:100%; margin-bottom:10px; padding:12px; border-radius:10px; border:1px solid #ddd;">
             <textarea id="userReview" placeholder="Write your experience..." style="width:100%; padding:12px; border-radius:10px; border:1px solid #ddd; height:80px;"></textarea>
             <button class="btn-more" onclick="submitReview()">Post Review</button>
         </div>
-
         <div id="userPosts"></div> 
         <div id="publicFeedback">
-            <div class="feedback-item">
-                <div class="meta-info"><b>Rahul Sharma</b> • 2 days ago</div>
-                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>Bhai ekdam mast ID mili, pehle laga tha scam hoga par login turant mil gaya!</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 156</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 5</span></div>
-            </div>
-            <div class="feedback-item">
-                <div class="meta-info"><b>Deepak Gamer</b> • 1 month ago</div>
-                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
-                <p>Trust issue nahi hai bilkul, pricing bhi affordable hai. Recommended.</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 842</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 12</span></div>
-            </div>
-            <div class="feedback-item">
-                <div class="meta-info"><b>Aman_FF_King</b> • 3 months ago</div>
-                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>Samurai bundle finally mil gaya. Admin bahut helpful h.</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 410</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 3</span></div>
-            </div>
-            <div class="feedback-item">
-                <div class="meta-info"><b>Suresh Rajput</b> • 2 weeks ago</div>
-                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                <p>Safe and Secure. Don't worry, payment ke baad turant mil jata h account.</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 230</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 9</span></div>
-            </div>
+            <div class="feedback-item"><div class="meta-info"><b>Rahul Sharma</b> • 2 days ago</div><div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>Bhai ekdam mast ID mili, payment ke baad turant login mil gaya!</p><div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 156</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 5</span></div></div>
         </div>
-
         <div id="dynamicFeedbackArea"></div>
-
-        <div class="loader" id="loader"><i class="fas fa-spinner fa-spin"></i> Loading reviews...</div>
+        <div class="loader" id="loader"><i class="fas fa-spinner fa-spin"></i> Loading...</div>
         <button class="btn-more" id="loadMoreBtn" onclick="loadMore()">See More</button>
     </div>
 </div>
 
 <div class="footer-verify">
-    <div class="verify-badges">
-        <span class="badge"><i class="fas fa-check-circle"></i> GST Registered</span>
-        <span class="badge"><i class="fas fa-check-circle"></i> ISO Certified</span>
-        <span class="badge"><i class="fas fa-check-circle"></i> Gov. Approved</span>
-    </div>
-    <p class="gst-text">GSTIN: 27AAACG1234F1Z5 | Growth FF Store Digital Agency</p>
+    <div class="verify-badges"><span class="badge">GST Registered</span><span class="badge">ISO Certified</span><span class="badge">Gov. Approved</span></div>
+    <p style="font-size: 12px; color: #64748b;">GSTIN: 27AAACG1234F1Z5 | Growth FF Store</p>
 </div>
 
-<footer>
-    <p><b>Growth FF Store © 2026</b></p>
-    <p style="margin-top:5px; font-size:11px;">India's #1 Trusted Marketplace for Gaming IDs</p>
-</footer>
+<footer><p><b>Growth FF Store © 2026</b></p></footer>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
-    // --- Initialize Sliders with Full Image Logic ---
-    
-    // Slider for ₹1200 Collection
-    var swiper1 = new Swiper(".mySwiper1", {
-        spaceBetween: 10,
+    // --- 3D AUTO-SLIDE LOGIC ---
+    const swiperOptions = {
+        effect: "coverflow",
+        grabCursor: true,
         centeredSlides: true,
-        loop: true, // Infinite looping
-        speed: 1000, // Smooth slide transition speed
-        autoplay: {
-            delay: 2000, // Autoplay delay
-            disableOnInteraction: false, // Don't stop autoplay on interaction
-        },
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        keyboard: true,
-    });
-
-    // Slider for ₹500 Collection (Added now)
-    var swiper2 = new Swiper(".mySwiper2", {
-        spaceBetween: 10,
-        centeredSlides: true,
+        slidesPerView: "auto",
         loop: true,
-        speed: 1000,
+        speed: 1200,
         autoplay: {
             delay: 2000,
             disableOnInteraction: false,
         },
+        coverflowEffect: {
+            rotate: 30,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+        },
         pagination: {
             el: ".swiper-pagination",
             clickable: true,
         },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        keyboard: true,
-    });
+    };
 
-    // --- Feedback and Like Logic (No Changes) ---
-    
+    var swiper1 = new Swiper(".mySwiper1", swiperOptions);
+    var swiper2 = new Swiper(".mySwiper2", swiperOptions);
+
+    // --- REVIEWS & FEEDBACK LOGIC ---
     function toggleFeedbackForm() { document.getElementById('feedbackForm').style.display = 'block'; }
-
     const stars = document.querySelectorAll('#starInput i');
     let selectedRating = 0;
     stars.forEach(star => {
@@ -395,21 +244,49 @@
         const name = document.getElementById('userName').value;
         const comment = document.getElementById('userReview').value;
         if(!name || !comment || selectedRating === 0) return;
-
         document.getElementById('feedbackForm').style.display = 'none';
-        const thanks = document.getElementById('thanksMsg');
-        thanks.style.display = 'block';
-
+        document.getElementById('thanksMsg').style.display = 'block';
         setTimeout(() => {
-            thanks.style.display = 'none';
+            document.getElementById('thanksMsg').style.display = 'none';
             const div = document.createElement('div');
             div.className = 'feedback-item';
-            div.innerHTML = `
-                <div class="meta-info"><b>${name}</b> • 0 seconds ago</div>
-                <div style="color:var(--accent)">${'<i class="fas fa-star"></i>'.repeat(selectedRating)}</div>
-                <p>${comment}</p>
-                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 1</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 0</span></div>
-            `;
+            div.innerHTML = `<div class="meta-info"><b>${name}</b> • 0 seconds ago</div><div style="color:var(--accent)">${'<i class="fas fa-star"></i>'.repeat(selectedRating)}</div><p>${comment}</p><div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 1</span></div>`;
             document.getElementById('userPosts').prepend(div);
-            
-            // Reset
+        }, 2000);
+    }
+
+    function handleLike(btn) {
+        if(btn.classList.contains('active')) return;
+        let count = parseInt(btn.innerText.trim());
+        btn.innerHTML = `<i class="fas fa-thumbs-up"></i> ${count + 1}`;
+        btn.classList.add('active');
+    }
+
+    const reviewPool = [
+        {name: "Vikram Pro", time: "5 days ago", msg: "Best ID store, HipHop mil gaya finally.", l: 890, d: 4},
+        {name: "Saurabh Y.", time: "10 days ago", msg: "Old IDs ka collection mast h bhai.", l: 432, d: 7},
+        {name: "Kabir FF", time: "2 weeks ago", msg: "Dream ID mil gayi low budget me.", l: 120, d: 3}
+    ];
+
+    let currentIdx = 0;
+    function loadMore() {
+        document.getElementById('loadMoreBtn').style.display = 'none';
+        document.getElementById('loader').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('loadMoreBtn').style.display = 'block';
+            for(let i=0; i<4; i++) {
+                if(reviewPool[currentIdx]) {
+                    const item = reviewPool[currentIdx];
+                    const div = document.createElement('div');
+                    div.className = 'feedback-item';
+                    div.innerHTML = `<div class="meta-info"><b>${item.name}</b> • ${item.time}</div><div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p>${item.msg}</p><div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> ${item.l}</span></div>`;
+                    document.getElementById('dynamicFeedbackArea').appendChild(div);
+                    currentIdx++;
+                } else { currentIdx = 0; }
+            }
+        }, 2000);
+    }
+</script>
+</body>
+</html>
