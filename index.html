@@ -1,291 +1,312 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi-IN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FF Elite Tournaments | RDX Store</title>
+    <title>Growth FF Store - Trusted ID Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600;800&family=Rajdhani:wght@700&display=swap');
-
         :root {
-            --primary-orange: #F57C00;
-            --pure-white: #FFFFFF;
-            --bg-color: #F57C00;
-            --fire-red: #ff4500;
-            --dark-footer: #1a1a1a;
+            --primary: #6366f1;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --white: #ffffff;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 0;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: var(--light); color: var(--dark); overflow-x: hidden; }
+
+        /* Curved Header */
+        header {
+            background: linear-gradient(135deg, #4f46e5, #9333ea);
             color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-        }
-
-        /* --- Wallet Banner & Layout --- */
-        .top-banner { width: 100%; max-width: 800px; position: relative; aspect-ratio: 16/9; background: #000; overflow: hidden; }
-        
-        /* Video Wrapper Styles */
-        .video-container { width: 100%; height: 100%; position: relative; cursor: pointer; }
-        .video-container iframe { width: 100%; height: 100%; border: none; display: none; }
-        .video-thumbnail { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .play-overlay { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            background: rgba(245, 124, 0, 0.9); width: 70px; height: 70px; border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            transition: 0.3s;
-        }
-        .play-overlay:hover { scale: 1.1; background: #ff4500; }
-        .play-icon { 
-            width: 0; height: 0; 
-            border-top: 15px solid transparent; border-bottom: 15px solid transparent; 
-            border-left: 25px solid white; margin-left: 5px;
-        }
-
-        .banner-buttons { position: absolute; top: 15px; width: 100%; display: flex; justify-content: space-between; padding: 0 15px; box-sizing: border-box; z-index: 100; pointer-events: none; }
-        .header-btn { pointer-events: auto; background-color: white; padding: 6px 14px; border-radius: 50px; text-decoration: none; font-weight: 800; font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 4px; border: none; }
-        .amount-text { color: #2ecc71; }
-        .plus-icon { color: #ff0000; font-size: 16px; }
-
-        /* --- Odometer --- */
-        .member-counter-section { background-color: #F57C00; padding: 20px 15px; text-align: center; width: 100%; box-sizing: border-box; }
-        .counter-title { color: #2ECC71; font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-bottom: 15px;}
-        .odometer-container { display: inline-flex; background: #1a1a1a; padding: 10px 15px; border-radius: 10px; border: 2px solid #fff; }
-        .digit-box { height: 45px; width: 30px; overflow: hidden; position: relative; background: linear-gradient(to bottom, #222 0%, #333 50%, #222 100%); margin: 0 2px; border-radius: 4px; }
-        .digit-strip { position: absolute; width: 100%; transition: transform 0.6s ease-in-out; display: flex; flex-direction: column; }
-        .digit-strip span { height: 45px; line-height: 45px; text-align: center; font-family: 'Orbitron', sans-serif; font-size: 28px; color: #F57C00; }
-        .live-dot { height: 10px; width: 10px; background-color: #ff0000; border-radius: 50%; margin-right: 8px; animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        /* --- Cards --- */
-        .container { width: 100%; max-width: 800px; padding: 10px 20px 20px 20px; box-sizing: border-box; }
-        .tournament-card { background-color: var(--pure-white); color: var(--primary-orange); padding: 20px; margin-bottom: 20px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); width: 100%; box-sizing: border-box; }
-        .entry-fee { font-size: 1rem; font-weight: bold; background: var(--primary-orange); color: var(--pure-white); padding: 5px 15px; border-radius: 50px; display: inline-block; }
-        .winning-price { font-size: 1.8rem; font-weight: 900; margin: 5px 0; }
-        .btn-join { background-color: var(--primary-orange); color: var(--pure-white); border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; animation: fireGlow 1.5s infinite alternate; }
-        @keyframes fireGlow { 0% { box-shadow: 0 0 5px var(--fire-red); } 100% { box-shadow: 0 0 15px var(--fire-red); } }
-
-        /* --- FOOTER SECTION --- */
-        footer {
-            background-color: var(--dark-footer);
-            width: 100%;
-            padding: 40px 20px 100px 20px;
-            box-sizing: border-box;
+            padding: 40px 20px 80px;
             text-align: center;
-            font-size: 0.85rem;
-            color: #bbb;
-            border-top: 4px solid #fff;
+            border-radius: 0 0 50% 50% / 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
+
+        .container { max-width: 1000px; margin: -40px auto 20px; padding: 20px; }
+
+        /* Section Cards */
+        .id-section {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .image-grid img {
+            width: 100%;
+            border-radius: 12px;
+            border: 2px solid #eee;
+        }
+
+        .price-tag {
+            font-size: 24px;
+            font-weight: bold;
+            color: #10b981;
+            margin: 10px 0;
+        }
+
         .whatsapp-btn {
-            background-color: #25D366;
+            background: #25d366;
             color: white;
             padding: 12px 25px;
             border-radius: 50px;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 800;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            display: inline-block;
+            font-weight: bold;
+            transition: 0.3s;
         }
-        .footer-links { margin: 20px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        .footer-links a { color: var(--primary-orange); text-decoration: none; font-weight: bold; cursor: pointer; }
-        .company-info { line-height: 1.6; border-top: 1px solid #333; padding-top: 20px; }
 
-        /* --- Modals (Popups) --- */
-        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); overflow-y: auto; }
-        .modal-content { background: #fff; color: #333; margin: 10% auto; padding: 25px; width: 85%; max-width: 500px; border-radius: 15px; position: relative; text-align: left; }
-        .close-modal { position: absolute; right: 15px; top: 10px; font-size: 24px; font-weight: bold; cursor: pointer; }
-        .modal-content h2 { color: var(--primary-orange); margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        /* Trust Section */
+        .trust-box {
+            text-align: center;
+            padding: 40px 20px;
+            background: #fff;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--accent);
+        }
 
-        /* --- Alerts --- */
-        .error-overlay { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #ff0000; color: white; padding: 15px 25px; border-radius: 10px; font-weight: 800; text-align: center; z-index: 9999; width: 85%; max-width: 400px; border: 3px solid white; box-shadow: 0 0 30px rgba(0,0,0,0.6); }
+        /* Rating System */
+        .rating-input-area {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            display: none;
+        }
 
-        .live-announcement-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary-orange); color: white; padding: 12px 0; text-align: center; font-weight: bold; border-top: 2px solid white; z-index: 1000; }
+        .stars { color: #cbd5e1; cursor: pointer; font-size: 25px; }
+        .stars .active { color: var(--accent); }
+
+        /* Feedback Section */
+        .feedback-item {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #edf2f7;
+            text-align: left;
+        }
+
+        .meta-info { font-size: 12px; color: #64748b; margin-bottom: 5px; }
+        .interaction { display: flex; gap: 15px; margin-top: 10px; font-size: 14px; }
+        .like-btn, .dislike-btn { cursor: pointer; color: #94a3b8; }
+        .like-btn.active { color: #3b82f6; }
+
+        .loader { display: none; text-align: center; padding: 20px; }
+        .btn-more {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+        }
+
+        footer {
+            background: var(--dark);
+            color: #94a3b8;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
 
-    <div id="lowBalanceError" class="error-overlay">LOW BALANCE PLEASE ADD FIRST BALANCE AND TRY AGAIN</div>
+<header>
+    <h1>Growth FF Store</h1>
+    <p>India's Most Trusted Gaming ID Provider</p>
+</header>
 
-    <div id="infoModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div id="modalBody"></div>
+<div class="container">
+    <div class="id-section">
+        <div class="image-grid">
+            <img src="id1.png" alt="ID Image">
+            <img src="id2.png" alt="ID Image">
+            <img src="id3.png" alt="ID Image">
+            <img src="id4.png" alt="ID Image">
         </div>
-    </div>
-
-    <div class="top-banner">
-        <div class="banner-buttons">
-            <a href="adpay.html" class="header-btn"><span class="amount-text">₹ 00.0</span><span class="plus-icon">+</span></a>
-            <a href="history.html" class="header-btn"><span class="history-text">History</span></a>
-        </div>
-        
-        <div class="video-container" onclick="startVideo()">
-            <img id="thumbImg" src="https://img.youtube.com/vi/JamxCok3YDY/maxresdefault.jpg" alt="Video Thumbnail" class="video-thumbnail">
-            <div id="playBtn" class="play-overlay">
-                <div class="play-icon"></div>
-            </div>
-            <iframe id="ytPlayer" src="https://www.youtube.com/embed/JamxCok3YDY?autoplay=1&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-        </div>
-
-    <div class="member-counter-section">
-        <div class="counter-title"><span class="live-dot"></span> TOTAL ACTIVE PLAYERS JOINED</div>
-        <div class="odometer-container" id="odometer"></div>
-    </div>
-
-    <div class="container">
-        <header style="background: white; color: #F57C00; padding: 15px; border-radius: 15px; text-align: center; margin-bottom: 20px;">
-            <h1 style="margin:0; font-size: 1.5rem;">FF ELITE TOURNAMENTS</h1>
-        </header>
-
-        <div class="tournament-card">
-            <div class="entry-fee">Entry: ₹80</div>
-            <div class="winning-price">Win: ₹4,000</div>
-            <button onclick="handleJoinClick()" class="btn-join">Join Match</button>
-        </div>
-
-        <div class="tournament-card" style="text-align: right;">
-            <div class="entry-fee">Entry: ₹200</div>
-            <div class="winning-price">Win: ₹10,000</div>
-            <button onclick="handleJoinClick()" class="btn-join">Join Match</button>
-        </div>
-
-        <div class="tournament-card">
-            <span style="background:gold; color:black; padding:2px 8px; border-radius:4px; font-size:12px; font-weight:bold;">🔥 Popular</span><br><br>
-            <div class="entry-fee">Entry: ₹120</div>
-            <div class="winning-price">₹90 / Min</div>
-            <p style="font-size: 0.8rem; color:#666;">Survive 1 min = ₹90 | Per Kill = ₹20 bonus</p>
-            <button onclick="handleJoinClick()" class="btn-join" style="background: linear-gradient(45deg, #ff4500, #ff8c00); width:100%;">Start Challenge</button>
-        </div>
-    </div>
-
-    <footer>
-        <a href="https://wa.me/917877904182?text=Hello%20Support%20Team,%20I%20need%20help." class="whatsapp-btn">
-            <span>Help & Support</span>
+        <div class="price-tag">₹1200</div>
+        <a href="https://wa.me/9530004641?text=Hi, I want to buy this ID for 1200" class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
         </a>
-
-        <div class="footer-links">
-            <a onclick="showTerms()">Terms & Conditions</a>
-            <a onclick="showPrivacy()">Privacy Policy</a>
-            <a onclick="showRefund()">Refund Policy</a>
-        </div>
-
-        <div class="company-info">
-            <p><strong>Powered by FF Tournaments India</strong></p>
-            <p>Licence No: FFTI-IND-2026-88012 | Reg No: 7877/HRY/2024</p>
-            <p>GSTIN: 06AABCX1234F1Z5 (Registered)</p>
-            <p>Office: Building 42, Silana, Dist. Jhajjar, Haryana - 124103</p>
-            <p style="margin-top: 15px; font-size: 10px; opacity: 0.6;">© 2026 RDX Store. All Rights Reserved.</p>
-        </div>
-    </footer>
-
-    <div class="live-announcement-bar">
-        <div id="announcement-text">Preparing matches...</div>
     </div>
 
-    <script>
-        // Start Video Function
-        function startVideo() {
-            document.getElementById('thumbImg').style.display = 'none';
-            document.getElementById('playBtn').style.display = 'none';
-            document.getElementById('ytPlayer').style.display = 'block';
-        }
+    <div class="id-section">
+        <div class="image-grid">
+            <img src="2nd1.png" alt="ID Image">
+            <img src="2nd2.png" alt="ID Image">
+            <img src="2nd3.png" alt="ID Image">
+            <img src="2nd4.png" alt="ID Image">
+        </div>
+        <div class="price-tag">₹500</div>
+        <a href="https://wa.me/9530004641?text=Hi, I want to buy this ID for 500" class="whatsapp-btn">
+            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+        </a>
+    </div>
 
-        // Modal Logic
-        const modal = document.getElementById("infoModal");
-        const modalBody = document.getElementById("modalBody");
+    <div class="trust-box">
+        <h2 style="color:var(--primary); margin-bottom: 10px;">Why Trust Growth FF Store?</h2>
+        <p><strong>100% Guaranteed Secure IDs.</strong> Hamari sabhi IDs verified hoti hain aur hum instant delivery dete hain. 
+        Privacy aur security hamari pehli priority hai. Join thousands of happy gamers today!</p>
+        <p style="margin-top: 10px; font-style: italic;">ID lene ke baad aapko poora support milega jab tak aapka login successfully na ho jaye.</p>
+    </div>
 
-        function showTerms() {
-            modalBody.innerHTML = `<h2>Terms & Conditions</h2>
-            <ul>
-                <li>Players are not allowed to stay in one position (Camping) for more than 10 seconds in the custom room.</li>
-                <li>The player's Free Fire ID must be at least <b>Level 30</b> or higher.</li>
-                <li>If any player is found using glitches, config files, or any hacks, the account will be <b>Permanently Suspended</b> without warning.</li>
-                <li>The final decision regarding tournament results rests with the Admin.</li>
-                <li>Room ID and Password will be provided in the app 5 minutes before the match starts.</li>
-                <li>Fair play is mandatory; teaming up with opponents will lead to immediate disqualification.</li>
-            </ul>`;
-            modal.style.display = "block";
-        }
+    <div class="id-section">
+        <h3>Customer Reviews</h3>
+        <button class="btn-more" style="background:#10b981; margin-bottom:15px;" onclick="toggleFeedbackForm()">Give Feedback</button>
 
-        function showPrivacy() {
-            modalBody.innerHTML = `<h2>Privacy Policy</h2>
-            <p>We collect personal data such as Name and Mobile number solely for prize distribution and account verification. Your data is never shared with third-party advertisers. All information is stored on secure, encrypted servers to ensure maximum safety.</p>
-            <p>By using this platform, you agree to our data handling protocols designed to protect your gaming identity.</p>`;
-            modal.style.display = "block";
-        }
+        <div id="feedbackForm" class="rating-input-area">
+            <div class="stars" id="starInput">
+                <i class="fas fa-star" data-val="1"></i>
+                <i class="fas fa-star" data-val="2"></i>
+                <i class="fas fa-star" data-val="3"></i>
+                <i class="fas fa-star" data-val="4"></i>
+                <i class="fas fa-star" data-val="5"></i>
+            </div>
+            <input type="text" id="userName" placeholder="Your Name" style="width:100%; margin:10px 0; padding:8px; border-radius:5px; border:1px solid #ddd;">
+            <textarea id="userReview" placeholder="Write your experience..." style="width:100%; padding:8px; border-radius:5px; border:1px solid #ddd; height:80px;"></textarea>
+            <button class="btn-more" onclick="submitReview()">Post Review</button>
+        </div>
 
-        function showRefund() {
-            modalBody.innerHTML = `<h2>Refund Policy</h2>
-            <ul>
-                <li>Once <b>Funds are Added</b> to the wallet, they cannot be refunded to the bank account.</li>
-                <li>Added balance can only be used to participate in tournaments hosted on the platform.</li>
-                <li>To withdraw funds, users must participate in matches and convert their balance into <b>Winning Cash</b>.</li>
-                <li>Minimum withdrawal amount is ₹100 | Maximum daily withdrawal is ₹10,000.</li>
-                <li>In case of technical match cancellations by the server, entry fees will be credited back to the user's app wallet.</li>
-            </ul>`;
-            modal.style.display = "block";
-        }
+        <div id="userPosts"></div> <div id="publicFeedback">
+            <div class="feedback-item">
+                <div class="meta-info"><b>Rahul Sharma</b> • 2 days ago</div>
+                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>Bhai ekdam mast ID mili, pehle laga tha scam hoga par payment ke 2 min baad hi login details mil gayi!</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 156</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 5</span></div>
+            </div>
+            <div class="feedback-item">
+                <div class="meta-info"><b>Deepak Gamer</b> • 1 month ago</div>
+                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <p>Trust issue nahi hai bilkul, pricing bhi affordable hai. Highly recommended.</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 842</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 12</span></div>
+            </div>
+            <div class="feedback-item">
+                <div class="meta-info"><b>Aman_FF_King</b> • 3 months ago</div>
+                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>Old IDs ka collection best hai inke paas. Samurai bundle mil gaya finally!</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 1205</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 18</span></div>
+            </div>
+            <div class="feedback-item">
+                <div class="meta-info"><b>Suresh Rajput</b> • 6 months ago</div>
+                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <p>Good support team, WhatsApp par reply jaldi aata hai.</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 430</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 21</span></div>
+            </div>
+        </div>
 
-        function closeModal() { modal.style.display = "none"; }
-        window.onclick = function(event) { if (event.target == modal) closeModal(); }
+        <div id="moreComments" style="display:none">
+            <div class="feedback-item">
+                <div class="meta-info"><b>Vikram Singh</b> • 8 months ago</div>
+                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>Best price in the market. Dusre sites se kaafi sasta hai.</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 910</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 9</span></div>
+            </div>
+            <div class="feedback-item">
+                <div class="meta-info"><b>Rohit FF</b> • 1 year ago</div>
+                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>Trusted seller. Multiple IDs kharidi hain maine abhi tak.</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 1420</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 14</span></div>
+            </div>
+            <div class="feedback-item">
+                <div class="meta-info"><b>Saurabh Y.</b> • 4 months ago</div>
+                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                <p>Bhai ID me glitch tha pehle, fir inko message kiya toh thik kar diya.</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 650</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 7</span></div>
+            </div>
+            <div class="feedback-item">
+                <div class="meta-info"><b>Kabir Legend</b> • 2 days ago</div>
+                <div style="color:var(--accent)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>Account ekdam safe hai. Bind karne me puri help ki admin ne.</p>
+                <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 210</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 4</span></div>
+            </div>
+        </div>
 
-        // Button Logic
-        function handleJoinClick() {
-            if ("vibrate" in navigator) navigator.vibrate(500);
-            const err = document.getElementById('lowBalanceError');
-            err.style.display = 'block';
-            setTimeout(() => { err.style.display = 'none'; }, 5000);
-        }
+        <div class="loader" id="loader"><i class="fas fa-spinner fa-spin"></i> Loading reviews...</div>
+        <button class="btn-more" id="loadMoreBtn" onclick="loadMore()">See More</button>
+    </div>
+</div>
 
-        // Odometer Logic
-        const odometer = document.getElementById('odometer');
-        let currentCount = 145200;
-        function initOdometer() {
-            const countStr = currentCount.toString().padStart(6, '0');
-            odometer.innerHTML = '';
-            for (let i = 0; i < countStr.length; i++) {
-                const box = document.createElement('div');
-                box.className = 'digit-box';
-                const strip = document.createElement('div');
-                strip.className = 'digit-strip';
-                strip.id = `digit-${i}`;
-                for (let j = 0; j <= 9; j++) strip.innerHTML += `<span>${j}</span>`;
-                box.appendChild(strip);
-                odometer.appendChild(box);
-                if (i === 2) { odometer.innerHTML += `<div style="font-size:30px; margin:0 5px;">,</div>`; }
-            }
-            updateOdometer();
-        }
-        function updateOdometer() {
-            const countStr = currentCount.toString().padStart(6, '0');
-            for (let i = 0; i < countStr.length; i++) {
-                const strip = document.getElementById(`digit-${i}`);
-                if (strip) strip.style.transform = `translateY(${-parseInt(countStr[i]) * 45}px)`;
-            }
-        }
-        setInterval(() => { currentCount += Math.floor(Math.random() * 5) + 1; updateOdometer(); }, 4000);
-        initOdometer();
+<footer>
+    <p><b>Growth FF Store © 2026</b></p>
+    <p>Registered Business | GSTIN: 08AAACV1234F1Z5</p>
+    <p style="margin-top:10px; font-size:10px;">Free Fire is a trademark of Garena. We are a secondary marketplace.</p>
+</footer>
 
-        // Announcement
-        const names = ["Zaid", "Arjun", "Rahul", "Mustafa", "Sunny", "Rohan", "Kabir", "Ishaan", "Aditya", "Sameer", "Karan"];
-        function updateAnnouncement() {
-            const name = names[Math.floor(Math.random() * names.length)];
-            const text = document.getElementById('announcement-text');
-            const isWin = Math.random() < 0.7;
-            let amount = isWin ? (Math.random() > 0.5 ? 270 : 360) : 2000;
-            text.innerText = isWin ? `🏆 ${name} Won ₹${amount}` : `💸 ${name} Withdrew ₹${amount}`;
-            setTimeout(updateAnnouncement, 5000);
-        }
-        updateAnnouncement();
-    </script>
+<script>
+    function toggleFeedbackForm() {
+        document.getElementById('feedbackForm').style.display = 'block';
+    }
+
+    // Star Rating Logic
+    const stars = document.querySelectorAll('#starInput i');
+    let selectedRating = 0;
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            selectedRating = star.dataset.val;
+            stars.forEach(s => s.classList.toggle('active', s.dataset.val <= selectedRating));
+        });
+    });
+
+    function submitReview() {
+        const name = document.getElementById('userName').value;
+        const comment = document.getElementById('userReview').value;
+        if(!name || !comment || selectedRating === 0) return alert('Please fill everything');
+
+        const div = document.createElement('div');
+        div.className = 'feedback-item';
+        // Yahan 0 seconds ago wala logic hai
+        div.innerHTML = `
+            <div class="meta-info"><b>${name}</b> • 0 seconds ago</div>
+            <div style="color:var(--accent)">${'<i class="fas fa-star"></i>'.repeat(selectedRating)}</div>
+            <p>${comment}</p>
+            <div class="interaction"><span class="like-btn" onclick="handleLike(this)"><i class="fas fa-thumbs-up"></i> 1</span> <span class="dislike-btn"><i class="fas fa-thumbs-down"></i> 0</span></div>
+        `;
+        document.getElementById('userPosts').prepend(div);
+        
+        // Reset inputs
+        document.getElementById('userName').value = '';
+        document.getElementById('userReview').value = '';
+        selectedRating = 0;
+        stars.forEach(s => s.classList.remove('active'));
+        document.getElementById('feedbackForm').style.display = 'none';
+    }
+
+    function handleLike(btn) {
+        if(btn.classList.contains('active')) return;
+        let countStr = btn.innerText.trim();
+        let count = parseInt(countStr);
+        btn.innerHTML = `<i class="fas fa-thumbs-up"></i> ${count + 1}`;
+        btn.classList.add('active');
+    }
+
+    function loadMore() {
+        document.getElementById('loadMoreBtn').style.display = 'none';
+        document.getElementById('loader').style.display = 'block';
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('moreComments').style.display = 'block';
+        }, 3000);
+    }
+</script>
+
 </body>
 </html>
